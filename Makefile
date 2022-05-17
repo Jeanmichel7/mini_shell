@@ -6,23 +6,22 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/17 06:58:42 by jrasser          ###   ########.fr        #
+#    Updated: 2022/05/17 07:49:28 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c 
 
 OBJS 		= ${SRCS:.c=.o}
-LIBFT		= ./libft
 RM			= rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra
-CPPFLAGS	= -I./include/ -I./libft/
+LDFLAGS		= -I./include/ -I./libft/
 
-${NAME}	:	${OBJS} $(LIBFT)
+${NAME}	:	${OBJS}
 			$(MAKE) -C ./libft
-			gcc -o ${NAME} ${OBJS} -L./libft -lft ${LDFLAGS} ${CFLAGS}
+			gcc -o ${NAME} ${OBJS} -L./libft -lft
 
 all :		${NAME}
 

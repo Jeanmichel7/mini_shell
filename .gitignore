@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 
 #perso
-.vscode
+.vscode*
+minishell
