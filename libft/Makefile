@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrasser <jrasser@student.42.fr>            +#+  +:+       +#+         #
+#    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/01 20:15:09 by jrasser           #+#    #+#              #
-#    Updated: 2022/04/12 02:33:52 by jrasser          ###   ########.fr        #
+#    Updated: 2022/05/17 11:59:23 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,14 +39,15 @@ CFLAGS	= -Wall -Wextra -Werror
 
 LDFLAGS	= -I./includes/
 
-.c.o:		${CC} ${CFLAGS}-c ${LDFLAGS} $< -o ${<:.c=.o}
+.c.o:		
+			@${CC} ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-			ar rcs ${NAME} ${OBJS}
+			@ar rc ${NAME} ${OBJS}
 
 ${BONUS}:	${OBJS_BONUS}
-			ar rcs ${NAME} ${OBJS_BONUS}
-
+			ar rc ${NAME} ${OBJS_BONUS}
+			
 all:		${NAME}
 
 bonus:		
