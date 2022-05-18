@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/17 13:43:31 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 01:45:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,42 @@
 # include <string.h>
 # include <sys/ioctl.h>
 # include <termios.h>
-
-/*
-exemple de char *cmds (tout le contenu entre 2 pipes)
-[0] : "ls"
-[1] : "-arth"
-[2] : ">"
-[3] : "fichier"
-*/
+# include <errno.h>
 
 typedef struct s_input
 {
+	pid_t	child;
+	int		tube[2];
+	int		fd;
 	int		redir_input;
 	int		redir_output;
 	int		redir_double_input;
 	int		redir_double_output;
-	char	*cmds;
+	char	*cmd_fct;
+	char	**cmds;
+	char	**env;
 }	t_input;
 
-typedef struct s_inputs
+typedef struct s_str_input
 {
 	int		nb_pipe;
-	t_input	*input;  // => tableau d'input (genre 3pipe => 4 inputs différents)
-}	t_inputs;
+	t_input	*input;
+}	t_str_input;
 
-/* si t'as une meilleur idée pour le nom des structures inputs / input (c'est un peu confu ou ca va ?) 
-ou d'une autre strucutre merci de me contacter au 3615 */
+typedef struct s_data
+{
+	char			*temp;
+	char			*prompt;
+	int				done;
+	HIST_ENTRY 		**list;
+	t_str_input		inputs;
+}	t_data;
+
+/* PARSING */
+
+/* EXECUTION */
+void	ft_jm_part(t_data *data, char **env);
+
+
+
 #endif
