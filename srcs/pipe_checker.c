@@ -6,13 +6,13 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/05/18 02:34:14 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 03:13:06 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_checkacces(char **env, char *cmd)
+char	*ft_check_access(char **env, char *cmd)
 {
 	int		i;
 	int		state;

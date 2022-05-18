@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 01:45:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 03:13:59 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ typedef struct s_input
 	pid_t	child;
 	int		tube[2];
 	int		fd;
+	char	**env;
 	int		redir_input;
 	int		redir_output;
 	int		redir_double_input;
 	int		redir_double_output;
 	char	*cmd_fct;
 	char	**cmds;
-	char	**env;
 }	t_input;
 
 typedef struct s_str_input
@@ -65,6 +65,10 @@ typedef struct s_data
 /* EXECUTION */
 void	ft_jm_part(t_data *data, char **env);
 
+void	ft_pipe(t_data *data, char **env);
+void	ft_check_cmds(char *fct1, char *args1, char *fct2, char *args2);
+char	*ft_check_access(char **env, char *cmd);
 
+void	ft_errputstr(char *str, int stop, int code, t_data *data);
 
 #endif
