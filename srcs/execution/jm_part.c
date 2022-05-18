@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 01:37:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:12:35 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 03:26:30 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_display_list(t_data *data)
 		}
 	}
 }
-
 void	ft_jm_part(t_data *data, char **env)
 {
 	(void)env;
@@ -54,6 +53,6 @@ void	ft_jm_part(t_data *data, char **env)
 		ft_display_list(data);
 	else if (data->inputs.nb_pipe == 0)
 		ft_exec_cmd(data);
-	if (data->inputs.nb_pipe > 0)
+	else if (data->inputs.nb_pipe > 0)
 		ft_pipe(data, env);
 }

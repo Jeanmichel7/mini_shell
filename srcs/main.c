@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 02:51:13 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 03:30:51 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ int main(int argc, char **argv, char **env)
 			printf("input : %s\n", data.temp);
 			add_history(data.temp);
 		}
-		fake_init_inputs2(&data, env); /* remplissage des valeurs data.inputs*/
+		fake_init_inputs(&data, env); /* remplissage des valeurs data.inputs*/
+		
 		ft_jm_part(&data, env);
+
 		free(data.temp);
 	}
 	ft_free(&data);
