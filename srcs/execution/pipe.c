@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:29:43 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 03:37:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_pipe(t_data *data, char **env)
 	char	*cmd2_fct;
 	char	**cmd2_args;
 
-	(void)env;
 	cmd1_args = data->inputs.input[0].cmds;
 	cmd2_args = data->inputs.input[1].cmds;
 	cmd1_fct = ft_check_access(env, data->inputs.input[0].cmd_fct);
