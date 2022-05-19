@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 01:37:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:26:30 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/18 23:05:36 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	ft_display_list(t_data *data)
 		}
 	}
 }
+
 void	ft_jm_part(t_data *data, char **env)
 {
-	(void)env;
 	if (ft_strlen(data->temp) == 4 && strncmp(data->temp, "quit", 4) == 0)
 		data->done = 1;
 	else if (ft_strlen(data->temp) == 4 && strncmp(data->temp, "list", 4) == 0)
