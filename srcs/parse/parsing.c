@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/23 11:44:58 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:29:12 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,69 @@ t_input	*ft_inputnew(void)
 	ptr->cmd_fct = NULL;
 	ptr->cmds = NULL;
 	ptr->pipe = 0;
-	ptr->next = NULL;
-	ptr->prev = NULL;
 	return (ptr);
 }
-
-ft_replace_variable(char *, char ** env)
+int	ft_replace_var(char **str, char *value, int length_name, int start)
 {
+	char *ptr;
+	int i;
+	int j;
 
-}
-
-t_input	*ft_inputlast(t_input *lst)
-{
-	while (lst)
+	i = -1;
+	j = -1;
+	ptr = malloc(sizeof(char) * ((ft_strlen(*str) - length_name) + ft_strlen(value) + 1));
+	if (ptr == NULL)
+		return (1);
+	while (++i < start)
+		ptr[i] = (*str)[i];
+	while (value[++j])
+		ptr[i + j] = value[j];
+	i = i + length_name;
+	while ((*str)[i])
 	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
+		ptr[i + j] = (*str)[i];
+		i++;
+		j++;
 	}
-	return (lst);
+	free(*str);
+	*str = ptr;
+	return (0);
+}
+int	ft_ycheckandreplace_var(char **str, char **env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while ((*str)[i] != 0)
+	{
+		if ((*str)[i] == '$')
+		{
+			i++;
+			while (*env != NULL)
+			{
+				j = 0;
+				while ((*env)[j] != '=')
+				{
+					if ((*env)[j] != (*str)[i + j])
+						break ;
+					if ((*env)[j] == '=') 
+					{
+						if (ft_replace_var(str, &(*env)[j + 1], j, i) == 1)
+							return (1);
+						else 
+							return (0);
+					}
+
+					j++;
+				}
+				(*env)++; 
+			}
+		}
+		i++;
+	}
+	return (0);
 }
 
 
@@ -87,6 +131,7 @@ int	ft_yerror(int nb)
 		printf("bash: syntax error near unexpected token `|'\n");
 		return (258);
 	}
+	return (0);
 }
 
 int	ft_yparsing(t_data *data)
@@ -97,13 +142,12 @@ int	ft_yparsing(t_data *data)
 	i = 0;
 	if (ft_ycheck_pipe(data->temp) == -1)
 		return(ft_yerror(258));
-	if (ft_ycheck_pipe(data->temp) == -1)
+	if (ft_ycheckandreplace_var(&data->temp, data->env) == 1)
 		return(ft_yerror(258));
-	printf("pipe number value : %d \n", nb_table);
 	cmd = ft_split(data->temp, '|');
 	if (cmd == NULL)
 		return (1);
 //	data->inputs.input->cmds = ft_split(*cmd);
-	ft_yprint_input(data->inputs.input);
+	ft_yprint_input(data->inputs);
 	return (0);
 }
