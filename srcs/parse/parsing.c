@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/23 14:29:12 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/24 00:31:56 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_input	*ft_inputnew(void)
 	if (ptr == NULL)
 		return (NULL);
 	ptr->child = 0;
-	ptr->tab_fd= NULL;
+	ptr->fd= NULL;
 	ptr->tube[0] = 0;
 	ptr->tube[1] = 0;
 	ptr->redir_input = 0;
@@ -60,7 +60,8 @@ t_input	*ft_inputnew(void)
 	ptr->pipe = 0;
 	return (ptr);
 }
-int	ft_replace_var(char **str, char *value, int length_name, int start)
+
+int	ft_strcpy_var(char **str, char *value, int length_name, int start)
 {
 	char *ptr;
 	int i;
@@ -76,17 +77,39 @@ int	ft_replace_var(char **str, char *value, int length_name, int start)
 	while (value[++j])
 		ptr[i + j] = value[j];
 	i = i + length_name;
+	length_name = length_name + i;
 	while ((*str)[i])
 	{
-		ptr[i + j] = (*str)[i];
+		ptr[length_name + j] = (*str)[i];
 		i++;
 		j++;
 	}
+	ptr[length_name + j] = 0;
 	free(*str);
 	*str = ptr;
 	return (0);
 }
-int	ft_ycheckandreplace_var(char **str, char **env)
+
+int ft_checkvar(char *str, char *var, int *k)
+{
+	int	j; 
+
+	j = 0;
+	while (var[j])
+	{
+		if (var[j] == '=') 
+		{
+			*k = j + 1; 
+			return (1);
+		}
+		if (var[j] != str[j])
+			break ;
+		j++;
+	}
+	return (0);
+}
+
+int	ft_replace_var(char **str, char **env)
 {
 	int	i;
 	int	j;
@@ -100,22 +123,17 @@ int	ft_ycheckandreplace_var(char **str, char **env)
 			i++;
 			while (*env != NULL)
 			{
-				j = 0;
-				while ((*env)[j] != '=')
+				if (ft_checkvar(&(*str)[i], *env, &j) == 1)
 				{
-					if ((*env)[j] != (*str)[i + j])
-						break ;
-					if ((*env)[j] == '=') 
+					if (ft_strcpy_var(str, &(*env)[j], j + 1, i - 1) == 1)
+						return (1);
+					else 
 					{
-						if (ft_replace_var(str, &(*env)[j + 1], j, i) == 1)
-							return (1);
-						else 
-							return (0);
+						printf("\n valeur de la chaine de sortie : %s\n", *str);
+						return (0);
 					}
-
-					j++;
 				}
-				(*env)++; 
+				env = env + 1;
 			}
 		}
 		i++;
@@ -142,7 +160,7 @@ int	ft_yparsing(t_data *data)
 	i = 0;
 	if (ft_ycheck_pipe(data->temp) == -1)
 		return(ft_yerror(258));
-	if (ft_ycheckandreplace_var(&data->temp, data->env) == 1)
+	if (ft_replace_var(&data->temp, data->env) == 1)
 		return(ft_yerror(258));
 	cmd = ft_split(data->temp, '|');
 	if (cmd == NULL)

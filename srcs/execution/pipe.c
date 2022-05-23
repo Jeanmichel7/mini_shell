@@ -6,13 +6,13 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:45:10 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 21:11:14 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 /*
+
 void	ft_free(t_var *var)
 {
 	if (var != NULL)
@@ -24,7 +24,6 @@ void	ft_free(t_var *var)
 		free(var->cmd2_args);
 	}
 }
-*/
 
 void ft_exec_cmd1(t_data *data, int i, char **env)
 {
@@ -45,16 +44,16 @@ void ft_exec_cmd1(t_data *data, int i, char **env)
 				ft_errputstr(strerror(errno), 0, 0, data);
 		}
 	}
-	/* else
+		else
 	{
 		printf("test10\n");
 		wait(NULL);
 		printf("test11\n");
 	}
 		close(data->inputs[i].fd);
-	} */
+	} 
 }
-/*
+
 void ft_pipe(t_data *data, char **env)
 {
 	char *cmd1_fct;
@@ -106,7 +105,7 @@ void ft_pipe(t_data *data, char **env)
 
 
 
-/*
+
 void ft_pipe(t_data *data, char **env)
 {
 	char *cmd1_fct;
