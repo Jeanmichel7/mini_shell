@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/19 02:30:51 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:12:52 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,38 @@
 
 typedef struct s_fd
 {
-	char	*file;
+	int		fd;
 	char	type;
 }	t_fd;
 
 typedef struct s_input
 {
-	pid_t	child;
-	pid_t	child2;
-	t_fd	*tab_fd;
-	int		tube[2];
-	char	**env;
-	int		redir_input;
-	int		redir_output;
-	int		redir_double_input;
-	int		redir_double_output;
-	char	*cmd_fct;
-	char	**cmds;
-	int		pipe;
+	pid_t			child;
+	pid_t			child2;
+	t_fd			*fd;
+	int				tube[2];
+	char			**env;
+	int				redir_input;
+	int				redir_output;
+	int				redir_double_input;
+	int				redir_double_output;
+	char			*cmd_fct;
+	char			**cmds;
+	int				pipe;
+	struct s_input	*next;
+	struct s_input	*prev;
 }	t_input;
-
-typedef struct s_str_input
-{
-	int		nb_pipe;
-	t_input	*input;
-}	t_str_input;
 
 typedef struct s_data
 {
+	int				nb_pipe;
 	char			*temp;
 	char			*prompt;
 	int				done;
 	HIST_ENTRY		**list;
-	t_str_input		inputs;
+	t_input			*inputs;
 }	t_data;
+
 
 /* PARSING */
 
