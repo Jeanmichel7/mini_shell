@@ -6,14 +6,16 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/18 03:17:14 by jrasser          ###   ########.fr        #
+#    Updated: 2022/05/19 12:32:35 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
 			srcs/execution/jm_part.c \
 			srcs/execution/pipe.c \
-			srcs/execution/pipe_checker.c
+			srcs/execution/pipe_checker.c\
+			srcs/parse/parsing.c  \
+			srcs/parse/print_cmd.c \
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
@@ -23,7 +25,7 @@ CFLAGS		= -Wall -Wextra -g
 LDFLAGS		= -I./include/ -I./libft/ 
 
 .c.o:		
-			@${CC} ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
+			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft

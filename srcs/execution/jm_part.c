@@ -6,10 +6,10 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 01:37:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:26:30 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/19 11:28:21 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*
 #include "../includes/minishell.h"
 
 void	ft_exec_cmd(t_data *data)
@@ -55,4 +55,4 @@ void	ft_jm_part(t_data *data, char **env)
 		ft_exec_cmd(data);
 	else if (data->inputs.nb_pipe > 0)
 		ft_pipe(data, env);
-}
+}*/

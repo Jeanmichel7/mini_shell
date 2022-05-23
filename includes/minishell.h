@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:13:59 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/21 15:33:10 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,29 @@
 # include <termios.h>
 # include <errno.h>
 
+typedef struct s_fd
+{
+	char	*file;
+	char	type;
+}	t_fd; 
+
+
 typedef struct s_input
 {
 	pid_t	child;
+	t_fd	*tab_fd;
 	int		tube[2];
-	int		fd;
-	char	**env;
+	
 	int		redir_input;
 	int		redir_output;
 	int		redir_double_input;
 	int		redir_double_output;
 	char	*cmd_fct;
 	char	**cmds;
+	int		pipe;
+	struct s_input *next;
+	struct s_input *prev; 	
+
 }	t_input;
 
 typedef struct s_str_input
@@ -53,6 +64,7 @@ typedef struct s_str_input
 
 typedef struct s_data
 {
+	char	**env;
 	char			*temp;
 	char			*prompt;
 	int				done;
@@ -70,5 +82,6 @@ void	ft_check_cmds(char *fct1, char *args1, char *fct2, char *args2);
 char	*ft_check_access(char **env, char *cmd);
 
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
-
+void	ft_yprint_input(t_input *input);
+int		ft_yparsing(t_data *data);
 #endif

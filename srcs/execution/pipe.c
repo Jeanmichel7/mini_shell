@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/18 03:37:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/19 18:08:35 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 		write(2, str, ft_strlen(str));
 		if (stop)
 		{
-			//ft_free(var);
 			exit(code);
 		}
 	}
 }
-
+/*
 void	ft_exec_cmd1(t_data *data, char **env)
 {
 	dup2(data->inputs.input[0].tube[1], STDOUT_FILENO);
@@ -98,3 +97,4 @@ void	ft_pipe(t_data *data, char **env)
 	}
 	//ft_free(var);
 }
+*/
