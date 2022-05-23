@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:12:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:45:10 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void ft_pipe(t_data *data, char **env)
 
 
 /*
-
 void ft_pipe(t_data *data, char **env)
 {
 	char *cmd1_fct;

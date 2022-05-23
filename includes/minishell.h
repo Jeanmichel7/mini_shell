@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:12:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:45:02 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ typedef struct s_input
 	char			*cmd_fct;
 	char			**cmds;
 	int				pipe;
-	struct s_input	*next;
-	struct s_input	*prev;
 }	t_input;
 
 typedef struct s_data
@@ -64,7 +62,6 @@ typedef struct s_data
 	HIST_ENTRY		**list;
 	t_input			*inputs;
 }	t_data;
-
 
 /* PARSING */
 

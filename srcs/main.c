@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:11:05 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:45:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	ft_free(t_data *data)
 
 int main(int argc, char **argv, char **env)
 {
-	t_data			data;
+	t_data	data;
 
 	(void)argc;
 	(void)argv;
@@ -139,7 +139,6 @@ int main(int argc, char **argv, char **env)
 	int fd_out_saved = dup (1);
 	while (!data.done)
 	{
-
 		dup2(fd_in_saved, STDIN_FILENO);
 		dup2(fd_out_saved, STDOUT_FILENO);
 		data.temp = readline(data.prompt);
@@ -155,9 +154,7 @@ int main(int argc, char **argv, char **env)
 			add_history(data.temp);
 		}
 		fake_init_inputs3(&data, env); /* remplissage des valeurs data.inputs*/
-		
 		ft_jm_part(&data, env);
-
 		free(data.temp);
 	}
 	ft_free(&data);
