@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   one_pipe_checker.c                                 :+:      :+:    :+:   */
+/*   pipe_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/05/18 03:13:06 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/19 02:29:44 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_errputstr(char *str, int stop, int code, t_data *data)
+{
+	(void)data;
+	if (str)
+	{
+		write(2, str, ft_strlen(str));
+		if (stop)
+		{
+			//ft_free(var);
+			exit(code);
+		}
+	}
+}
 
 char	*ft_check_access(char **env, char *cmd)
 {
@@ -40,19 +54,13 @@ char	*ft_check_access(char **env, char *cmd)
 	return (NULL);
 }
 
-void	ft_check_cmds(char *fct1, char *args1, char *fct2, char *args2)
+void	ft_check_cmds(char *fct, char *args)
 {
-	if (fct1 == NULL)
+	if (fct == NULL)
 	{
 		ft_errputstr("zsh: command not found: ", 0, 0, NULL);
-		ft_errputstr(args1, 0, 0, NULL);
+		ft_errputstr(args, 0, 0, NULL);
 		ft_errputstr("\n", 0, 0, NULL);
-	}
-	if (fct2 == NULL)
-	{
-		ft_errputstr("zsh: command not found: ", 0, 0, NULL);
-		ft_errputstr(args2, 0, 0, NULL);
-		ft_errputstr("\n", 1, 127, NULL);
 	}
 }
 
