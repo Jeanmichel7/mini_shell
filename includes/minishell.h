@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/21 15:33:10 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:46:25 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ void	ft_check_cmds(char *fct, char *args);
 char	*ft_check_access(char **env, char *cmd);
 
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
-void	ft_yprint_input(t_input *input);
+void	ft_yprint_input(t_data *data);
 int		ft_yparsing(t_data *data);
 #endif
