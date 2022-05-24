@@ -6,22 +6,43 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/24 20:47:35 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/24 23:16:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	ft_omit_quote_apostrophe(char c, int *omit)
+{
+
+		if (c == 34 && omit == 1)
+			*omit = 0;
+		if (c == 39 && omit == 2)
+			*omit = 0;
+		if (c == 34 && omit == 0)
+			*omit = 1;
+		if (c == 39 && omit == 0)
+			*omit = 2;
+		if (c == 39 && *omit == 1)
+			*omit = 1; 
+		if (c == 34 && *omit == 2)
+			*omit = 2;
+
+}
+
 int	ft_ycheck_pipe(char *temp)
 {
 	int	i;
 	int	u;
+	int	omit;
 
 	i = 0;
 	u = 0;
+	omit = 0; 
 	while (temp[i])
 	{
-		if (temp[i] == '|')
+		ft_omit_quote_apostrophe(temp[i], &omit);
+		else if (temp[i] == '|' && omit == 0)
 		{
 			u++;
 			i++;
@@ -32,7 +53,7 @@ int	ft_ycheck_pipe(char *temp)
 			if (temp[i] == '|')
 				return (-1);
 		}
-		else 
+		else
 			i++;
 	}
 	return (u);
@@ -184,7 +205,7 @@ void	*ft_create_inputs(t_data *data)
 	return (NULL);
 }
 
-void	*ft_fulling_inputs(t_data *data)
+void	*ft_fulling_inputs_cmds(t_data *data)
 {
 	int i;
 	char **cmd; 
@@ -200,7 +221,28 @@ void	*ft_fulling_inputs(t_data *data)
 		data->inputs[i].cmds = ptr; 
 		i++;
 	}
+	ft_freetab(cmd);
 	return (data);
+}
+
+int	ft_if_not_cmd_after_last_pipe(t_data *data)
+{
+    char *ptr;	
+	char **cmd;
+
+	ptr = NULL;	
+	if (data->inputs[data->nb_pipe].cmds == NULL)
+	{
+		ptr = readline(">");
+		while (*ptr == 0)
+			ptr = readline(">");
+		cmd = ft_split(ptr, ' ');
+		free(ptr);
+		if (cmd == NULL)
+			return (1);
+		data->inputs[data->nb_pipe].cmds = cmd; 
+	}
+	return (0);
 }
 
 int	ft_yparsing(t_data *data)
@@ -217,7 +259,9 @@ int	ft_yparsing(t_data *data)
 	if (ft_replace_var(&data->temp, data->env) == 1)
 		return(ft_yerror(5));
 	ft_create_inputs(data);
-	ft_fulling_inputs(data);
+	ft_fulling_inputs_cmds(data);
+	if (ft_if_not_cmd_after_last_pipe(data) == 1)
+		return(ft_yerror(5));
 	if (data->inputs == NULL)
 		return(ft_yerror(5));
 	ft_yprint_input(data);
