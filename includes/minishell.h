@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -78,4 +79,5 @@ void	ft_yprint_input(t_data *data);
 int		ft_yparsing(t_data *data);
 char	**ft_split_and_omit(char const *s, char c, int keep_quotes);
 int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
+char	*ft_strjoin_andadd_rt(char const *s1, char const *s2);
 #endif

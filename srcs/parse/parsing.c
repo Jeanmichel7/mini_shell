@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/25 10:55:00 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:20:01 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@ int	ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int kee
 {
 		if (c == 34 && omit == 1)
 		{
-			if (keep_quotes == 0)
+			if (keep_quotes == 0 && i != NULL)
 				(*i)++;
 			return (0);
 		}
 		if (c == 39 && omit == 2)
+		{
+			if (keep_quotes == 0 && i != NULL)
+				(*i)++;
 			return (0);
+		}
 		if (c == 34 && omit == 0)
 		{
-			if (keep_quotes == 0)
+			if (keep_quotes == 0 && i != NULL)
 				(*i)++;
 			return (1);
 		}
 		if (c == 39 && omit == 0)
+		{
+			if (keep_quotes == 0 && i != NULL)
+				(*i)++;
 			return (2);
+		}
 		if (c == 39 && omit == 1)
 			return (1); 
 		if (c == 34 && omit == 2)
@@ -66,6 +74,43 @@ int	ft_ycheck_pipe(char *temp)
 	return (u);
 }
 
+char	*ft_if_quotes_not_closes(t_data *data)
+{
+    char *ptr;
+	char *temp; 	
+	int i; 
+	int	omit;
+
+	i = -1;
+	omit = 0;
+	while (data->temp[++i])
+		omit = 	ft_omit_quote_apostrophe(data->temp[i], omit, NULL, 1);
+	if (omit != 0)
+	{
+		temp = data->temp; 
+		data->temp = ft_strjoin_andadd_rt(data->temp, NULL);
+		free(temp);
+		while (omit != 0)
+		{
+			ptr = readline(">");
+			i = -1;
+			while (ptr[++i])
+				omit = 	ft_omit_quote_apostrophe(ptr[i], omit, NULL, 1);
+			temp = data->temp; 
+			if (omit != 0)
+				data->temp = ft_strjoin_andadd_rt(data->temp, ptr);
+			else 
+				data->temp = ft_strjoin(data->temp, ptr);
+			if (data->temp == NULL)
+				return (NULL);
+			free(temp);
+			free(ptr);
+			printf("\n valeur de data->temp  : %s", data->temp);
+		}
+		i = 0;
+	}
+	return (data->temp);
+}
 void	*ft_freetab(char **tab)
 {
 	int	i;
@@ -111,22 +156,19 @@ int	ft_strcpy_var(char **str, char *value, int length_name, int start)
 
 	i = -1;
 	j = -1;
-	ptr = ft_calloc((ft_strlen(*str) - length_name) + ft_strlen(value) + 1, sizeof(char *));
+	ptr = ft_calloc((ft_strlen(*str) - length_name) + ft_strlen(value) + 1, sizeof(char));
 	if (ptr == NULL)
 		return (1);
 	while (++i < start)
 		ptr[i] = (*str)[i];
 	while (value[++j])
 		ptr[i + j] = value[j];
-	i = i + length_name;
-	length_name = length_name + i;
-	while ((*str)[i])
+	while ((*str)[i + length_name])
 	{
-		ptr[length_name + j] = (*str)[i];
+		ptr[j + i] = (*str)[i + length_name];
 		i++;
-		j++;
 	}
-	ptr[length_name + j] = 0;
+	ptr[ j + i] = 0;
 	free(*str);
 	*str = ptr;
 	return (0);
@@ -134,7 +176,7 @@ int	ft_strcpy_var(char **str, char *value, int length_name, int start)
 
 int ft_checkvar(char *str, char *var, int *k)
 {
-	int	j; 
+	int	j;
 
 	j = 0;
 	while (var[j])
@@ -153,25 +195,27 @@ int ft_checkvar(char *str, char *var, int *k)
 
 int	ft_replace_var(char **str, char **env)
 {
-	int	i;
-	int	j;
+	int					i;
+	int					j;
+	unsigned int		omit;
 
 	i = 0;
 	j = 0;
+	omit = 0;
 	while ((*str)[i] != 0)
 	{
-		if ((*str)[i] == '$')
+		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
+		if ((*str)[i] == '$' && omit != 2)
 		{
 			i++;
 			while (*env != NULL)
 			{
 				if (ft_checkvar(&(*str)[i], *env, &j) == 1)
 				{
-					if (ft_strcpy_var(str, &(*env)[j], j + 1, i - 1) == 1)
+					if (ft_strcpy_var(str, &(*env)[j], j, i - 1) == 1)
 						return (1);
 					else 
 					{
-						printf("\n valeur de la chaine de sortie : %s\n", *str);
 						return (0);
 					}
 				}
@@ -232,6 +276,7 @@ void	*ft_fulling_inputs_cmds(t_data *data)
 	return (data);
 }
 
+
 int	ft_if_not_cmd_after_last_pipe(t_data *data)
 {
     char *ptr;	
@@ -263,6 +308,8 @@ int	ft_yparsing(t_data *data)
 	data->nb_pipe =	ft_ycheck_pipe(data->temp);
 	if (data->nb_pipe == -1)
 		return(ft_yerror(258));
+	if (ft_if_quotes_not_closes(data) == NULL)
+		return(ft_yerror(5));
 	if (ft_replace_var(&data->temp, data->env) == 1)
 		return(ft_yerror(5));
 	ft_create_inputs(data);

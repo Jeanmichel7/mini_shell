@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/25 09:49:44 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/05/25 13:55:35 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS		= srcs/main.c \
 			srcs/execution/pipe_checker.c\
 			srcs/parse/parsing.c  \
 			srcs/parse/ft_split_and_omit.c  \
+			srcs/parse/ft_strjoin_andadd_rt.c  \
 			srcs/parse/print_cmd.c \
 
 OBJS 		= ${SRCS:.c=.o}
