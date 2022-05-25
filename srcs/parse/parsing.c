@@ -6,43 +6,50 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/24 23:16:58 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:55:00 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_omit_quote_apostrophe(char c, int *omit)
+int	ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes)
 {
-
 		if (c == 34 && omit == 1)
-			*omit = 0;
+		{
+			if (keep_quotes == 0)
+				(*i)++;
+			return (0);
+		}
 		if (c == 39 && omit == 2)
-			*omit = 0;
+			return (0);
 		if (c == 34 && omit == 0)
-			*omit = 1;
+		{
+			if (keep_quotes == 0)
+				(*i)++;
+			return (1);
+		}
 		if (c == 39 && omit == 0)
-			*omit = 2;
-		if (c == 39 && *omit == 1)
-			*omit = 1; 
-		if (c == 34 && *omit == 2)
-			*omit = 2;
-
+			return (2);
+		if (c == 39 && omit == 1)
+			return (1); 
+		if (c == 34 && omit == 2)
+			return (2);
+	return (omit);
 }
 
 int	ft_ycheck_pipe(char *temp)
 {
-	int	i;
-	int	u;
-	int	omit;
+	unsigned int	i;
+	unsigned int	u;
+	unsigned int 	omit;
 
 	i = 0;
 	u = 0;
 	omit = 0; 
 	while (temp[i])
 	{
-		ft_omit_quote_apostrophe(temp[i], &omit);
-		else if (temp[i] == '|' && omit == 0)
+		omit = ft_omit_quote_apostrophe(temp[i], omit, &i, 1);
+		if (temp[i] == '|' && omit == 0)
 		{
 			u++;
 			i++;
@@ -212,10 +219,10 @@ void	*ft_fulling_inputs_cmds(t_data *data)
 	char **ptr;
 
 	i = 0; 
-	cmd = ft_split(data->temp, '|');
+	cmd = ft_split_and_omit(data->temp, '|', 1);
 	while (i <= data->nb_pipe)
 	{
-		ptr = ft_split(cmd[i], ' ');	
+		ptr = ft_split_and_omit(cmd[i], ' ', 0);	
 		if (ptr == NULL)
 			return (ft_freetab(cmd));
 		data->inputs[i].cmds = ptr; 
@@ -236,7 +243,7 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 		ptr = readline(">");
 		while (*ptr == 0)
 			ptr = readline(">");
-		cmd = ft_split(ptr, ' ');
+		cmd = ft_split_and_omit(ptr, ' ', 0);
 		free(ptr);
 		if (cmd == NULL)
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/24 19:46:25 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:52:46 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,6 @@ char	*ft_check_access(char **env, char *cmd);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
 void	ft_yprint_input(t_data *data);
 int		ft_yparsing(t_data *data);
+char	**ft_split_and_omit(char const *s, char c, int keep_quotes);
+int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
 #endif
