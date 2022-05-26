@@ -141,11 +141,11 @@ int main(int argc, char **argv, char **env)
 	{
 		dup2(fd_in_saved, STDIN_FILENO);
 		dup2(fd_out_saved, STDOUT_FILENO);
+
 		data.temp = readline(data.prompt);
 		if (!data.temp)
 		{
 			fprintf(stderr,"temp : %s\n", data.temp);
-			fprintf(stderr,"lui la ????\n");
 			exit(1);
 		}
 		if (*data.temp)

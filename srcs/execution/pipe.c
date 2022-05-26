@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:45:10 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:08:56 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,29 @@ void ft_exec_cmd1(t_data *data, int i, char **env)
 {
 
 	//data->inputs[i].child2 = fork();
-	dup2(data->inputs[i].tube[1], STDOUT_FILENO);
-	close(data->inputs[i].tube[0]);
+	if (i != data->nb_pipe)
+	{
+		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
+		close(data->inputs[i].tube[0]);
+	}
+	else
+	{
+		close(data->inputs[i].tube[0]);
+		close(data->inputs[i].tube[1]);
+	}
 	// dup2(data->inputs[i].fd, STDIN_FILENO);
 	// if (data->inputs[i].fd != -1)
 	//{
-	if (data->inputs[i].child2 == -1)
-		perror("Error");
-	if (data->inputs[i].child2 == 0)
-	{
+	//if (data->inputs[i].child2 == -1)
+	//	perror("Error");
+	//if (data->inputs[i].child2 == 0)
+	//{
 		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, env) == -1)
 		{
 			if (data->inputs[i].cmd_fct != NULL)
 				ft_errputstr(strerror(errno), 0, 0, data);
 		}
-	}
+	//}
 	/* else
 	{
 		printf("test10\n");
@@ -59,41 +67,33 @@ void ft_pipe(t_data *data, char **env)
 {
 	char *cmd1_fct;
 	char **cmd1_args;
-	char *cmd2_fct;
-	char **cmd2_args;
 	int i;
 	int wstatus;
-	int wstatus2;
+	//int fd_in_saved = dup (0);
+	//int fd_out_saved = dup (1);
 
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
 		cmd1_args = data->inputs[i].cmds;
-		//cmd2_args = data->inputs[i + 1].cmds;
 		cmd1_fct = ft_check_access(env, data->inputs[i].cmd_fct);
-		//cmd2_fct = ft_check_access(env, data->inputs[i + 1].cmd_fct);
 		ft_check_cmds(cmd1_fct, cmd1_args[0]);
 		// var->fd1 = open(argv[1], O_RDONLY);
 		// var->fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-		if (i == 0)
-			pipe(data->inputs[i].tube);
-		if (i != 0)
-		{
-			data->inputs[i].tube[0] = data->inputs[i - 1].tube[0];
-			data->inputs[i].tube[1] = data->inputs[i - 1].tube[1];
-		}
+		pipe(data->inputs[i].tube);
 		data->inputs[i].child = fork();
 		if (data->inputs[i].child == -1)
 			perror("Error");
 		if (data->inputs[i].child == 0)
 		{
-			//fprintf(stderr, "2\n");
 			ft_exec_cmd1(data, i, env);
 		}
 		else
 		{
-			waitpid(data->inputs[i].child, &wstatus, WUNTRACED | WCONTINUED);
+			waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 			dup2(data->inputs[i].tube[0], STDIN_FILENO);
+			//dup2(data->inputs[i].tube[1], STDOUT_FILENO);
+			//close(data->inputs[i].tube[0]);
 			close(data->inputs[i].tube[1]);
 			// dup2(data->inputs[i].fd, STDOUT_FILENO);
 		}
@@ -101,6 +101,9 @@ void ft_pipe(t_data *data, char **env)
 		// ft_free(var);
 		i++;
 	}
+	//fprintf(stderr,"%d, lui la ????\n", i );
+	//dup2(fd_in_saved, STDIN_FILENO);
+	//dup2(fd_out_saved, STDOUT_FILENO);
 }
 
 
