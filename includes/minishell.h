@@ -34,9 +34,9 @@
 
 typedef struct s_fd
 {
-	int		fd;
+	char 	*name;
 	char	type;
-}	t_fd;
+}	t_file;
 
 typedef struct s_input
 {
