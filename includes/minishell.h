@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/27 17:04:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 17:11:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_file
 {
 	char	*name;
 	t_type	type;
+	int		fd;
 }	t_file;
 
 typedef struct s_input
