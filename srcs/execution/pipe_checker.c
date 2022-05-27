@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/05/19 02:29:44 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 22:19:58 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 			exit(code);
 		}
 	}
+}
+
+void	ft_free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+char	*sub_check_acces(char **path_tab, int i, char *cmd)
+{
+	char	*str;
+	char	*str2;
+	
+	str = ft_strjoin(path_tab[i], "/");
+	str2 = ft_strjoin(str, cmd);
+	free(str);
+	return (str2);
 }
 
 char	*ft_check_access(char **env, char *cmd)
@@ -46,9 +70,12 @@ char	*ft_check_access(char **env, char *cmd)
 	i = 0;
 	while (path_tab[i] && state)
 	{
-		path_cmd_test = ft_strjoin(ft_strjoin(path_tab[i], "/"), cmd);
+		path_cmd_test = sub_check_acces(path_tab, i, cmd);
 		if (access(path_cmd_test, F_OK | X_OK) == 0)
+		{
+			ft_free_tab(path_tab);
 			return (path_cmd_test);
+		}
 		i++;
 	}
 	return (NULL);
