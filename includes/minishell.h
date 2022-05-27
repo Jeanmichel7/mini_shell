@@ -42,7 +42,7 @@ typedef struct s_input
 {
 	pid_t			child;
 	pid_t			child2;
-	t_fd			*fd;
+	t_file			*files;
 	int				tube[2];
 	char			**env;
 	int				redir_input;
@@ -51,7 +51,6 @@ typedef struct s_input
 	int				redir_double_output;
 	char			*cmd_fct;
 	char			**cmds;
-	int				pipe;
 }	t_input;
 
 typedef struct s_data
