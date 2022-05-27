@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/27 17:11:50 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 19:33:18 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef enum e_type
 {
-	IN=1,
+	IN = 1,
 	OUT,
 	APPPEND,
 	HEREDOC
@@ -51,7 +51,6 @@ typedef struct s_input
 	pid_t			child;
 	t_file			*file;
 	int				tube[2];
-	char			**env;
 	int				redir_input;
 	int				redir_output;
 	int				redir_double_input;
@@ -67,6 +66,7 @@ typedef struct s_data
 	char			*temp;
 	char			*prompt;
 	int				done;
+	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
 }	t_data;
@@ -74,9 +74,9 @@ typedef struct s_data
 /* PARSING */
 
 /* EXECUTION */
-void	ft_jm_part(t_data *data, char **env);
+void	ft_jm_part(t_data *data);
 
-void	ft_pipe(t_data *data, char **env);
+void	ft_pipe(t_data *data);
 void	ft_check_cmds(char *fct, char *args);
 char	*ft_check_access(char **env, char *cmd);
 
