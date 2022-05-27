@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/27 15:18:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 17:04:39 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,24 @@
 # include <termios.h>
 # include <errno.h>
 
-typedef struct s_fd
+typedef enum e_type
 {
-	int		fd;
-	char	type;
-}	t_fd;
+	IN=1,
+	OUT,
+	APPPEND,
+	HEREDOC
+}	t_type;
+
+typedef struct s_file
+{
+	char	*name;
+	t_type	type;
+}	t_file;
 
 typedef struct s_input
 {
 	pid_t			child;
-	t_fd			*fd;
+	t_file			*file;
 	int				tube[2];
 	char			**env;
 	int				redir_input;

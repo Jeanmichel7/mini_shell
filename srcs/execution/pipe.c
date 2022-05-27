@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/27 16:12:31 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 16:22:11 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,21 @@ void	ft_free(t_var *var)
 
 void ft_exec_cmd1(t_data *data, int i, char **env)
 {
-
-	//data->inputs[i].child2 = fork();
 	if (i != data->nb_pipe)
 	{
 		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
 		close(data->inputs[i].tube[0]);
 	}
-	// dup2(data->inputs[i].fd, STDIN_FILENO);
-	// if (data->inputs[i].fd != -1)
-	//{
-	//if (data->inputs[i].child2 == -1)
-	//	perror("Error");
-	//if (data->inputs[i].child2 == 0)
+	//dup2(data->inputs[i].fd, STDIN_FILENO);
+	//if (data->inputs[i].fd != -1)
 	//{
 		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, env) == -1)
 		{
 			if (data->inputs[i].cmd_fct != NULL)
 				ft_errputstr(strerror(errno), 0, 0, data);
 		}
-		
+	//	close(data->inputs[i].fd);
 	//}
-	/* else
-	{
-		printf("test10\n");
-		wait(NULL);
-		printf("test11\n");
-	}
-		close(data->inputs[i].fd);
-	} */
 }
 
 void ft_pipe(t_data *data, char **env)
@@ -65,8 +51,6 @@ void ft_pipe(t_data *data, char **env)
 	char **cmd1_args;
 	int i;
 	int wstatus;
-	//int fd_in_saved = dup (0);
-	//int fd_out_saved = dup (1);
 
 	i = 0;
 	while (i <= data->nb_pipe)
@@ -101,24 +85,18 @@ void ft_pipe(t_data *data, char **env)
 				//close(data->inputs[i].tube[1]);
 				//close(STDIN_FILENO);
 				//close(STDOUT_FILENO);
-
 			}
 			//wait(NULL);
 			dup2(data->inputs[i].tube[0], STDIN_FILENO);
+			close(data->inputs[i].tube[1]);
 			//dup2(data->inputs[i].tube[1], STDOUT_FILENO);
 			//close(data->inputs[i].tube[0]);
-			close(data->inputs[i].tube[1]);
 			// dup2(data->inputs[i].fd, STDOUT_FILENO);
 
 		}
-		
-		// close(data->inputs[1].fd);
 		// ft_free(var);
 		i++;
 	}
-	//fprintf(stderr,"%d, lui la ????\n", i );
-	//dup2(fd_in_saved, STDIN_FILENO);
-	//dup2(fd_out_saved, STDOUT_FILENO);
 }
 
 
