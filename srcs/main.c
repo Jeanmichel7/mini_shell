@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:45:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 16:12:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,36 @@ void	fake_init_inputs3(t_data *data, char **env)
 	data->inputs[2].cmds[2] = NULL;
 }
 
+void	fake_init_inputs4(t_data *data, char **env)
+{
+	data->nb_pipe = 1;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+	data->inputs[0].env = env;
+	data->inputs[0].redir_input = 0;
+	data->inputs[0].redir_output = 0;
+	data->inputs[0].redir_double_input = 0;
+	data->inputs[0].redir_double_output = 0;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
+	data->inputs[0].cmd_fct = "/bin/cat";
+	data->inputs[0].cmds[0] = "cat";
+	data->inputs[0].cmds[1] = NULL;
+
+
+	data->inputs[1].env = env;
+	data->inputs[1].redir_input = 0;
+	data->inputs[1].redir_output = 0;
+	data->inputs[1].redir_double_input = 0;
+	data->inputs[1].redir_double_output = 0;
+
+	data->inputs[1].cmds = malloc(sizeof(char **) * 6);
+	data->inputs[1].cmd_fct = "/bin/ls";
+	data->inputs[1].cmds[0] = "ls";
+	data->inputs[1].cmds[1] = NULL;
+	
+}
 
 void	ft_free(t_data *data)
 {
@@ -141,7 +171,7 @@ int main(int argc, char **argv, char **env)
 	{
 		dup2(fd_in_saved, STDIN_FILENO);
 		dup2(fd_out_saved, STDOUT_FILENO);
-
+		while (wait(0) != -1);
 		data.temp = readline(data.prompt);
 		if (!data.temp)
 		{

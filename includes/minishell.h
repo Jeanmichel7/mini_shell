@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:45:02 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:18:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_fd
 typedef struct s_input
 {
 	pid_t			child;
-	pid_t			child2;
 	t_fd			*fd;
 	int				tube[2];
 	char			**env;

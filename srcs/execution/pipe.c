@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 18:08:56 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/27 16:12:31 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ void ft_exec_cmd1(t_data *data, int i, char **env)
 		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
 		close(data->inputs[i].tube[0]);
 	}
-	else
-	{
-		close(data->inputs[i].tube[0]);
-		close(data->inputs[i].tube[1]);
-	}
 	// dup2(data->inputs[i].fd, STDIN_FILENO);
 	// if (data->inputs[i].fd != -1)
 	//{
@@ -52,6 +47,7 @@ void ft_exec_cmd1(t_data *data, int i, char **env)
 			if (data->inputs[i].cmd_fct != NULL)
 				ft_errputstr(strerror(errno), 0, 0, data);
 		}
+		
 	//}
 	/* else
 	{
@@ -87,16 +83,35 @@ void ft_pipe(t_data *data, char **env)
 		if (data->inputs[i].child == 0)
 		{
 			ft_exec_cmd1(data, i, env);
+			if (i == data->nb_pipe)
+			{
+				fprintf(stderr, "test ici \n");
+				close(data->inputs[i].tube[0]);
+				close(data->inputs[i].tube[1]);
+			}
 		}
 		else
 		{
-			waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+			if (i != data->nb_pipe)
+				waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+			else
+			{
+				//wait(NULL);
+				//close(data->inputs[i].tube[0]);
+				//close(data->inputs[i].tube[1]);
+				//close(STDIN_FILENO);
+				//close(STDOUT_FILENO);
+
+			}
+			//wait(NULL);
 			dup2(data->inputs[i].tube[0], STDIN_FILENO);
 			//dup2(data->inputs[i].tube[1], STDOUT_FILENO);
 			//close(data->inputs[i].tube[0]);
 			close(data->inputs[i].tube[1]);
 			// dup2(data->inputs[i].fd, STDOUT_FILENO);
+
 		}
+		
 		// close(data->inputs[1].fd);
 		// ft_free(var);
 		i++;
