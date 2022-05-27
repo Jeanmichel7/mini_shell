@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 00:25:44 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 00:33:29 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,13 +233,13 @@ void	fake_init_inputs20(t_data *data, char **env)
 
 	data->inputs[1].child = -1;
 	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 1;
+	data->inputs[1].redir_output = 0;
 	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
+	data->inputs[1].redir_double_output = 1;
 
 	data->inputs[1].file = malloc(sizeof(t_file) * 2);
 	data->inputs[1].file[0].name = "fichier_sorti.txt"; 
-	data->inputs[1].file[0].type = OUT;
+	data->inputs[1].file[0].type = APPEND;
 	data->inputs[1].file[0].fd = -1;
 	
 	data->inputs[1].file[1].type = 0;

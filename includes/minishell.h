@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/27 19:33:18 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 00:32:20 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum e_type
 {
 	IN = 1,
 	OUT,
-	APPPEND,
+	APPEND,
 	HEREDOC
 }	t_type;
 

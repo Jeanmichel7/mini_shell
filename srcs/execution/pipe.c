@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 00:26:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 00:39:43 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	ft_check_redir(t_data *data, int i)
 	{
 		if (data->inputs[i].file[j].type == IN)
 			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, O_RDONLY);
-
 		if (data->inputs[i].file[j].type == OUT)
 			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name,  O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		if (data->inputs[i].file[j].type == APPEND)
+			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
 		j++;
 	}
 }
@@ -52,10 +53,10 @@ void	ft_close_redir(t_data *data, int i)
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
 	{
-		if (data->inputs[i].file[j].type == IN)
+		//if (data->inputs[i].file[j].type == IN)
 			close(data->inputs[i].file[j].fd);
-		if (data->inputs[i].file[j].type == OUT)
-			close(data->inputs[i].file[j].fd);
+		//if (data->inputs[i].file[j].type == OUT)
+		//	close(data->inputs[i].file[j].fd);
 		j++;
 	}
 }
@@ -77,6 +78,8 @@ void ft_exec_cmd(t_data *data, int i)
 		if (data->inputs[i].file[j].type == IN && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
 		if (data->inputs[i].file[j].type == OUT && data->inputs[i].file[j].fd != -1)
+			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
+		if (data->inputs[i].file[j].type == APPEND && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
 		j++;
 	}
