@@ -6,14 +6,11 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/27 10:11:36 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/28 11:48:42 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#define ERROR_PIPE 1001
-#define ERROR_MEMORY 1002
-#define ERROR_REDIRECTION 1003
 
 int	ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes)
 {
@@ -324,6 +321,9 @@ int	ft_yparsing(t_data *data)
 		return(ft_yerror(ERROR_MEMORY));
 	ft_create_inputs(data);
 	error = ft_fulling_inputs_cmds(data);
+	if (error != 0)
+		return (ft_yerror(error));
+	error = ft_parse_redirection(data);
 	if (error != 0)
 		return (ft_yerror(error));
 	if (ft_if_not_cmd_after_last_pipe(data) == 1)

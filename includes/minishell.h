@@ -32,25 +32,37 @@
 # include <termios.h>
 # include <errno.h>
 
-typedef struct s_fd
+#define ERROR_PIPE 1001
+#define ERROR_MEMORY 1002
+#define ERROR_REDIRECTION 1003
+
+typedef enum e_type
 {
-	char 	*name;
-	char	type;
+	IN = 1,
+	OUT,
+	APPPEND,
+	HEREDOC,
+}	t_type;
+
+typedef struct s_file
+{
+	char	*name;
+	t_type	type;
+	int		fd;
 }	t_file;
 
 typedef struct s_input
 {
 	pid_t			child;
-	pid_t			child2;
 	t_file			*files;
 	int				tube[2];
-	char			**env;
 	int				redir_input;
 	int				redir_output;
 	int				redir_double_input;
 	int				redir_double_output;
 	char			*cmd_fct;
 	char			**cmds;
+	int				pipe;
 }	t_input;
 
 typedef struct s_data
@@ -79,4 +91,10 @@ int		ft_yparsing(t_data *data);
 char	**ft_split_and_omit(char const *s, char c, int keep_quotes);
 int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
 char	*ft_strjoin_andadd_rt(char const *s1, char const *s2);
+int 	ft_parse_redirection(t_data *data); 
+char	**ft_split_redirection(char const *s);
+char	**ft_replace_elements(char **tab, char **elements, int pos);
+int		ft_yerror(int nb);
+int		ft_freetab(char **tab);
+
 #endif
