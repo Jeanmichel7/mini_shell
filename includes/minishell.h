@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 00:32:20 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:03:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 
 typedef enum e_type
 {
-	IN = 1,
+	HEREDOC = 1,
+	IN,
 	OUT,
-	APPEND,
-	HEREDOC
+	APPEND
 }	t_type;
 
 typedef struct s_file
@@ -73,13 +73,30 @@ typedef struct s_data
 
 /* PARSING */
 
+
 /* EXECUTION */
 void	ft_jm_part(t_data *data);
-
 void	ft_pipe(t_data *data);
-void	ft_check_cmds(char *fct, char *args);
-char	*ft_check_access(char **env, char *cmd);
+int		ft_check_cmds(char *fct, char *fct_name);
+char	*ft_check_access(t_data *data, int i);
+void	ft_close_redir(t_data *data, int i);
+void	ft_free_sec(t_data *data, int i);
 
+/* BUILTINS */
+int		ft_is_builtin(t_data *data, int i);
+int		ft_is_new_local_var(t_data *data, int i);
+void	ft_add_new_local_var(t_data *data, int i);
+void	ft_echo(t_data *data, int i);
+void	ft_cd(t_data *data, int i);
+void	ft_pwd(t_data *data, int i);
+void	ft_export(t_data *data, int i);
+void	ft_unset(t_data *data, int i);
+void	ft_env(t_data *data, int i);
+void	ft_exit(t_data *data, int i);
+
+
+/* ERR */
+int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
 
 #endif

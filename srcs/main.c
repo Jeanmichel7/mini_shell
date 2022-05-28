@@ -6,22 +6,16 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 00:33:29 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:27:47 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	fake_init_inputs(t_data *data, char **env)
+void	fake_init_inputs(t_data *data)
 {
 	data->nb_pipe = 0;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
-
-	data->env = env;
-	data->inputs[0].redir_input = 0;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = NULL;
@@ -34,17 +28,12 @@ void	fake_init_inputs(t_data *data, char **env)
 	data->inputs[0].cmds[2] = NULL;
 }
 
-void	fake_init_inputs2(t_data *data, char **env)
+void	fake_init_inputs2(t_data *data)
 {
 	data->nb_pipe = 1;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
-	data->env = env;
 	data->inputs[0].child = -1;
-	data->inputs[0].redir_input = 0;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = NULL;
@@ -56,11 +45,8 @@ void	fake_init_inputs2(t_data *data, char **env)
 	data->inputs[0].cmds[1] = "-al";
 	data->inputs[0].cmds[2] = NULL;
 
+
 	data->inputs[1].child = -1;
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
 
 	data->inputs[1].file = malloc(sizeof(t_file) * 1);
 	data->inputs[1].file[0].name = NULL;
@@ -73,17 +59,12 @@ void	fake_init_inputs2(t_data *data, char **env)
 	data->inputs[1].cmds[2] = NULL;
 }
 
-void	fake_init_inputs3(t_data *data, char **env)
+void	fake_init_inputs3(t_data *data)
 {
 	data->nb_pipe = 2;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
 	data->inputs[0].child = -1;
-	data->env = env;
-	data->inputs[0].redir_input = 0;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = NULL;
@@ -95,11 +76,6 @@ void	fake_init_inputs3(t_data *data, char **env)
 	data->inputs[0].cmds[1] = "-al";
 	data->inputs[0].cmds[2] = NULL;
 
-
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
 
 	data->inputs[1].file = malloc(sizeof(t_file) * 1);
 	data->inputs[1].file[0].name = NULL;
@@ -115,12 +91,6 @@ void	fake_init_inputs3(t_data *data, char **env)
 	data->inputs[1].cmds[5] = NULL;
 	
 
-
-	data->inputs[2].redir_input = 0;
-	data->inputs[2].redir_output = 0;
-	data->inputs[2].redir_double_input = 0;
-	data->inputs[2].redir_double_output = 0;
-
 	data->inputs[2].file = malloc(sizeof(t_file) * 1);
 	data->inputs[2].file[0].name = NULL;
 	data->inputs[2].file[0].type = 0;
@@ -132,17 +102,12 @@ void	fake_init_inputs3(t_data *data, char **env)
 	data->inputs[2].cmds[2] = NULL;
 }
 
-void	fake_init_inputs4(t_data *data, char **env)
+void	fake_init_inputs4(t_data *data)
 {
 	data->nb_pipe = 1;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
 	data->inputs[0].child = -1;
-	data->env = env;
-	data->inputs[0].redir_input = 0;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = NULL;
@@ -153,11 +118,6 @@ void	fake_init_inputs4(t_data *data, char **env)
 	data->inputs[0].cmds[0] = "cat";
 	data->inputs[0].cmds[1] = NULL;
 
-
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
 
 	data->inputs[1].file = malloc(sizeof(t_file) * 1);
 	data->inputs[1].file[0].name = NULL;
@@ -177,16 +137,11 @@ void	fake_init_inputs4(t_data *data, char **env)
 
 
 
-void	fake_init_inputs10(t_data *data, char **env)
+void	fake_init_inputs10(t_data *data)
 {
 	data->nb_pipe = 0;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
-	data->env = env;
-	data->inputs[0].redir_input = 1;
-	data->inputs[0].redir_output = 1;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 3);
 	data->inputs[0].file[0].name = "fichier_input.txt"; 
@@ -199,25 +154,18 @@ void	fake_init_inputs10(t_data *data, char **env)
 
 	data->inputs[0].file[2].type = 0;
 
-
 	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
 	data->inputs[0].cmds[0] = "cat";
 	data->inputs[0].cmds[1] = "-e";
 	data->inputs[0].cmds[2] = NULL;
 }
 
-void	fake_init_inputs20(t_data *data, char **env)
+void	fake_init_inputs20(t_data *data)
 {
 	data->nb_pipe = 1;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
-	data->env = env;
 	data->inputs[0].child = -1;
-	data->inputs[0].redir_input = 1;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
-
 	data->inputs[0].file = malloc(sizeof(t_file) * 2);
 	data->inputs[0].file[0].name = "fichier_input.txt";
 	data->inputs[0].file[0].type = IN;
@@ -232,18 +180,12 @@ void	fake_init_inputs20(t_data *data, char **env)
 
 
 	data->inputs[1].child = -1;
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 1;
-
 	data->inputs[1].file = malloc(sizeof(t_file) * 2);
-	data->inputs[1].file[0].name = "fichier_sorti.txt"; 
+	data->inputs[1].file[0].name = "fichier_output.txt"; 
 	data->inputs[1].file[0].type = APPEND;
 	data->inputs[1].file[0].fd = -1;
 	
 	data->inputs[1].file[1].type = 0;
-
 
 	data->inputs[1].cmds = malloc(sizeof(char **) * 3);
 	data->inputs[1].cmds[0] = "cat";
@@ -251,18 +193,12 @@ void	fake_init_inputs20(t_data *data, char **env)
 	data->inputs[1].cmds[2] = NULL;
 }
 
-void	fake_init_inputs30(t_data *data, char **env)
+void	fake_init_inputs30(t_data *data)
 {
 	data->nb_pipe = 2;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
 	data->inputs[0].child = -1;
-	data->env = env;
-	data->inputs[0].redir_input = 1;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
-
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = "fichier_input.txt";
 	data->inputs[0].file[0].type = IN;
@@ -273,11 +209,6 @@ void	fake_init_inputs30(t_data *data, char **env)
 	data->inputs[0].cmds[1] = "a";
 	data->inputs[0].cmds[2] = NULL;
 
-
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
 
 	data->inputs[1].file = malloc(sizeof(t_file) * 1);
 	data->inputs[1].file[0].name = NULL;
@@ -293,11 +224,6 @@ void	fake_init_inputs30(t_data *data, char **env)
 	data->inputs[1].cmds[5] = NULL;
 	
 
-	data->inputs[2].redir_input = 0;
-	data->inputs[2].redir_output = 0;
-	data->inputs[2].redir_double_input = 0;
-	data->inputs[2].redir_double_output = 0;
-
 	data->inputs[2].file = malloc(sizeof(t_file) * 1);
 	data->inputs[2].file[0].name = NULL;
 	data->inputs[2].file[0].type = 0;
@@ -309,17 +235,76 @@ void	fake_init_inputs30(t_data *data, char **env)
 	data->inputs[2].cmds[2] = NULL;
 }
 
-void	fake_init_inputs40(t_data *data, char **env)
+void	fake_init_inputs40(t_data *data)
 {
 	data->nb_pipe = 1;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
 	data->inputs[0].child = -1;
-	data->env = env;
-	data->inputs[0].redir_input = 0;
-	data->inputs[0].redir_output = 0;
-	data->inputs[0].redir_double_input = 0;
-	data->inputs[0].redir_double_output = 0;
+
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 3);
+	data->inputs[0].file[0].name = "fichier_input.txt";
+	data->inputs[0].file[0].type = IN;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].file[1].name = "fichier_output_real.txt";
+	data->inputs[0].file[1].type = OUT;
+	data->inputs[0].file[1].fd = -1;
+
+	data->inputs[0].file[2].name = "fichier_output2.txt";
+	data->inputs[0].file[2].type = OUT;
+	data->inputs[0].file[2].fd = -1;
+
+	data->inputs[0].file[3].type = 0;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
+	data->inputs[0].cmds[0] = "grep";
+	data->inputs[0].cmds[1] = "a";
+	data->inputs[0].cmds[2] = NULL;
+
+
+	data->inputs[1].file = malloc(sizeof(t_file) * 2);
+	data->inputs[1].file[0].name = "autrefichier.txt";
+	data->inputs[1].file[0].type = OUT;
+	data->inputs[1].file[0].fd = -1;
+
+	data->inputs[1].file[1].type = 0;
+
+	data->inputs[1].cmds = malloc(sizeof(char **) * 3);
+	data->inputs[1].cmds[0] = "cat";
+	data->inputs[1].cmds[1] = "-e";
+	data->inputs[1].cmds[2] = NULL;
+}
+
+
+/* ********************** BUILTINS ************************* */
+
+void	fake_init_inputs100(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 4);
+	data->inputs[0].cmds[0] = "echo";
+	data->inputs[0].cmds[1] = "-n";
+	data->inputs[0].cmds[2] = "testecho";
+	data->inputs[0].cmds[3] = NULL;
+}
+
+void	fake_init_inputs101(t_data *data)
+{
+	data->nb_pipe = 1;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
 
 	data->inputs[0].file = malloc(sizeof(t_file) * 1);
 	data->inputs[0].file[0].name = NULL;
@@ -327,31 +312,134 @@ void	fake_init_inputs40(t_data *data, char **env)
 	data->inputs[0].file[0].fd = -1;
 
 	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
-	data->inputs[0].cmds[0] = "cat";
-	data->inputs[0].cmds[1] = NULL;
+	data->inputs[0].cmds[0] = "cd";
+	data->inputs[0].cmds[1] = "/";
+	data->inputs[0].cmds[2] = NULL;
 
 
-
-	data->inputs[1].redir_input = 0;
-	data->inputs[1].redir_output = 0;
-	data->inputs[1].redir_double_input = 0;
-	data->inputs[1].redir_double_output = 0;
-	
 	data->inputs[1].file = malloc(sizeof(t_file) * 1);
 	data->inputs[1].file[0].name = NULL;
 	data->inputs[1].file[0].type = 0;
 	data->inputs[1].file[0].fd = -1;
 
-	data->inputs[1].cmds = malloc(sizeof(char **) * 6);
+	data->inputs[1].cmds = malloc(sizeof(char **) * 3);
 	data->inputs[1].cmds[0] = "ls";
-	data->inputs[1].cmds[1] = NULL;
+	data->inputs[1].cmds[1] = "-l";
+	data->inputs[1].cmds[2] = NULL;
+}
+
+void	fake_init_inputs102(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = "env";
+	data->inputs[0].cmds[1] = NULL;
+}
+
+void	fake_init_inputs103(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 2);
+	data->inputs[0].file[0].name = "sorti_env.txt";
+	data->inputs[0].file[0].type = OUT;
+	data->inputs[0].file[0].fd = -1;
+	data->inputs[0].file[1].type = 0;
+
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = "env";
+	data->inputs[0].cmds[1] = NULL;
+}
+
+void	fake_init_inputs104(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = "export";
+	data->inputs[0].cmds[1] = "TEST=valeur";
+	data->inputs[0].cmds[2] = NULL;
+}
+
+
+
+/* ********************** NEW LOCAL VAR ************************* */
+
+void	fake_init_inputs200(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = "TEST=blabla";
+	data->inputs[0].cmds[1] = NULL;
 }
 
 
 
 
+void	*ft_freetab(char **tab)
+{
+	int	i;
+	i = 0;
 
+	while (tab[i] != NULL)
+		free(tab[i++]);
+	free(tab);
+	return (NULL);
+}
 
+char **ft_envcpy(char **env)
+{
+	int		i;
+	char	**ptr;
+	char	*str;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		i++;
+	}
+	ptr = ft_calloc((i + 1), sizeof(char **));
+	i = 0;
+	while (env[i] != NULL)
+	{
+		str = ft_calloc((ft_strlen(env[i]) + 1), sizeof(char));
+		ft_strlcpy(str, env[i], (ft_strlen(env[i]) + 1));
+		ptr[i] = str;
+		i++;
+	}
+	ptr[i] = NULL;
+	return (ptr);
+}
 
 
 void	ft_free(t_data *data)
@@ -359,26 +447,36 @@ void	ft_free(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->nb_pipe + 1)
+	while (i <= data->nb_pipe)
 	{
-		//free(data->inputs[i].cmds);
+		free(data->inputs[i].file);
+		free(data->inputs[i].cmds);
 		i++;
 	}
 	free(data->inputs);
-	//rl_clear_history();	leaks de readline
+	i = 0;
+	while (data->env[i])
+	{
+		free(data->env[i]);
+		i++;
+	}
+	free(data->env);
+	rl_clear_history();
 }
 
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int		fd_in_saved;
+	int		fd_out_saved;
 
 	(void)argc;
 	(void)argv;
+	fd_in_saved = dup (0);
+	fd_out_saved = dup (1);
 	data.temp = NULL;
 	data.prompt = "minishell$ ";
 	data.done = 0;
-	int fd_in_saved = dup (0);
-	int fd_out_saved = dup (1);
 	while (!data.done)
 	{
 		dup2(fd_in_saved, STDIN_FILENO);
@@ -396,7 +494,9 @@ int main(int argc, char **argv, char **env)
 			fprintf(stderr,"input : %s\n", data.temp);
 			add_history(data.temp);
 		}
-		fake_init_inputs20(&data, env); /* remplissage des valeurs data.inputs*/
+		data.env = ft_envcpy(env);
+		//ft_print_env(data.env);
+		fake_init_inputs104(&data); /* remplissage des valeurs data.inputs*/
 		ft_jm_part(&data);
 		free(data.temp);
 	}

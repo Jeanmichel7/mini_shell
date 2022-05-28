@@ -6,14 +6,17 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/27 18:22:40 by jrasser          ###   ########.fr        #
+#    Updated: 2022/05/28 22:00:12 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
 			srcs/execution/jm_part.c \
 			srcs/execution/pipe.c \
-			srcs/execution/pipe_checker.c
+			srcs/execution/utils_pipe.c \
+			srcs/execution/pipe_checker.c \
+			srcs/execution/builtins/builtins1.c \
+			srcs/execution/builtins/env.c
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f

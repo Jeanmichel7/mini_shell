@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/05/27 22:19:58 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:27:48 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
+int	ft_is_builtin(t_data *data, int i)
+{
+	if ((ft_strlen(data->inputs[i].cmds[0]) == 4
+		&& strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 2
+		&& strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+		&& strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 6
+		&& strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 5
+		&& strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+		&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
+		|| (ft_strlen(data->inputs[i].cmds[0]) == 4
+		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0))
+		return (1);
+	return (0);
+}
+
 char	*sub_check_acces(char **path_tab, int i, char *cmd)
 {
 	char	*str;
@@ -50,57 +70,67 @@ char	*sub_check_acces(char **path_tab, int i, char *cmd)
 	return (str2);
 }
 
-char	*ft_check_access(char **env, char *cmd)
+char	*ft_check_access(t_data *data, int i)
 {
-	int		i;
-	int		state;
+	int		j;
 	char	*path_cmd_test;
 	char	*paths;
 	char	**path_tab;
 
-	if (access(cmd, F_OK | X_OK) == 0)
-		return (cmd);
-	i = -1;
-	state = 1;
-	while (env[++i])
-		if (strncmp(env[i], "PATH", 4) == 0)
-			paths = env[i];
+	if (access(data->inputs[i].cmds[0], F_OK | X_OK) == 0
+		|| ft_is_builtin(data, i))
+		return (data->inputs[i].cmds[0]);
+	j = -1;
+	while (data->env[++j])
+		if (strncmp(data->env[j], "PATH", 4) == 0)
+			paths = data->env[j];
 	paths = paths + 5;
 	path_tab = ft_split(paths, ':');
-	i = 0;
-	while (path_tab[i] && state)
+	j = 0;
+	while (path_tab[j])
 	{
-		path_cmd_test = sub_check_acces(path_tab, i, cmd);
+		path_cmd_test = sub_check_acces(path_tab, j, data->inputs[i].cmds[0]);
 		if (access(path_cmd_test, F_OK | X_OK) == 0)
 		{
 			ft_free_tab(path_tab);
 			return (path_cmd_test);
 		}
-		i++;
+		j++;
 	}
 	return (NULL);
 }
 
-void	ft_check_cmds(char *fct, char *args)
+int	ft_check_cmds(char *fct, char *fct_name)
 {
 	if (fct == NULL)
 	{
-		ft_errputstr("zsh: command not found: ", 0, 0, NULL);
-		ft_errputstr(args, 0, 0, NULL);
+		ft_errputstr("bash: command not found: ", 0, 0, NULL);
+		ft_errputstr(fct_name, 0, 0, NULL);
 		ft_errputstr("\n", 0, 0, NULL);
+		return (1);
 	}
+	return (0);
 }
 
-void	ft_check_fds(int fd1, int fd2, char *fct)
+int	ft_check_fds(t_data *data, int i)
 {
-	if (fd1 == -1)
+	int	j;
+
+	j = 0;
+	while (data->inputs[i].file[j].type != 0)
 	{
-		ft_errputstr("zsh: ", 0, 0, NULL);
-		ft_errputstr(strerror(errno), 0, 0, NULL);
-		ft_errputstr(": ", 0, 0, NULL);
-		ft_errputstr(fct, 0, 0, NULL);
-		ft_errputstr("\n", 0, 0, NULL);
+		if (data->inputs[i].file[j].fd == -1)
+		{
+			ft_errputstr("bash: ", 0, 0, NULL);
+			ft_errputstr(data->inputs[i].file[j].name, 0, 0, NULL);
+			ft_errputstr(": ", 0, 0, NULL);
+			ft_errputstr(strerror(errno), 0, 0, NULL);
+			ft_errputstr("\n", 0, 0, NULL);
+			return (1);
+		}
+		j++;
 	}
-	if (fd2 == -1)
-		ft_errputstr(strerror(errno), 1, 1, NULL);
+	return (0);
+	//if (fd2 == -1)
+	//	ft_errputstr(strerror(errno), 1, 1, NULL);
 }
