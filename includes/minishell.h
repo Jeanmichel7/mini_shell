@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 22:03:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/29 22:07:59 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_data
 
 
 /* EXECUTION */
-void	ft_jm_part(t_data *data);
+void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_check_cmds(char *fct, char *fct_name);
 char	*ft_check_access(t_data *data, int i);
@@ -98,5 +98,11 @@ void	ft_exit(t_data *data, int i);
 /* ERR */
 int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
+
+/* FREE */
+void	ft_free(t_data *data);
+void	ft_free_tab(char **tab);
+void	*ft_freetab(char **tab);
+
 
 #endif

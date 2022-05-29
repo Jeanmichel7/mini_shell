@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 22:42:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/29 21:08:42 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_export(t_data *data, int i)
 	fprintf(stderr, "str export : %s\n", str);
 	fprintf(stderr, "export name : %s\n", name);
 	fprintf(stderr, "export value : %s\n", str_value);
-
 }
 
 void	ft_unset(t_data *data, int i)

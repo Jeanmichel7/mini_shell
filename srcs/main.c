@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 22:27:47 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/29 22:07:46 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,17 +404,23 @@ void	fake_init_inputs200(t_data *data)
 }
 
 
+/* ********************** ^C ************************* */
 
-
-void	*ft_freetab(char **tab)
+void	fake_init_inputs300(t_data *data)
 {
-	int	i;
-	i = 0;
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
-	while (tab[i] != NULL)
-		free(tab[i++]);
-	free(tab);
-	return (NULL);
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = "^C";
+	data->inputs[0].cmds[1] = NULL;
 }
 
 char **ft_envcpy(char **env)
@@ -441,27 +447,55 @@ char **ft_envcpy(char **env)
 	return (ptr);
 }
 
-
-void	ft_free(t_data *data)
+void	ft_parse(t_data *data)
 {
-	int	i;
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
 
-	i = 0;
-	while (i <= data->nb_pipe)
-	{
-		free(data->inputs[i].file);
-		free(data->inputs[i].cmds);
-		i++;
-	}
-	free(data->inputs);
-	i = 0;
-	while (data->env[i])
-	{
-		free(data->env[i]);
-		i++;
-	}
-	free(data->env);
-	rl_clear_history();
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
+	data->inputs[0].cmds[0] = data->temp;
+	data->inputs[0].cmds[1] = NULL;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+char	*ft_color_prompt(void)
+{
+	char	pwd[500];
+	char	*new_str;
+	char	*pwd_color;
+	char	*prompt_color;
+
+	getcwd(pwd, 500);
+	pwd_color = ft_strjoin("\033[0;34m", pwd);
+	prompt_color = ft_strjoin("\033[0;32mminishell\033[0;37m:", pwd_color);
+	free(pwd_color);
+	new_str = ft_strjoin(prompt_color, "\033[0;37m$ ");
+	free(prompt_color);
+	return (new_str);
 }
 
 int main(int argc, char **argv, char **env)
@@ -475,13 +509,13 @@ int main(int argc, char **argv, char **env)
 	fd_in_saved = dup (0);
 	fd_out_saved = dup (1);
 	data.temp = NULL;
-	data.prompt = "minishell$ ";
 	data.done = 0;
 	while (!data.done)
 	{
 		dup2(fd_in_saved, STDIN_FILENO);
 		dup2(fd_out_saved, STDOUT_FILENO);
 		while (wait(0) != -1);
+		data.prompt = ft_color_prompt();
 		data.temp = readline(data.prompt);
 		if (!data.temp)
 		{
@@ -496,9 +530,11 @@ int main(int argc, char **argv, char **env)
 		}
 		data.env = ft_envcpy(env);
 		//ft_print_env(data.env);
-		fake_init_inputs104(&data); /* remplissage des valeurs data.inputs*/
-		ft_jm_part(&data);
+		//fake_init_inputs300(&data); /* remplissage des valeurs data.inputs*/
+		ft_parse(&data);
+		ft_exec_parse(&data);
 		free(data.temp);
+		free(data.prompt);
 	}
 	ft_free(&data);
 	return (0);
