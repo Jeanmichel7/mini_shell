@@ -69,6 +69,8 @@ typedef struct s_data
 	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
+	int				fd_in_saved;
+	int				fd_out_saved;
 }	t_data;
 
 /* PARSING */
@@ -100,6 +102,7 @@ int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
 
 /* FREE */
+void	ft_free_readline(t_data *data);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 void	*ft_freetab(char **tab);

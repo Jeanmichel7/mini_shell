@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:02:14 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/29 22:04:17 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/30 01:24:44 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,10 @@ void	ft_free(t_data *data)
 	}
 	free(data->env);
 	rl_clear_history();
+}
+
+void	ft_free_readline(t_data *data)
+{
+	free(data->temp);
+	free(data->prompt);
 }

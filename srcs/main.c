@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/29 22:07:46 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/30 01:25:08 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,25 +426,21 @@ void	fake_init_inputs300(t_data *data)
 char **ft_envcpy(char **env)
 {
 	int		i;
-	char	**ptr;
-	char	*str;
+	char	**new_env;
 
 	i = 0;
 	while (env[i] != NULL)
-	{
 		i++;
-	}
-	ptr = ft_calloc((i + 1), sizeof(char **));
+	new_env = malloc(sizeof(char *) * i);
 	i = 0;
 	while (env[i] != NULL)
 	{
-		str = ft_calloc((ft_strlen(env[i]) + 1), sizeof(char));
-		ft_strlcpy(str, env[i], (ft_strlen(env[i]) + 1));
-		ptr[i] = str;
+		new_env[i] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
+		ft_strlcpy(new_env[i], env[i], (ft_strlen(env[i]) + 1));
 		i++;
 	}
-	ptr[i] = NULL;
-	return (ptr);
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 void	ft_parse(t_data *data)
@@ -498,22 +494,26 @@ char	*ft_color_prompt(void)
 	return (new_str);
 }
 
+void	ft_init_data(t_data *data, char **env)
+{
+	data->temp = NULL;
+	data->done = 0;
+	data->env = ft_envcpy(env);
+	data->fd_in_saved = dup (0);
+	data->fd_out_saved = dup (1);
+}
+
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	int		fd_in_saved;
-	int		fd_out_saved;
 
 	(void)argc;
 	(void)argv;
-	fd_in_saved = dup (0);
-	fd_out_saved = dup (1);
-	data.temp = NULL;
-	data.done = 0;
+	ft_init_data(&data, env);
 	while (!data.done)
 	{
-		dup2(fd_in_saved, STDIN_FILENO);
-		dup2(fd_out_saved, STDOUT_FILENO);
+		dup2(data.fd_in_saved, STDIN_FILENO);
+		dup2(data.fd_out_saved, STDOUT_FILENO);
 		while (wait(0) != -1);
 		data.prompt = ft_color_prompt();
 		data.temp = readline(data.prompt);
@@ -528,13 +528,11 @@ int main(int argc, char **argv, char **env)
 			fprintf(stderr,"input : %s\n", data.temp);
 			add_history(data.temp);
 		}
-		data.env = ft_envcpy(env);
 		//ft_print_env(data.env);
 		//fake_init_inputs300(&data); /* remplissage des valeurs data.inputs*/
 		ft_parse(&data);
 		ft_exec_parse(&data);
-		free(data.temp);
-		free(data.prompt);
+		ft_free_readline(&data);
 	}
 	ft_free(&data);
 	return (0);
