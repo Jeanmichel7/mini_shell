@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 13:44:36 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:41:17 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ static unsigned int	ft_count_rd(const char *s)
 	count = 0;
 	while (s[i])
 	{
-
 		if ((s[i] == '>' || s[i] == '<')  && s[i])
 		{
 			count++;
 			while ((s[i] == '>' || s[i] == '<')  && s[i])
 				i++;
 		}
-		while (s[i] != '>' && s[i] != '<'  && s[i])
-			i++;
-		count++;
+		if ((s[i] != '>' || s[i] != '<')  && s[i])
+		{
+			count++;
+			while (s[i] != '>' && s[i] != '<'  && s[i])
+				i++;
+		}
 	}
 	return (count);
 }

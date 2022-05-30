@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:34:35 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/24 21:55:19 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:24:48 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/minishell.h"
@@ -42,3 +42,21 @@ void	ft_yprint_input(t_data *data)
 	}
 }
 
+void	ft_print_tab(char **tab)
+{
+	int	i; 
+	int j;
+
+	i = 0;
+	j = 0;
+	if (tab != NULL)
+	{
+		while(tab[i])
+		{
+			ft_printf("\n addresse tab[%d] : %p", i, &tab[i]);
+			ft_printf("\n valeur de tab[%d] : %s", i, tab[i]);
+			i++;
+		}
+	}
+	ft_printf("\n end of tab");
+}

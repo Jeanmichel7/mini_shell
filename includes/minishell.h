@@ -93,8 +93,9 @@ int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int ke
 char	*ft_strjoin_andadd_rt(char const *s1, char const *s2);
 int 	ft_parse_redirection(t_data *data); 
 char	**ft_split_redirection(char const *s);
-char	**ft_replace_elements(char **tab, char **elements, int pos);
+char	**ft_replace_elements(char **tab, char **elements, int *pos);
 int		ft_yerror(int nb);
 int		ft_freetab(char **tab);
+void	ft_print_tab(char **tab);
 
 #endif

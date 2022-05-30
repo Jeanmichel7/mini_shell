@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/28 11:48:42 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/30 12:09:35 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,9 +255,17 @@ void	*ft_create_inputs(t_data *data)
 
 	i = 0;
 	ptr = ft_calloc((data->nb_pipe + 1), sizeof(t_input));
-	if (ptr == NULL)
+	if (ptr == NULL)	
 		return (NULL);
-	data->inputs = ptr; 
+	while (i < (data->nb_pipe + 1))
+	{
+		ptr->files = ft_calloc(1 ,sizeof(t_file));
+		if (ptr->files == NULL)	
+			return (NULL);
+		ptr->files->type = -1; 
+		i++;
+	}
+	data->inputs = ptr;
 	return (NULL);
 }
 

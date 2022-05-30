@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/28 14:47:15 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/30 13:46:54 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,11 @@ int	ft_update_file(char *str, t_file *files, int total, int rd)
 	new_file = ft_calloc(total + 1, sizeof(t_file));
 	if (new_file == NULL)
 		return (ERROR_MEMORY);
-	ft_memcpy(new_file, files, (sizeof(t_file) * (total + 1)));
-	files[total].fd = 0;
-	files[total].type = rd; 
-	files[total].name = str; 
+	if (files != NULL)
+		ft_memcpy(new_file, files, (sizeof(t_file) * (total + 1)));
+	new_file[total].fd = 0;
+	new_file[total].type = rd; 
+	new_file[total].name = str; 
 	return (0);
 }
 
@@ -134,10 +135,11 @@ int	ft_parse_input_redirection(t_input *input)
 	while (input->cmds[i])
 	{
 		new_cmd = ft_split_redirection(input->cmds[i]);
+		ft_printf("new_cmd de 1 : %s", new_cmd[1]);
 		if (new_cmd == NULL)
 			return (ERROR_MEMORY);
-		input->cmds = ft_replace_elements(input->cmds, new_cmd, i);
-		i++;
+		ft_printf("\n valeur de i : %d", i);
+		input->cmds = ft_replace_elements(input->cmds, new_cmd, &i);
 	}
 	i = 0; 
 	while (input->cmds[i])
