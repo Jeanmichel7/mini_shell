@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/30 12:09:35 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:22:26 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int	ft_yerror(int nb)
 	}
 	if (nb == ERROR_REDIRECTION)
 		return (258);
-	return (0);
+	return (1);
 }
 
 void	*ft_create_inputs(t_data *data)
