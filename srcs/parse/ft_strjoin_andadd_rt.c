@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:13 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/25 15:01:49 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/31 12:40:05 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@ char	*ft_strjoin_andadd_rt(char const *s1, char const *s2)
 	unsigned int	i;
 	unsigned int	s1_len;
 
-	if (!s1)
-		return ((char *)s2);
 	s1_len = ft_strlen(s1);
 	str = malloc(sizeof(char) * (s1_len + ft_strlen(s2) + 2));
 	if (str == NULL)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	if (s1 != NULL)
 	{
-		str[i] = s1[i];
-		i++;
+		while (s1[i])
+		{
+			str[i] = s1[i];
+			i++;
+		}
 	}
 	if (s2 != NULL)
 	{

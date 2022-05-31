@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/30 19:03:05 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:05:07 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ int ft_type_redirection(char **str)
 	error = ft_check_redirection_in(str[1]);
 	if (error == 0) 
 		error = ft_check_redirection_out(str[1]);
-	if (str[2] == NULL || error != 0)
+	if (error != 0)
 	{
 		if (error > 0)
 			error = -error;
 		return (error);
 	}
+	if (str[2] == NULL)
+		return (rd);
 	error = ft_check_redirection_in(str[2]);
 	if (error == 0)
 		error = ft_check_redirection_out(str[2]);
@@ -143,6 +145,55 @@ int	ft_update_file(char *str, t_file *files, int total, int rd)
 	return (0);
 }
 
+int	ft_search_pattern(char *str, char *pattern)
+{
+	int i; 
+
+	i = 0;
+	if (str[i] == pattern[i])
+	{		
+		while(str[i] == pattern[i])
+		{
+			if (pattern[i] == '\0')
+				return (1);
+		i++;
+		}
+	}
+	return (0);			
+}
+
+char *ft_fill_heredoc(char *pattern)
+{
+    char *ptr;
+	char *temp; 	
+	char *str; 
+	int	fd;
+	int pattern_found;
+
+	fd = open("herdoc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	str = NULL;
+	ptr = NULL; 
+	temp = NULL;
+	pattern_found = 0;
+	while (pattern_found == 0)
+	{
+		ptr = readline("heredoc>");
+		pattern_found = ft_search_pattern(ptr, pattern);
+		temp = str; 
+		if (pattern_found == 0)
+			str = ft_strjoin_andadd_rt(str, ptr);
+		else 
+			str = ft_strjoin(str, ptr);
+		if (str == NULL)
+			return (NULL);
+		if (temp != NULL)
+			free(temp);
+		free(ptr);
+	}
+	write(fd, str, ft_strlen(str));
+	return (ft_itoa(fd));
+}
+
 int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 {
 	int	 total; 
@@ -156,7 +207,12 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 	if (rd == 1)
 		input->redir_input++;
 	if (rd == 4)
+	{
+		file = ft_fill_heredoc(file);		
+		if (file == NULL)
+			return  (ERROR_MEMORY);
 		input->redir_double_input++;
+	}
 	if (ft_update_file(file, input->files, total, rd) != 0)
 		return (ERROR_MEMORY);
 	return (0);
@@ -182,11 +238,11 @@ int	ft_parse_input_redirection(t_input *input)
 	while (input->cmds[i])
 	{
 		if (input->cmds[i][0] == '<' || input->cmds[i][0] == '>')
-		{
+		{			
 			rd = ft_type_redirection(&input->cmds[i]);
 			if (rd < 0)
 				return (ft_print_error(rd));
-			else if (ft_fulling_redir_para(rd, input, input->cmds[i + 1]) == 2)
+			else if (ft_fulling_redir_para(rd, input, input->cmds[i + 1]) == ERROR_MEMORY)
 				return (ERROR_MEMORY);
 		}
 		i++;

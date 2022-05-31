@@ -61,6 +61,7 @@ typedef struct s_input
 	int				redir_double_input;
 	int				redir_double_output;
 	char			*cmd_fct;
+	int				*is_a_string;
 	char			**cmds;
 	int				pipe;
 }	t_input;

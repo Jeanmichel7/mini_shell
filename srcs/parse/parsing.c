@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/30 17:22:26 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:22:48 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	ft_ycheck_pipe(char *temp)
 
 char	*ft_if_quotes_not_closes(t_data *data)
 {
-    char *ptr;
-	char *temp; 	
-	int i; 
-	int	omit;
+    char 	*ptr;
+	char	 *temp; 	
+	int 	i; 
+	int		omit;
 
 	i = -1;
 	omit = 0;
@@ -111,6 +111,7 @@ char	*ft_if_quotes_not_closes(t_data *data)
 	}
 	return (data->temp);
 }
+
 int	ft_freetab(char **tab)
 {
 	int	i;
