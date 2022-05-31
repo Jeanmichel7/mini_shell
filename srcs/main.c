@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/30 01:25:08 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/31 13:11:02 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,7 @@ void	fake_init_inputs104(t_data *data)
 
 
 
-/* ********************** NEW LOCAL VAR ************************* */
+/* ********************** ENV ************************* */
 
 void	fake_init_inputs200(t_data *data)
 {
@@ -398,9 +398,28 @@ void	fake_init_inputs200(t_data *data)
 	data->inputs[0].file[0].type = 0;
 	data->inputs[0].file[0].fd = -1;
 
-	data->inputs[0].cmds = malloc(sizeof(char **) * 2);
-	data->inputs[0].cmds[0] = "TEST=blabla";
-	data->inputs[0].cmds[1] = NULL;
+	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
+	data->inputs[0].cmds[0] = "export";
+	data->inputs[0].cmds[1] = "TEST=blabla";
+	data->inputs[0].cmds[2] = NULL;
+}
+
+void	fake_init_inputs201(t_data *data)
+{
+	data->nb_pipe = 0;
+	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+
+	data->inputs[0].child = -1;
+
+	data->inputs[0].file = malloc(sizeof(t_file) * 1);
+	data->inputs[0].file[0].name = NULL;
+	data->inputs[0].file[0].type = 0;
+	data->inputs[0].file[0].fd = -1;
+
+	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
+	data->inputs[0].cmds[0] = "unset";
+	data->inputs[0].cmds[1] = "USER";
+	data->inputs[0].cmds[2] = NULL;
 }
 
 
@@ -431,7 +450,7 @@ char **ft_envcpy(char **env)
 	i = 0;
 	while (env[i] != NULL)
 		i++;
-	new_env = malloc(sizeof(char *) * i);
+	new_env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env[i] != NULL)
 	{
@@ -529,10 +548,10 @@ int main(int argc, char **argv, char **env)
 			add_history(data.temp);
 		}
 		//ft_print_env(data.env);
-		//fake_init_inputs300(&data); /* remplissage des valeurs data.inputs*/
-		ft_parse(&data);
+		fake_init_inputs201(&data); /* remplissage des valeurs data.inputs*/
+		//ft_parse(&data);
 		ft_exec_parse(&data);
-		ft_free_readline(&data);
+		ft_free_section(&data);
 	}
 	ft_free(&data);
 	return (0);

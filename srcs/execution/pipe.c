@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/29 22:08:09 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/30 01:52:07 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void ft_pipe(t_data *data)
 		close(data->inputs[i].tube[1]);
 		close(data->inputs[i].tube[0]);
 		ft_close_redir(data, i);
-		ft_free_sec(data, i);
+		ft_free_sec_pipe(data, i);
 		i++;
 	}
 	free(data->inputs);

@@ -82,7 +82,6 @@ void	ft_pipe(t_data *data);
 int		ft_check_cmds(char *fct, char *fct_name);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
-void	ft_free_sec(t_data *data, int i);
 
 /* BUILTINS */
 int		ft_is_builtin(t_data *data, int i);
@@ -102,7 +101,8 @@ int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
 
 /* FREE */
-void	ft_free_readline(t_data *data);
+void	ft_free_section(t_data *data);
+void	ft_free_sec_pipe(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 void	*ft_freetab(char **tab);

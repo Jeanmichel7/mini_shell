@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 22:26:21 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/30 01:52:04 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,6 @@ void	ft_close_redir(t_data *data, int i)
 		//if (data->inputs[i].file[j].type == OUT)
 		//	close(data->inputs[i].file[j].fd);
 		j++;
-	}
-}
-
-void	ft_free_sec(t_data *data, int i)
-{
-	int	j;
-
-	j = 0;
-	while (data->inputs[i].cmds[j])
-	{
-		//free(data->inputs[i].cmds[j]);
-		j++;
-	}
-	if (!ft_is_builtin(data, i))
-	{
-		free(data->inputs[i].cmd_fct);
-		free(data->inputs[i].cmds);
-		free(data->inputs[i].file);
 	}
 }
 
