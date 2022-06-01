@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 18:08:31 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:30:44 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void ft_pipe(t_data *data)
 		if (ft_check_fds(data, i) || ft_check_cmds(data->inputs[i].cmd_fct, data->inputs[i].cmds[0]))
 		{
 			i++;
-			fprintf(stderr, "break\n");
+			//fprintf(stderr, "break\n");
 			break;
 		}
 		pipe(data->inputs[i].tube);

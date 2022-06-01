@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 17:23:00 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:29:12 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int	ft_yparsing(t_data *data)
 	if (data->inputs == NULL)
 		return (ft_yerror(5, data));
 	ft_convert_redi(data);
-	return (ft_yprint_input(data));
+	//return (ft_yprint_input(data));
+	return (0);
 }

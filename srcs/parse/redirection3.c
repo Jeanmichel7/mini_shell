@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   redirection3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 15:54:40 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 20:56:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_update_file(char *str, t_file *files, int total, int rd)
+int	ft_update_file(char *str, t_file **files, int total, int rd)
 {
-	int i; 
-	t_file *new_file; 
+	int		i;
+	t_file	*new_file;
 
 	i = 0;
 	new_file = ft_calloc(total + 1, sizeof(t_file));
@@ -23,9 +23,10 @@ int	ft_update_file(char *str, t_file *files, int total, int rd)
 		return (ERROR_MEMORY);
 	if (files != NULL)
 		ft_memcpy(new_file, files, (sizeof(t_file) * (total + 1)));
-	new_file[total].fd = 0;
-	new_file[total].type = rd; 
+	new_file[total].fd = -1;
+	new_file[total].type = rd;
 	new_file[total].name = str; 
+	*files = new_file;
 	return (0);
 }
 

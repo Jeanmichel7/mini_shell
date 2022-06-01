@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 18:20:38 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 20:38:06 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void	*ft_create_inputs(t_data *data)
 		ptr->file = ft_calloc(1, sizeof(t_file));
 		if (ptr->file == NULL)
 			return (NULL);
-		ptr->file->type = -1;
+		ptr->file->type = 0;
+		ptr->child = -1;
 		i++;
 	}
 	data->inputs = ptr;

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 18:19:38 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 20:45:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@
 
 typedef enum e_type
 {
-	HEREDOC = 1,
-	IN,
+	IN = 1,
 	OUT,
-	APPEND
+	APPEND,
+	HEREDOC
 }	t_type;
 
 typedef struct s_file
@@ -61,7 +61,7 @@ typedef struct s_input
 	int				redir_double_input;
 	int				redir_double_output;
 	char			*cmd_fct;
-	int				*is_a_string;
+	//int			*is_a_string;
 	char			**cmds;
 	int				pipe;
 }	t_input;
@@ -131,7 +131,7 @@ int		ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr);
 int		ft_print_error(int rd);
 int 	ft_type_redirection(char **str);
 int		ft_search_pattern(char *str, char *pattern);
-int		ft_update_file(char *str, t_file *files, int total, int rd);
+int		ft_update_file(char *str, t_file **files, int total, int rd);
 
 
 //t_li	*ft_lsti_new_t_li(int content);
