@@ -6,28 +6,33 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/18 03:17:14 by jrasser          ###   ########.fr        #
+#    Updated: 2022/05/29 22:07:32 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
-			srcs/execution/jm_part.c \
 			srcs/execution/pipe.c \
-			srcs/execution/pipe_checker.c
+			srcs/execution/utils_pipe.c \
+			srcs/execution/check_error.c \
+			srcs/execution/free.c \
+			srcs/execution/pipe_checker.c \
+			srcs/execution/builtins/builtins1.c \
+			srcs/execution/builtins/env.c
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra -g
-LDFLAGS		= -I./include/ -I./libft/ 
+LDFLAGS		= -I./include/ -I./libft/
+DEBEUG		= -g -fsanitize=address
 
 .c.o:		
 			@${CC} ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -lreadline -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} ${DEBEUG} -lreadline -L./libft -lft
 
 all :		${NAME}
 

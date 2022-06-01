@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/23 15:45:02 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/05/29 22:07:59 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,26 @@
 # include <termios.h>
 # include <errno.h>
 
-typedef struct s_fd
+typedef enum e_type
 {
+	HEREDOC = 1,
+	IN,
+	OUT,
+	APPEND
+}	t_type;
+
+typedef struct s_file
+{
+	char	*name;
+	t_type	type;
 	int		fd;
-	char	type;
-}	t_fd;
+}	t_file;
 
 typedef struct s_input
 {
 	pid_t			child;
-	pid_t			child2;
-	t_fd			*fd;
+	t_file			*file;
 	int				tube[2];
-	char			**env;
 	int				redir_input;
 	int				redir_output;
 	int				redir_double_input;
@@ -59,19 +66,46 @@ typedef struct s_data
 	char			*temp;
 	char			*prompt;
 	int				done;
+	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
+	int				fd_in_saved;
+	int				fd_out_saved;
 }	t_data;
 
 /* PARSING */
 
+
 /* EXECUTION */
-void	ft_jm_part(t_data *data, char **env);
+void	ft_exec_parse(t_data *data);
+void	ft_pipe(t_data *data);
+int		ft_check_cmds(char *fct, char *fct_name);
+char	*ft_check_access(t_data *data, int i);
+void	ft_close_redir(t_data *data, int i);
 
-void	ft_pipe(t_data *data, char **env);
-void	ft_check_cmds(char *fct, char *args);
-char	*ft_check_access(char **env, char *cmd);
+/* BUILTINS */
+int		ft_is_builtin(t_data *data, int i);
+int		ft_is_new_local_var(t_data *data, int i);
+void	ft_add_new_local_var(t_data *data, int i);
+void	ft_echo(t_data *data, int i);
+void	ft_cd(t_data *data, int i);
+void	ft_pwd(t_data *data, int i);
+void	ft_export(t_data *data, int i);
+void	ft_unset(t_data *data, int i);
+void	ft_env(t_data *data, int i);
+void	ft_exit(t_data *data, int i);
 
+
+/* ERR */
+int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
+
+/* FREE */
+void	ft_free_section(t_data *data);
+void	ft_free_sec_pipe(t_data *data, int i);
+void	ft_free(t_data *data);
+void	ft_free_tab(char **tab);
+void	*ft_freetab(char **tab);
+
 
 #endif
