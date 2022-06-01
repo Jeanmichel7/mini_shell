@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 20:56:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/02 01:24:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ int	ft_update_file(char *str, t_file **files, int total, int rd)
 	new_file = ft_calloc(total + 1, sizeof(t_file));
 	if (new_file == NULL)
 		return (ERROR_MEMORY);
-	if (files != NULL)
-		ft_memcpy(new_file, files, (sizeof(t_file) * (total + 1)));
-	new_file[total].fd = -1;
-	new_file[total].type = rd;
-	new_file[total].name = str; 
+	if (*files != NULL)
+		ft_memcpy(new_file, *files, (sizeof(t_file) * (total + 1)));
+	if (total != 0)
+	{
+		new_file[total - 1].fd = -1;
+		new_file[total - 1].type = rd;
+		new_file[total - 1].name = str; 
+	}
+	else 
+		new_file[total].fd = -1;
 	*files = new_file;
 	return (0);
 }
@@ -49,7 +54,7 @@ int	ft_search_pattern(char *str, char *pattern)
 
 int	print_and_rv(char *str)
 {
-	printf("minishell: syntax error near unexpected token `%s'\n", str);
+	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", str);
 	return (258);
 }
 
