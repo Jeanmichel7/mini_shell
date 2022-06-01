@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 16:40:28 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:20:38 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,10 @@ void	*ft_create_inputs(t_data *data)
 		return (NULL);
 	while (i < (data->nb_pipe + 1))
 	{
-		ptr->files = ft_calloc(1, sizeof(t_file));
-		if (ptr->files == NULL)
+		ptr->file = ft_calloc(1, sizeof(t_file));
+		if (ptr->file == NULL)
 			return (NULL);
-		ptr->files->type = -1;
+		ptr->file->type = -1;
 		i++;
 	}
 	data->inputs = ptr;

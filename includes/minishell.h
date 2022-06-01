@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 18:08:18 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:19:38 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <errno.h>
+
+# define ERROR_PIPE 1001
+# define ERROR_MEMORY 1002
+# define ERROR_REDIRECTION 1003
+
 
 typedef enum e_type
 {
@@ -68,7 +73,6 @@ typedef struct s_data
 	char			*temp;
 	char			*prompt;
 	int				done;
-	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
 	int				fd_in_saved;
@@ -114,7 +118,6 @@ int		ft_print_tab(char **tab);
 //int		ft_which_redirection_take_on_board(const char *s, t_li **list);
 int		ft_which_redirection_take_on_board(char *s);
 int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
-int		ft_freetab(char **tab);
 int		ft_ycheck_pipe(char *temp);
 char	*ft_if_quotes_not_closes(t_data *data);
 char 	**ft_envcpy(char **env);
@@ -139,7 +142,7 @@ void	ft_free_section(t_data *data);
 void	ft_free_sec_pipe(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
-void	*ft_freetab(char **tab);
+//void	*ft_freetab(char **tab);
 
 
 #endif

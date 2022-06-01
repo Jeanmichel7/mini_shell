@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/31 13:18:32 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:22:15 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	ft_len_env(t_data *data)
 void	ft_unset(t_data *data, int i)
 {
 	int		j;
-	int		index_of;
 	char	*value;
 	int		len_env;
 

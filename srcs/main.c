@@ -6,15 +6,12 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 18:00:59 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:17:59 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-<<<<<<< HEAD
-void	ft_free(t_data *data)
-=======
+/*
 void	fake_init_inputs(t_data *data)
 {
 	data->nb_pipe = 0;
@@ -135,7 +132,7 @@ void	fake_init_inputs4(t_data *data)
 
 
 
-/* ************************************************ */
+ ************************************************ 
 
 
 
@@ -280,8 +277,7 @@ void	fake_init_inputs40(t_data *data)
 	data->inputs[1].cmds[2] = NULL;
 }
 
-
-/* ********************** BUILTINS ************************* */
+ ********************** BUILTINS ************************* 
 
 void	fake_init_inputs100(t_data *data)
 {
@@ -349,7 +345,6 @@ void	fake_init_inputs102(t_data *data)
 }
 
 void	fake_init_inputs103(t_data *data)
->>>>>>> main
 {
 	data->nb_pipe = 0;
 	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
@@ -388,7 +383,7 @@ void	fake_init_inputs104(t_data *data)
 
 
 
-/* ********************** ENV ************************* */
+********************** ENV *************************
 
 void	fake_init_inputs200(t_data *data)
 {
@@ -426,8 +421,7 @@ void	fake_init_inputs201(t_data *data)
 	data->inputs[0].cmds[2] = NULL;
 }
 
-
-/* ********************** ^C ************************* */
+ ********************** ^C *************************
 
 void	fake_init_inputs300(t_data *data)
 {
@@ -482,7 +476,7 @@ void	ft_parse(t_data *data)
 	data->inputs[0].cmds[0] = data->temp;
 	data->inputs[0].cmds[1] = NULL;
 }
-
+*/
 
 
 

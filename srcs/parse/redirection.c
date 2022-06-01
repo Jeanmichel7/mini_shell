@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 17:23:54 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:20:07 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 			return  (ERROR_MEMORY);
 		input->redir_double_input++;
 	}
-	if (ft_update_file(file, input->files, total, rd) != 0)
+	if (ft_update_file(file, input->file, total, rd) != 0)
 		return (ERROR_MEMORY);
 	return (0);
 }
