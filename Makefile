@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/31 22:10:11 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/01 15:50:30 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,14 @@ SRCS		= srcs/main.c \
 			srcs/parse/ft_strjoin_andadd_rt.c  \
 			srcs/parse/print_cmd.c \
 			srcs/parse/redirection.c \
+			srcs/parse/redirection2.c \
+			srcs/parse/redirection3.c \
 			srcs/parse/ft_split_redirection.c \
 			srcs/parse/ft_replace_elements.c \
 			srcs/parse/list_utils.c \
+			srcs/parse/parsing_utils.c \
+			srcs/parse/parsing_utils2.c \
+			srcs/parse/parsing_utils3.c \
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f

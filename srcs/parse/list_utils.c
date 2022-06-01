@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 21:47:30 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 02:57:49 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:36:04 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_lstadd_back_t_li(t_li **lst, t_li *new)
 	}
 }
 */
+
 int	ft_which_redirection_take_on_board(char *s)
 {
 	unsigned int i; 

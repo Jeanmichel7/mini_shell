@@ -6,12 +6,12 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:34:35 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/30 13:24:48 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:42:20 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/minishell.h"
 
-void	ft_yprint_input(t_data *data)
+int	ft_yprint_input(t_data *data)
 {
 	int	i;
 	int	u;
@@ -40,9 +40,10 @@ void	ft_yprint_input(t_data *data)
 		printf("\n-----------------------------------\n");
 		i++;
 	}
+	return (0);
 }
 
-void	ft_print_tab(char **tab)
+int	ft_print_tab(char **tab)
 {
 	int	i; 
 	int j;
@@ -59,4 +60,5 @@ void	ft_print_tab(char **tab)
 		}
 	}
 	ft_printf("\n end of tab");
+	return (0);
 }
