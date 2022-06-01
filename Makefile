@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/05/28 12:11:09 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/05/31 22:10:11 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS		= srcs/main.c \
 			srcs/parse/redirection.c \
 			srcs/parse/ft_split_redirection.c \
 			srcs/parse/ft_replace_elements.c \
+			srcs/parse/list_utils.c \
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f

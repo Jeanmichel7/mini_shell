@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/31 13:22:48 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 02:53:56 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,17 +270,52 @@ void	*ft_create_inputs(t_data *data)
 	return (NULL);
 }
 
+int	ft_convert_redi(t_data *data)
+{
+	int i; 
+	int u;
+	int j;
+
+	i = 0;
+	u = 0;
+	j = 0;
+	while (i <= data->nb_pipe)
+	{
+		j = 0;
+		while (data->inputs[i].cmds[j])
+		{
+			u = 0;
+			while (data->inputs[i].cmds[j][u])
+			{
+				if (data->inputs[i].cmds[j][u] == -1)
+					data->inputs[i].cmds[j][u] = '>';
+				if (data->inputs[i].cmds[j][u] == -2)
+					data->inputs[i].cmds[j][u] = '<';
+				u++;
+			}
+			j++;
+		}
+		i++;
+	}	
+	return (0);
+}
+
 int	ft_fulling_inputs_cmds(t_data *data)
 {
 	int i;
 	char **cmd; 
 	char **ptr;
+	int  error;
 
+	error = 0;
 	i = 0; 
 	cmd = ft_split_and_omit(data->temp, '|', 1);
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
+		error = ft_which_redirection_take_on_board(cmd[i]);
+			if (error != 0)
+				return (error);
 		ptr = ft_split_and_omit(cmd[i], ' ', 0);	
 		if (ptr == NULL)
 			return (ft_freetab(cmd));
@@ -296,7 +331,7 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
     char *ptr;	
 	char **cmd;
 
-	ptr = NULL;	
+	ptr = NULL;
 	if (data->inputs[data->nb_pipe].cmds == NULL)
 	{
 		ptr = readline(">");
@@ -339,6 +374,7 @@ int	ft_yparsing(t_data *data)
 		return(ft_yerror(ERROR_MEMORY));
 	if (data->inputs == NULL)
 		return(ft_yerror(5));
+	ft_convert_redi(data);
 	ft_yprint_input(data);
 	return (0);
 }

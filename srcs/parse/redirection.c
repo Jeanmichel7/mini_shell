@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/05/31 13:05:07 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 03:04:21 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ int ft_type_redirection(char **str)
 		error = ft_check_redirection_out(str[2]);
 	if (error != 0)
 	{
-		if (error > 0)
+		if (error > 0 && str[3] == NULL)
 			error = -error;
-		return (error);
+		if (error < 0)
+			return (error);
 	}
 	return (rd);
 }

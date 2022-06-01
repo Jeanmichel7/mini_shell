@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 12:29:02 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/05/31 22:15:15 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_sub_split_v2(char const *s, char c, unsigned int *j, int keep_quotes)
 	omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	while ((s[*j] != c || omit != 0) && s[*j])
 	{
+			
 		str[k++] = s[(*j)++];
 		omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	}

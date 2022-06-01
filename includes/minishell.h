@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/25 10:52:46 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 02:58:14 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +34,13 @@
 #define ERROR_PIPE 1001
 #define ERROR_MEMORY 1002
 #define ERROR_REDIRECTION 1003
-
+/*
+typedef struct t_li
+{
+	int				content;
+	struct t_li		*next;
+}	t_li;
+*/
 typedef enum e_type
 {
 	IN = 1,
@@ -60,6 +65,7 @@ typedef struct s_input
 	int				redir_output;
 	int				redir_double_input;
 	int				redir_double_output;
+//	t_li			*rd_usefull;
 	char			*cmd_fct;
 	int				*is_a_string;
 	char			**cmds;
@@ -98,5 +104,9 @@ char	**ft_replace_elements(char **tab, char **elements, int *pos);
 int		ft_yerror(int nb);
 int		ft_freetab(char **tab);
 void	ft_print_tab(char **tab);
+//int		ft_which_redirection_take_on_board(const char *s, t_li **list);
+int		ft_which_redirection_take_on_board(char *s);
+//t_li	*ft_lsti_new_t_li(int content);
+
 
 #endif
