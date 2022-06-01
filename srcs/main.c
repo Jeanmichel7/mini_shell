@@ -6,12 +6,12 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/31 13:11:02 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 20:46:17 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
+/*
 void	fake_init_inputs(t_data *data)
 {
 	data->nb_pipe = 0;
@@ -27,7 +27,7 @@ void	fake_init_inputs(t_data *data)
 	data->inputs[0].cmds[1] = "-al";
 	data->inputs[0].cmds[2] = NULL;
 }
-
+*/
 void	fake_init_inputs2(t_data *data)
 {
 	data->nb_pipe = 1;
@@ -58,7 +58,7 @@ void	fake_init_inputs2(t_data *data)
 	data->inputs[1].cmds[1] = "-e";
 	data->inputs[1].cmds[2] = NULL;
 }
-
+/*
 void	fake_init_inputs3(t_data *data)
 {
 	data->nb_pipe = 2;
@@ -132,7 +132,7 @@ void	fake_init_inputs4(t_data *data)
 
 
 
-/* ************************************************ */
+ ************************************************ 
 
 
 
@@ -234,6 +234,7 @@ void	fake_init_inputs30(t_data *data)
 	data->inputs[2].cmds[1] = "-e";
 	data->inputs[2].cmds[2] = NULL;
 }
+*/
 
 void	fake_init_inputs40(t_data *data)
 {
@@ -277,8 +278,8 @@ void	fake_init_inputs40(t_data *data)
 	data->inputs[1].cmds[2] = NULL;
 }
 
-
-/* ********************** BUILTINS ************************* */
+/*
+ ********************** BUILTINS ************************* 
 
 void	fake_init_inputs100(t_data *data)
 {
@@ -384,7 +385,7 @@ void	fake_init_inputs104(t_data *data)
 
 
 
-/* ********************** ENV ************************* */
+********************** ENV *************************
 
 void	fake_init_inputs200(t_data *data)
 {
@@ -422,8 +423,7 @@ void	fake_init_inputs201(t_data *data)
 	data->inputs[0].cmds[2] = NULL;
 }
 
-
-/* ********************** ^C ************************* */
+ ********************** ^C *************************
 
 void	fake_init_inputs300(t_data *data)
 {
@@ -478,7 +478,7 @@ void	ft_parse(t_data *data)
 	data->inputs[0].cmds[0] = data->temp;
 	data->inputs[0].cmds[1] = NULL;
 }
-
+*/
 
 
 
@@ -525,9 +525,11 @@ void	ft_init_data(t_data *data, char **env)
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int		error; 
 
 	(void)argc;
 	(void)argv;
+	error = 0;
 	ft_init_data(&data, env);
 	while (!data.done)
 	{
@@ -537,21 +539,17 @@ int main(int argc, char **argv, char **env)
 		data.prompt = ft_color_prompt();
 		data.temp = readline(data.prompt);
 		if (!data.temp)
-		{
-			//fprintf(stderr,"temp : %s\n", data.temp);
-			//ft_free(&data);
 			exit(1);
-		}
 		if (*data.temp)
-		{
-			fprintf(stderr,"input : %s\n", data.temp);
 			add_history(data.temp);
+		//fake_init_inputs201(&data);
+		error = ft_yparsing(&data);
+		if (error == 0)
+		{
+			ft_yprint_input(&data);
+			ft_exec_parse(&data);
+			ft_free_section(&data);
 		}
-		//ft_print_env(data.env);
-		fake_init_inputs201(&data); /* remplissage des valeurs data.inputs*/
-		//ft_parse(&data);
-		ft_exec_parse(&data);
-		ft_free_section(&data);
 	}
 	ft_free(&data);
 	return (0);

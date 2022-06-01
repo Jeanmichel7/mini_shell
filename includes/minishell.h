@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/29 22:07:59 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 20:45:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@
 # include <termios.h>
 # include <errno.h>
 
+# define ERROR_PIPE 1001
+# define ERROR_MEMORY 1002
+# define ERROR_REDIRECTION 1003
+
+
 typedef enum e_type
 {
-	HEREDOC = 1,
-	IN,
+	IN = 1,
 	OUT,
-	APPEND
+	APPEND,
+	HEREDOC
 }	t_type;
 
 typedef struct s_file
@@ -56,17 +61,18 @@ typedef struct s_input
 	int				redir_double_input;
 	int				redir_double_output;
 	char			*cmd_fct;
+	//int			*is_a_string;
 	char			**cmds;
 	int				pipe;
 }	t_input;
 
 typedef struct s_data
 {
+	char			**env;
 	int				nb_pipe;
 	char			*temp;
 	char			*prompt;
 	int				done;
-	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
 	int				fd_in_saved;
@@ -99,13 +105,44 @@ void	ft_exit(t_data *data, int i);
 /* ERR */
 int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
+int		ft_yprint_input(t_data *data);
+int		ft_yparsing(t_data *data);
+char	**ft_split_and_omit(char const *s, char c, int keep_quotes);
+int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
+char	*ft_strjoin_andadd_rt(char const *s1, char const *s2);
+int 	ft_parse_redirection(t_data *data); 
+char	**ft_split_redirection(char const *s);
+char	**ft_replace_elements(char **tab, char **elements, int *pos);
+int		ft_freetab(char **tab);
+int		ft_print_tab(char **tab);
+//int		ft_which_redirection_take_on_board(const char *s, t_li **list);
+int		ft_which_redirection_take_on_board(char *s);
+int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, int keep_quotes);
+int		ft_ycheck_pipe(char *temp);
+char	*ft_if_quotes_not_closes(t_data *data);
+char 	**ft_envcpy(char **env);
+void	*ft_create_inputs(t_data *data);
+int		ft_yerror(int nb, t_data *data);
+int		ft_check_and_replace_var(char **str, char **env);
+int		ft_replace_var(char **str, char **env, int *i, int *j);
+int		ft_checkvar(char *str, char *var, int *k);
+int		ft_strcpy_var(char **str, char *value, int length_name, int start);
+int		ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr);
+int		ft_print_error(int rd);
+int 	ft_type_redirection(char **str);
+int		ft_search_pattern(char *str, char *pattern);
+int		ft_update_file(char *str, t_file **files, int total, int rd);
+
+
+//t_li	*ft_lsti_new_t_li(int content);
+
 
 /* FREE */
 void	ft_free_section(t_data *data);
 void	ft_free_sec_pipe(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
-void	*ft_freetab(char **tab);
+//void	*ft_freetab(char **tab);
 
 
 #endif
