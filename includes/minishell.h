@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 17:22:21 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:08:18 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,12 @@
 # include <termios.h>
 # include <errno.h>
 
-#define ERROR_PIPE 1001
-#define ERROR_MEMORY 1002
-#define ERROR_REDIRECTION 1003
-/*
-typedef struct t_li
-{
-	int				content;
-	struct t_li		*next;
-}	t_li;
-*/
 typedef enum e_type
 {
-	IN = 1,
+	HEREDOC = 1,
+	IN,
 	OUT,
-	APPPEND,
-	HEREDOC,
+	APPEND
 }	t_type;
 
 typedef struct s_file
@@ -59,13 +49,12 @@ typedef struct s_file
 typedef struct s_input
 {
 	pid_t			child;
-	t_file			*files;
+	t_file			*file;
 	int				tube[2];
 	int				redir_input;
 	int				redir_output;
 	int				redir_double_input;
 	int				redir_double_output;
-//	t_li			*rd_usefull;
 	char			*cmd_fct;
 	int				*is_a_string;
 	char			**cmds;
@@ -79,19 +68,38 @@ typedef struct s_data
 	char			*temp;
 	char			*prompt;
 	int				done;
+	char			**env;
 	HIST_ENTRY		**list;
 	t_input			*inputs;
+	int				fd_in_saved;
+	int				fd_out_saved;
 }	t_data;
 
 /* PARSING */
 
+
 /* EXECUTION */
-void	ft_jm_part(t_data *data, char **env);
+void	ft_exec_parse(t_data *data);
+void	ft_pipe(t_data *data);
+int		ft_check_cmds(char *fct, char *fct_name);
+char	*ft_check_access(t_data *data, int i);
+void	ft_close_redir(t_data *data, int i);
 
-void	ft_pipe(t_data *data, char **env);
-void	ft_check_cmds(char *fct, char *args);
-char	*ft_check_access(char **env, char *cmd);
+/* BUILTINS */
+int		ft_is_builtin(t_data *data, int i);
+int		ft_is_new_local_var(t_data *data, int i);
+void	ft_add_new_local_var(t_data *data, int i);
+void	ft_echo(t_data *data, int i);
+void	ft_cd(t_data *data, int i);
+void	ft_pwd(t_data *data, int i);
+void	ft_export(t_data *data, int i);
+void	ft_unset(t_data *data, int i);
+void	ft_env(t_data *data, int i);
+void	ft_exit(t_data *data, int i);
 
+
+/* ERR */
+int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
 int		ft_yprint_input(t_data *data);
 int		ft_yparsing(t_data *data);
@@ -124,6 +132,14 @@ int		ft_update_file(char *str, t_file *files, int total, int rd);
 
 
 //t_li	*ft_lsti_new_t_li(int content);
+
+
+/* FREE */
+void	ft_free_section(t_data *data);
+void	ft_free_sec_pipe(t_data *data, int i);
+void	ft_free(t_data *data);
+void	ft_free_tab(char **tab);
+void	*ft_freetab(char **tab);
 
 
 #endif
