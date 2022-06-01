@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 20:56:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 21:31:56 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ int	ft_update_file(char *str, t_file **files, int total, int rd)
 
 int	ft_search_pattern(char *str, char *pattern)
 {
-	int i; 
+	int i;
 
 	i = 0;
 	if (str[i] == pattern[i])
-	{		
+	{
 		while(str[i] == pattern[i])
 		{
 			if (pattern[i] == '\0')
 				return (1);
-		i++;
+			i++;
 		}
 	}
-	return (0);			
+	return (0);
 }
 
 int	print_and_rv(char *str)

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 20:59:42 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 21:21:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	ft_parse_input_redirection(t_input *input)
 			if (rd < 0)
 				return (ft_print_error(rd));
 			else if (ft_fulling_redir_para(rd, input,
-					input->cmds[i + 1]) == ERROR_MEMORY)
-				return (ERROR_MEMORY);
+				input->cmds[i + 1]) == ERROR_MEMORY)
+			return (ERROR_MEMORY);
 		}
 		i++;
 	}
