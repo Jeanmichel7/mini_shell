@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/02 17:06:28 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/02 22:12:04 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_file
 
 typedef struct s_input
 {
-	pid_t			child;
 	t_file			*file;
 	int				tube[2];
 	int				redir_input;
@@ -64,6 +63,7 @@ typedef struct s_input
 	//int			*is_a_string;
 	char			**cmds;
 	int				pipe;
+	pid_t			child;
 }	t_input;
 
 typedef struct s_data
