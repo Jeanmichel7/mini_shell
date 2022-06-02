@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/02 01:23:22 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:15:17 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_fill_heredoc(char *pattern)
 	pattern_found = 0;
 	while (pattern_found == 0)
 	{
-		ptr = readline("heredoc>");
+		ptr = readline(">");
 		pattern_found = ft_search_pattern(ptr, pattern);
 		temp = str;
 		if (pattern_found == 0)
@@ -103,6 +103,9 @@ int	ft_parse_input_redirection(t_input *input)
 			else if (ft_fulling_redir_para(rd, input,
 					input->cmds[i + 1]) == ERROR_MEMORY)
 				return (ERROR_MEMORY);
+			input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
+			if (input->cmds[i] == NULL)
+				break; 
 		}
 		i++;
 	}
