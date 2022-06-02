@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 20:45:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:06:28 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ int		ft_print_error(int rd);
 int 	ft_type_redirection(char **str);
 int		ft_search_pattern(char *str, char *pattern);
 int		ft_update_file(char *str, t_file **files, int total, int rd);
+char	**ft_delete_rd(char **tab);
+char 	**ft_delete_filename_in_cmd(char **tab, int pos);
+char	 **ft_delete_files_name(char **tab, int pos, int rd);
+
 
 
 //t_li	*ft_lsti_new_t_li(int content);

@@ -105,12 +105,12 @@ int	ft_yerror(int nb, t_data *data)
 	data = (t_data *)data;
 	if (nb == ERROR_PIPE)
 	{
-		printf("bash: syntax error near unexpected token `|'\n");
+		fprintf(stderr, "bash: syntax error near unexpected token `|'\n");
 		return (258);
 	}
 	if (nb == ERROR_MEMORY)
 	{
-		printf("Error! memory not allocated");
+		fprintf(stderr, "Error! memory not allocated");
 		return (5);
 	}
 	if (nb == ERROR_REDIRECTION)

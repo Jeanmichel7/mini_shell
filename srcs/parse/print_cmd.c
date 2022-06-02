@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:34:35 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 20:32:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/01 22:20:57 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,37 @@ int	ft_yprint_input(t_data *data)
 
 	i = 0;
 	ptr = data->inputs;
-	printf(" data->nb_pipe : %d \n", data->nb_pipe);
+	fprintf(stderr," data->nb_pipe : %d \n", data->nb_pipe);
 	while (i <= data->nb_pipe)
 	{
-		printf("-----------------------------------\n");
+		fprintf(stderr,"-----------------------------------\n");
 		u = 0;
-		printf("| file redir: \n");
+		fprintf(stderr,"| file redir: \n");
 		while (ptr[i].file[u].type != 0)
 		{
-			printf("| name: %s          \n", ptr[i].file[u].name);
-			printf("| type: %d          \n", ptr[i].file[u].type);
-			printf("| fd: %d          \n", ptr[i].file[u].fd);
+			fprintf(stderr,"| name: %s          \n", ptr[i].file[u].name);
+			fprintf(stderr,"| type: %d          \n", ptr[i].file[u].type);
+			fprintf(stderr,"| fd: %d          \n", ptr[i].file[u].fd);
 			u++;
 		}
-		printf("| child: %d          \n", ptr[i].child);
-		printf("| redir_data->inputs : %d                 \n", ptr[i].redir_input);
-		printf("| redit_output: %d                 \n", ptr[i].redir_output);
-		printf("| redir_double_data->input : %d          \n", ptr[i].redir_double_input);
-		printf("| redir_double_output: %d          \n", ptr[i].redir_double_output);
+		fprintf(stderr,"| child: %d          \n", ptr[i].child);
+		fprintf(stderr,"| redir_data->inputs : %d                 \n", ptr[i].redir_input);
+		fprintf(stderr,"| redit_output: %d                 \n", ptr[i].redir_output);
+		fprintf(stderr,"| redir_double_data->input : %d          \n", ptr[i].redir_double_input);
+		fprintf(stderr,"| redir_double_output: %d          \n", ptr[i].redir_double_output);
 
-		//printf("| cmd fonction: %s          \n", ptr[i].cmd_fct);
-		printf("| cmds :");
+		//fprintf(stderr,"| cmd fonction: %s          \n", ptr[i].cmd_fct);
+		fprintf(stderr,"| cmds :");
 		u = 0;
 		if (ptr[i].cmds != NULL)
 		{
 			while (ptr[i].cmds[u] != NULL)
 			{
-				printf("[%s] ", (ptr[i].cmds[u]));
+				fprintf(stderr,"[%s] ", (ptr[i].cmds[u]));
 				u++;
 			}
 		}
-		printf("\n-----------------------------------\n");
+		fprintf(stderr,"\n-----------------------------------\n");
 		i++;
 	}
 	return (0);
@@ -67,11 +67,11 @@ int	ft_print_tab(char **tab)
 	{
 		while(tab[i])
 		{
-			ft_printf("\n addresse tab[%d] : %p", i, &tab[i]);
-			ft_printf("\n valeur de tab[%d] : %s", i, tab[i]);
+			fprintf(stderr,"\n addresse tab[%d] : %p", i, &tab[i]);
+			fprintf(stderr,"\n valeur de tab[%d] : %s", i, tab[i]);
 			i++;
 		}
 	}
-	ft_printf("\n end of tab");
+	fprintf(stderr,"\n end of tab");
 	return (0);
 }
