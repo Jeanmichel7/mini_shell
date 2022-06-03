@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 15:46:00 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:12:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 	if (ft_update_file(file, &input->file, total, rd) != 0)
 		return (ERROR_MEMORY);
 	if (rd == 4)
-	{
 		input->file[total - 1].fd = fd;
+	if (rd == 4)
 		input->file[total - 1].name = NULL;
-	}
 	return (0);
 }
 
-int ft_check_cmd_redirection(int i, t_input *input)
+int	ft_check_cmd_redirection(int i, t_input *input)
 {
-	int rd;
+	int	rd;
+
 	if (input->cmds[i][0] == '<' || input->cmds[i][0] == '>')
 	{			
 		rd = ft_type_redirection(&input->cmds[i]);
@@ -93,16 +93,15 @@ int	ft_parse_input_redirection(t_input *input)
 			return (ERROR_MEMORY);
 		input->cmds = ft_replace_elements(input->cmds, new_cmd, &i);
 	}
-	i = 0;
+	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);
-	while (input->cmds[i])
+	while (input->cmds[++i])
 	{
 		if (ft_check_cmd_redirection(i, input) != 0)
 			return (ERROR_MEMORY);
 		if (input->cmds[i] == NULL)
-			break; 
-		i++;
+			break ;
 	}
 	input->cmds = ft_delete_rd(input->cmds);
 	return (0);
