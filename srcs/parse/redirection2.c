@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:34:04 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 15:51:59 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:15:05 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int	ft_check_redirection_in2(char *str)
 	else if (*(str + 2) == '<')
 	{
 		if (*(str + 3) == '>')
-				return (-1);
+			return (-1);
 		if (*(str + 3) == '<')
-				return (-1);
+			return (-1);
 		return (-4);
 	}
-	else 
+	else
 		return (3);
 }
+
 int	ft_check_redirection_in(char *str)
 {
 	if (*str == '>')
@@ -43,7 +44,7 @@ int	ft_check_redirection_in(char *str)
 				return (-4);
 			return (-1);
 		}
-		else 
+		else
 			return (2);
 	}
 	return (0);
@@ -51,7 +52,7 @@ int	ft_check_redirection_in(char *str)
 
 int	ft_check_redirection_out(char *str)
 {
-	if (*str  == '<')
+	if (*str == '<')
 	{
 		if (*(str + 1) == '<')
 		{
@@ -66,8 +67,8 @@ int	ft_check_redirection_out(char *str)
 			return (4);
 		}
 		else if (*(str + 1) == '>')
-				return (-2);
-			return (1);
+			return (-2);
+		return (1);
 	}
 	return (0);
 }
@@ -87,21 +88,21 @@ int	ft_type_redirection_part2(char **str, int error, int rd)
 	return (rd);
 }
 
-int ft_type_redirection(char **str)
+int	ft_type_redirection(char **str)
 {
-	int rd; 
-	int error;
-	int i; 
+	int	rd;
+	int	error;
+	int	i;
 
 	i = 0;
 	error = 0;
 	rd = ft_check_redirection_in(str[0]);
-	if (rd == 0) 
+	if (rd == 0)
 		rd = ft_check_redirection_out(str[0]);
 	if (str[1] == NULL)
 		return (-5);
 	error = ft_check_redirection_in(str[1]);
-	if (error == 0) 
+	if (error == 0)
 		error = ft_check_redirection_out(str[1]);
 	if (error != 0)
 	{
