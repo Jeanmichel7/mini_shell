@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   redirection3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/02 01:24:58 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:45:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
+{
+	int pattern_found; 
+
+	pattern_found = 0; 
+	ptr = readline(">");
+	pattern_found = ft_search_pattern(ptr, pattern);
+	temp = *str;
+	if (pattern_found == 0)
+		*str = ft_strjoin_andadd_rt(*str, ptr);
+	else
+		*str = ft_strjoin(*str, ptr);
+	if (temp != 0)
+		free(temp);
+	free(ptr);
+	if (*str == 0)
+		return (0);
+	return (pattern_found);
+}
 
 int	ft_update_file(char *str, t_file **files, int total, int rd)
 {
@@ -22,34 +42,33 @@ int	ft_update_file(char *str, t_file **files, int total, int rd)
 	if (new_file == NULL)
 		return (ERROR_MEMORY);
 	if (*files != NULL)
-		ft_memcpy(new_file, *files, (sizeof(t_file) * (total + 1)));
+		ft_memcpy(new_file, *files, (sizeof(t_file) * (total)));
 	if (total != 0)
 	{
 		new_file[total - 1].fd = -1;
 		new_file[total - 1].type = rd;
-		new_file[total - 1].name = str; 
+		new_file[total - 1].name = str;
 	}
-	else 
-		new_file[total].fd = -1;
+	new_file[total].fd = -1;
 	*files = new_file;
 	return (0);
 }
 
 int	ft_search_pattern(char *str, char *pattern)
 {
-	int i; 
+	int	i;
 
 	i = 0;
 	if (str[i] == pattern[i])
-	{		
-		while(str[i] == pattern[i])
+	{
+		while (str[i] == pattern[i])
 		{
 			if (pattern[i] == '\0')
 				return (1);
 		i++;
 		}
 	}
-	return (0);			
+	return (0);
 }
 
 int	print_and_rv(char *str)

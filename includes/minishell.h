@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/02 17:06:28 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:48:26 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_file
 
 typedef struct s_input
 {
-	pid_t			child;
 	t_file			*file;
 	int				tube[2];
 	int				redir_input;
@@ -64,6 +63,7 @@ typedef struct s_input
 	//int			*is_a_string;
 	char			**cmds;
 	int				pipe;
+	pid_t			child;
 }	t_input;
 
 typedef struct s_data
@@ -135,6 +135,8 @@ int		ft_update_file(char *str, t_file **files, int total, int rd);
 char	**ft_delete_rd(char **tab);
 char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	 **ft_delete_files_name(char **tab, int pos, int rd);
+int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
+
 
 
 
