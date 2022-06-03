@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:51 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 17:30:01 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:16:38 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char	*ft_if_quotes_not_closes(t_data *data)
 			if (omit == ERROR_MEMORY)
 				return (NULL);
 		}
-		i = 0;
 	}
 	return (data->temp);
 }
@@ -100,6 +99,7 @@ int	ft_free(t_data data)
 		
 }
 */
+
 int	ft_yerror(int nb, t_data *data)
 {
 	data = (t_data *)data;
