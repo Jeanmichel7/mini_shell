@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 21:21:50 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/08 14:11:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,9 @@ int	ft_fill_heredoc(char *pattern)
 	temp = NULL;
 	pattern_found = 0;
 	while (pattern_found == 0)
-	{
-		ptr = readline("heredoc>");
-		pattern_found = ft_search_pattern(ptr, pattern);
-		temp = str;
-		if (pattern_found == 0)
-			str = ft_strjoin_andadd_rt(str, ptr);
-		else
-			str = ft_strjoin(str, ptr);
-		if (temp != 0)
-			free(temp);
-		free(ptr);
-		if (str == 0)
-			return (0);
-	}
+		pattern_found = ft_extract_line(ptr, &str, temp, pattern);
 	write(fd, str, ft_strlen(str));
+	free(str);
 	return (fd);
 }
 
@@ -49,9 +37,6 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 	int	total;
 	int	fd;
 
-	printf("\n VALEUR DE RD : %d\n", rd);
-	total = input->redir_double_output + input->redir_output
-		+ input->redir_input + input->redir_double_input;
 	if (rd == 3)
 		input->redir_double_output++;
 	if (rd == 2)
@@ -65,13 +50,31 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 			return (ERROR_MEMORY);
 		input->redir_double_input++;
 	}
+	total = input->redir_double_output + input->redir_output
+		+ input->redir_input + input->redir_double_input;
 	if (ft_update_file(file, &input->file, total, rd) != 0)
 		return (ERROR_MEMORY);
 	if (rd == 4)
-	{
-		input->file[total].fd = fd;
-		input->file[total].name = NULL;
-	}
+		input->file[total - 1].fd = fd;
+	if (rd == 4)
+		input->file[total - 1].name = NULL;
+	return (0);
+}
+
+int	ft_check_cmd_redirection(int i, t_input *input)
+{
+	int	rd;
+
+	if (input->cmds[i][0] == '<' || input->cmds[i][0] == '>')
+	{			
+		rd = ft_type_redirection(&input->cmds[i]);
+		if (rd < 0)
+			return (ft_print_error(rd));
+		else if (ft_fulling_redir_para(rd, input,
+				input->cmds[i + 1]) == ERROR_MEMORY)
+			return (ERROR_MEMORY);
+		input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
+	}	
 	return (0);
 }
 
@@ -79,7 +82,6 @@ int	ft_parse_input_redirection(t_input *input)
 {
 	int		i;
 	char	**new_cmd;
-	int		rd;
 	char	*file;
 
 	i = 0;
@@ -91,22 +93,17 @@ int	ft_parse_input_redirection(t_input *input)
 			return (ERROR_MEMORY);
 		input->cmds = ft_replace_elements(input->cmds, new_cmd, &i);
 	}
-	i = 0;
+	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);
-	while (input->cmds[i])
+	while (input->cmds[++i])
 	{
-		if (input->cmds[i][0] == '<' || input->cmds[i][0] == '>')
-		{			
-			rd = ft_type_redirection(&input->cmds[i]);
-			if (rd < 0)
-				return (ft_print_error(rd));
-			else if (ft_fulling_redir_para(rd, input,
-				input->cmds[i + 1]) == ERROR_MEMORY)
+		if (ft_check_cmd_redirection(i, input) != 0)
 			return (ERROR_MEMORY);
-		}
-		i++;
+		if (input->cmds[i] == NULL)
+			break ;
 	}
+	input->cmds = ft_delete_rd(input->cmds);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 18:29:12 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/03 16:07:35 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	ft_yparsing(t_data *data)
 {
 	int		error;
 
-	error = 0;
 	data->env = ft_envcpy(data->env);
 	if (data->env == NULL)
 		return (ft_yerror(ERROR_MEMORY, data));
@@ -116,6 +115,5 @@ int	ft_yparsing(t_data *data)
 	if (data->inputs == NULL)
 		return (ft_yerror(5, data));
 	ft_convert_redi(data);
-	//return (ft_yprint_input(data));
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_and_omit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/31 22:15:15 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:28:31 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 {
 	unsigned int	count;
 	unsigned int	i;
-	unsigned int	omit; 
+	unsigned int	omit;
 
 	i = 0;
 	count = 0;
@@ -42,7 +42,8 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 	return (count);
 }
 
-char	*ft_sub_split_v2(char const *s, char c, unsigned int *j, int keep_quotes)
+char	*ft_sub_split_v2(char const *s, char c,
+unsigned int *j, int keep_quotes)
 {
 	char			*str;
 	unsigned int	k;
@@ -58,7 +59,6 @@ char	*ft_sub_split_v2(char const *s, char c, unsigned int *j, int keep_quotes)
 	omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	while ((s[*j] != c || omit != 0) && s[*j])
 	{
-			
 		str[k++] = s[(*j)++];
 		omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	}

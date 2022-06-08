@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_redirection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 21:01:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/03 16:17:56 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static unsigned int	ft_count_rd(const char *s)
 	count = 0;
 	while (s[i])
 	{
-		if ((s[i] == '>' || s[i] == '<')  && s[i])
+		if ((s[i] == '>' || s[i] == '<') && s[i])
 		{
 			count++;
-			while ((s[i] == '>' || s[i] == '<')  && s[i])
+			while ((s[i] == '>' || s[i] == '<') && s[i])
 				i++;
 		}
-		if ((s[i] != '>' || s[i] != '<')  && s[i])
+		if ((s[i] != '>' || s[i] != '<') && s[i])
 		{
 			count++;
-			while (s[i] != '>' && s[i] != '<'  && s[i])
+			while (s[i] != '>' && s[i] != '<' && s[i])
 				i++;
 		}
 	}

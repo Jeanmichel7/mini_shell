@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/01 21:32:28 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/08 14:11:05 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS		= srcs/main.c \
 			srcs/execution/check_error.c \
 			srcs/execution/free.c \
 			srcs/execution/builtins/builtins1.c \
-			srcs/execution/builtins/env.c
+			srcs/execution/builtins/env.c \
+			srcs/parse/ft_delete_elements.c \
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
