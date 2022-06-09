@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/03 15:48:26 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/09 22:58:51 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_input
 	int				redir_double_input;
 	int				redir_double_output;
 	char			*cmd_fct;
-	//int			*is_a_string;
 	char			**cmds;
 	int				pipe;
 	pid_t			child;

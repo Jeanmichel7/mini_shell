@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/28 20:19:57 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:42:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	ft_exit(t_data *data, int i)
 {
 	(void)data;
 	(void)i;
-	
-	printf("blablablablabalbala\n");
+
+	data->done = 1;
 }

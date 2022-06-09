@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 22:49:05 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/09 23:50:08 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void ft_exec_cmd(t_data *data, int i)
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
 		j++;
 	}
-	//if (ft_is_new_local_var(data, i))
-	//	ft_add_new_local_var(data, i);
 	if (ft_is_builtin(data, i))
 		ft_check_builtin(data, i);
 	else
@@ -89,7 +87,7 @@ void ft_exec_cmd(t_data *data, int i)
 				ft_errputstr(strerror(errno), 0, 0, data);
 }
 
-void ft_pipe(t_data *data)
+void	ft_exec_parse(t_data *data)
 {
 	int i;
 	int wstatus;
@@ -126,17 +124,6 @@ void ft_pipe(t_data *data)
 		ft_free_sec_pipe(data, i);
 		i++;
 	}
-	free(data->inputs);
-}
-
-void	ft_exec_parse(t_data *data)
-{
-	if (ft_strlen(data->temp) == 4 && strncmp(data->temp, "exit", 4) == 0)
-		data->done = 1;
-	//else if (ft_strlen(data->temp) == 4 && strncmp(data->temp, "list", 4) == 0)
-	//	ft_display_list(data);
-	else if (ft_strlen(data->temp) == 2 && strncmp(data->temp, "^C", 2) == 0)
-		printf("bloublou ^C\n");
-	else if (data->nb_pipe >= 0)
-		ft_pipe(data);
+	if (data->done == 0)
+		free(data->inputs);
 }

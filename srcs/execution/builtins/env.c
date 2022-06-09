@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/01 20:10:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:38:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,40 +72,40 @@ void	ft_export(t_data *data, int i)
 	}
 }
 
-int	ft_len_env(t_data *data)
+void	ft_remove_line(t_data *data, int index_target)
 {
-	int	i;
+	char	**new_env;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (data->env && data->env[i])
+	while (data->env[i])
 		i++;
-	return (i);
+	new_env = malloc(sizeof(char *) * i);
+	i = 0;
+	j = 0;
+	while (data->env[i])
+	{
+		if (i != index_target)
+			new_env[j++] = data->env[i];
+		i++;
+	}
+	free(data->env);
+	data->env = new_env;
 }
 
 void	ft_unset(t_data *data, int i)
 {
 	int		j;
 	char	*value;
-	int		len_env;
-
-	len_env = ft_len_env(data);
-	fprintf(stderr, "len env : %d\n", len_env);
-	ft_env(data, i);
+	
 	value = data->inputs[i].cmds[1];
-	fprintf(stderr, "valeur : %s\n", value);
-	
 	j = 0;
-	while (data->env[j]
-		&& ft_strlen(data->env[j]) != ft_strlen(value)
-		&& strncmp(data->env[j], value, ft_strlen(value)) != 0)
+	while (data->env[j])
 		j++;
-
-	if (j <= len_env)
-	{
-		//enleve valeur
-	}
-	
-	fprintf(stderr, "ligne chercher :%d  %s\n", j, data->env[j]);
+	if (ft_strlen(data->env[j]) == ft_strlen(value)
+		&& strncmp(data->env[j], value, ft_strlen(value)) == 0)
+		ft_remove_line(data, j);
 }
 
 void	ft_env(t_data *data, int i)
@@ -116,9 +116,9 @@ void	ft_env(t_data *data, int i)
 	j = 0;
 	while (data->env[j])
 	{
-		printf("%d %s\n", j, data->env[j]);
-		//write(1, data->env[j], ft_strlen(data->env[j]));
-		//write(1, "\n", 1);
+		//printf("%d %s\n", j, data->env[j]);
+		write(1, data->env[j], ft_strlen(data->env[j]));
+		write(1, "\n", 1);
 		j++;
 	}
 }

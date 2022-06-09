@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:34:04 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 16:15:05 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/09 21:53:26 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	ft_type_redirection(char **str)
 {
 	int	rd;
 	int	error;
-	int	i;
 
-	i = 0;
 	error = 0;
 	rd = ft_check_redirection_in(str[0]);
 	if (rd == 0)

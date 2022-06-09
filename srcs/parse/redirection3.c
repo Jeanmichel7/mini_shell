@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/08 14:12:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/09 21:54:08 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
 
 int	ft_update_file(char *str, t_file **files, int total, int rd)
 {
-	int		i;
 	t_file	*new_file;
 
-	i = 0;
 	new_file = ft_calloc(total + 1, sizeof(t_file));
 	if (new_file == NULL)
 		return (ERROR_MEMORY);

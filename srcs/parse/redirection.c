@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/08 14:11:50 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/09 21:53:49 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ int	ft_parse_input_redirection(t_input *input)
 {
 	int		i;
 	char	**new_cmd;
-	char	*file;
 
 	i = 0;
-	file = NULL;
 	while (input->cmds[i])
 	{
 		new_cmd = ft_split_redirection(input->cmds[i]);
