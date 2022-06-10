@@ -68,7 +68,7 @@ void	ft_export(t_data *data, int i)
 		fprintf(stderr, "export name : %s\n", name);
 		fprintf(stderr, "export value : %s\n", str_value);
 		data->env = ft_add_env(data, i);
-		ft_env(data, i);
+		//ft_env(data, i);
 	}
 }
 
@@ -90,6 +90,7 @@ void	ft_remove_line(t_data *data, int index_target)
 			new_env[j++] = data->env[i];
 		i++;
 	}
+	new_env[j] = NULL;
 	free(data->env);
 	data->env = new_env;
 }
@@ -102,10 +103,14 @@ void	ft_unset(t_data *data, int i)
 	value = data->inputs[i].cmds[1];
 	j = 0;
 	while (data->env[j])
+	{
+		if (strncmp(data->env[j], value, ft_strlen(value)) == 0)
+		{
+			ft_remove_line(data, j);
+			break;
+		}
 		j++;
-	if (ft_strlen(data->env[j]) == ft_strlen(value)
-		&& strncmp(data->env[j], value, ft_strlen(value)) == 0)
-		ft_remove_line(data, j);
+	}
 }
 
 void	ft_env(t_data *data, int i)

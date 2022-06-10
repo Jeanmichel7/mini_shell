@@ -83,20 +83,10 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 	data->fd_out_saved = dup (1);
 }
 
-static void handler(int signum)
-{
-	fprintf(stderr, "test sigaction : %d\n", signum);
-}
-
 int main(int argc, char **argv, char **env)
 {
-	t_data				data;
-	struct sigaction	sa;
+	t_data	data;
 
-	sa.sa_handler = handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART; /* Restart functions if interrupted by handler */
-	
 	ft_init_data(&data, argc, argv, env);
 	while (!data.done)
 	{
@@ -105,8 +95,6 @@ int main(int argc, char **argv, char **env)
 		while (wait(0) != -1);
 		data.prompt = ft_color_prompt();
 		data.temp = readline(data.prompt);
-		//if (sigaction(SIGINT, &sa, NULL) == -1)
-		//	fprintf(stderr, "SIGINT\n");
 		if (!data.temp)
 			exit(1);
 		if (*data.temp)

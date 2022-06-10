@@ -37,12 +37,12 @@ OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra -g
+CFLAGS		= -Wall -Wextra
 LDFLAGS		= -I./include/ -I./libft/
 DEBEUG		= -g -fsanitize=address
 
 .c.o:		
-			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
+			@${CC} ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft

@@ -32,9 +32,9 @@ void	ft_cd(t_data *data, int i)
 void	ft_pwd(t_data *data, int i)
 {
 	char	str[500];
+
 	(void)data;
 	(void)i;
-
 	getcwd(str, 500);
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
@@ -44,6 +44,5 @@ void	ft_exit(t_data *data, int i)
 {
 	(void)data;
 	(void)i;
-
 	data->done = 1;
 }
