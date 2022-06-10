@@ -43,7 +43,6 @@ char	*sub_check_acces(char **path_tab, int i, char *cmd)
 	return (str2);
 }
 
-
 char	*ft_sub_check_access(int *j, t_data *data, char **path_tab, int i)
 {
 	char	*path_cmd_test;

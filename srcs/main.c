@@ -104,7 +104,7 @@ int main(int argc, char **argv, char **env)
 			ft_yprint_input(&data);
 			ft_exec_parse(&data);
 		}
-		ft_free_section(&data);
+		ft_free_inputs(&data);
 	}
 	ft_free(&data);
 	return (0);

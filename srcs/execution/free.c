@@ -53,7 +53,7 @@ void	ft_free(t_data *data)
 	//rl_clear_history();
 }
 
-void	ft_free_section(t_data *data)
+void	ft_free_inputs(t_data *data)
 {
 	/*
 	int	i;
@@ -70,20 +70,21 @@ void	ft_free_section(t_data *data)
 	free(data->prompt);
 }
 
-void	ft_free_sec_pipe(t_data *data, int i)
+void	ft_free_section(t_data *data, int i)
 {
 	int	j;
 
-	j = 0;
-	while (data->inputs[i].cmds[j])
+	if (ft_is_builtin(data, i) != 1)
 	{
-		//free(data->inputs[i].cmds[j]);
-		j++;
-	}
-	if (!ft_is_builtin(data, i))
-	{
-		free(data->inputs[i].cmd_fct);
-		free(data->inputs[i].cmds);
+		fprintf(stderr, "free icic\n\n\n\n\n\n\n\n");
+		j = 0;
+		while (data->inputs[i].cmds[j])
+		{
+			free(data->inputs[i].cmds[j]);
+			j++;
+		}
 		free(data->inputs[i].file);
+		free(data->inputs[i].cmds);
+		free(data->inputs[i].cmd_fct);
 	}
 }

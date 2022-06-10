@@ -143,8 +143,8 @@ int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 
 
 /* FREE */
-void	ft_free_section(t_data *data);
-void	ft_free_sec_pipe(t_data *data, int i);
+void	ft_free_inputs(t_data *data);
+void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 //void	*ft_freetab(char **tab);

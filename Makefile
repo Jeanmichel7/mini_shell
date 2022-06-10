@@ -31,7 +31,7 @@ SRCS		= srcs/main.c \
 			srcs/execution/free.c \
 			srcs/execution/builtins/builtins1.c \
 			srcs/execution/builtins/env.c \
-			srcs/parse/ft_delete_elements.c \
+			srcs/parse/ft_delete_elements.c
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
@@ -39,14 +39,14 @@ NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra
 LDFLAGS		= -I./include/ -I./libft/
-DEBEUG		= -g -fsanitize=address
+DEBEUG		= -fsanitize=address
 
 .c.o:		
-			@${CC} ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
+			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} ${DEBEUG} -lreadline -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g -lreadline -L./libft -lft
 
 all :		${NAME}
 

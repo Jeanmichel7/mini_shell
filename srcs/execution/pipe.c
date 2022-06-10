@@ -121,7 +121,7 @@ void	ft_exec_parse(t_data *data)
 		close(data->inputs[i].tube[1]);
 		close(data->inputs[i].tube[0]);
 		ft_close_redir(data, i);
-		ft_free_sec_pipe(data, i);
+		ft_free_section(data, i);
 		i++;
 	}
 	if (data->done == 0)
