@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/11 17:09:53 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/11 23:50:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,25 @@ void	ft_check_redir(t_data *data, int i)
 void	ft_check_builtin(t_data *data, int i)
 {
 	if (ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
 		ft_echo(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
 		ft_cd(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
-		&& strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
 		ft_pwd(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 6
-		&& strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
 		ft_export(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 5
-		&& strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
 		ft_unset(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
-		&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
 		ft_env(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
+		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
 		ft_exit(data, i);
 }
 
@@ -69,13 +69,8 @@ void ft_exec_cmd(t_data *data, int i)
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
 	{
-		if (data->inputs[i].file[j].type == HEREDOC && data->inputs[i].file[j].fd != -1)
-		{
-			fprintf(stderr, "here fd : %d\n", data->inputs[i].file[j].fd);
-			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
-			fprintf(stderr, "here\n");
-
-		}
+		//if (data->inputs[i].file[j].type == HEREDOC && data->inputs[i].file[j].fd != -1)
+		//	dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
 		if (data->inputs[i].file[j].type == IN && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
 		if (data->inputs[i].file[j].type == OUT && data->inputs[i].file[j].fd != -1)
