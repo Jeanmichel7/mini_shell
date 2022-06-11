@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/10 00:09:50 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/11 17:09:53 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,12 @@ void ft_exec_cmd(t_data *data, int i)
 	while (data->inputs[i].file[j].type != 0)
 	{
 		if (data->inputs[i].file[j].type == HEREDOC && data->inputs[i].file[j].fd != -1)
+		{
+			fprintf(stderr, "here fd : %d\n", data->inputs[i].file[j].fd);
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
+			fprintf(stderr, "here\n");
+
+		}
 		if (data->inputs[i].file[j].type == IN && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
 		if (data->inputs[i].file[j].type == OUT && data->inputs[i].file[j].fd != -1)
