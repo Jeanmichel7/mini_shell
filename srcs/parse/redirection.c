@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/09 21:53:49 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/11 15:35:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	ft_check_cmd_redirection(int i, t_input *input)
 		if (rd < 0)
 			return (ft_print_error(rd));
 		else if (ft_fulling_redir_para(rd, input,
-				input->cmds[i + 1]) == ERROR_MEMORY)
-			return (ERROR_MEMORY);
+			input->cmds[i + 1]) == ERROR_MEMORY)
+		return (ERROR_MEMORY);
 		input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
 	}	
 	return (0);
@@ -84,13 +84,13 @@ int	ft_parse_input_redirection(t_input *input)
 	char	**new_cmd;
 
 	i = 0;
-	while (input->cmds[i])
-	{
+	//while (input->cmds[i])
+	//{
 		new_cmd = ft_split_redirection(input->cmds[i]);
 		if (new_cmd == NULL)
 			return (ERROR_MEMORY);
 		input->cmds = ft_replace_elements(input->cmds, new_cmd, &i);
-	}
+	//}
 	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);

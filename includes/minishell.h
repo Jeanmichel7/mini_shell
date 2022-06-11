@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/09 22:58:51 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/10 00:10:15 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 
 
 /* FREE */
-void	ft_free_section(t_data *data);
-void	ft_free_sec_pipe(t_data *data, int i);
+void	ft_free_inputs(t_data *data);
+void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 //void	*ft_freetab(char **tab);

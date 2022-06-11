@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/09 23:33:40 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/11 14:50:55 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,10 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 	data->fd_out_saved = dup (1);
 }
 
-static void handler(int signum)
-{
-	fprintf(stderr, "test sigaction : %d\n", signum);
-}
-
 int main(int argc, char **argv, char **env)
 {
-	t_data				data;
-	struct sigaction	sa;
+	t_data	data;
 
-	sa.sa_handler = handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART; /* Restart functions if interrupted by handler */
-	
 	ft_init_data(&data, argc, argv, env);
 	while (!data.done)
 	{
@@ -105,18 +95,19 @@ int main(int argc, char **argv, char **env)
 		while (wait(0) != -1);
 		data.prompt = ft_color_prompt();
 		data.temp = readline(data.prompt);
-		//if (sigaction(SIGINT, &sa, NULL) == -1)
-		//	fprintf(stderr, "SIGINT\n");
 		if (!data.temp)
+		{
+			ft_free(&data);
 			exit(1);
+		}
 		if (*data.temp)
 			add_history(data.temp);
 		if (ft_yparsing(&data) == 0)
 		{
-			ft_yprint_input(&data);
+			//ft_yprint_input(&data);
 			ft_exec_parse(&data);
 		}
-		ft_free_section(&data);
+		ft_free_inputs(&data);
 	}
 	ft_free(&data);
 	return (0);

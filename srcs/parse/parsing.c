@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 16:07:35 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:48:44 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_yparsing(t_data *data)
 {
 	int		error;
 
-	data->env = ft_envcpy(data->env);
+	//data->env = ft_envcpy(data->env);
 	if (data->env == NULL)
 		return (ft_yerror(ERROR_MEMORY, data));
 	data->nb_pipe = ft_ycheck_pipe(data->temp);

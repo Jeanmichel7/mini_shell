@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/09 23:50:08 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/10 00:09:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_exec_parse(t_data *data)
 		close(data->inputs[i].tube[1]);
 		close(data->inputs[i].tube[0]);
 		ft_close_redir(data, i);
-		ft_free_sec_pipe(data, i);
+		ft_free_section(data, i);
 		i++;
 	}
 	if (data->done == 0)
