@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/11 17:04:14 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/13 01:17:52 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,4 @@ int	ft_check_fds(t_data *data, int i)
 		j++;
 	}
 	return (0);
-	//if (fd2 == -1)
-	//	ft_errputstr(strerror(errno), 1, 1, NULL);
 }
