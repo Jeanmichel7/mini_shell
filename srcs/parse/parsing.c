@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/11 13:48:44 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/13 00:55:07 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ int	ft_fulling_inputs_cmds(t_data *data)
 			return (error);
 		ptr = ft_split_and_omit(cmd[i], ' ', 0);
 		if (ptr == NULL)
-			return (ft_freetab(cmd));
+		{
+			ft_free_tab(cmd);
+			return (0);
+		}
 		data->inputs[i].cmds = ptr;
 		i++;
 	}
-	ft_freetab(cmd);
+	ft_free_tab(cmd);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/11 23:42:50 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/13 00:45:37 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 	data->fd_out_saved = dup (1);
 }
 
+void	ft_reinit_data(t_data *data)
+{
+	dup2(data->fd_in_saved, STDIN_FILENO);
+	dup2(data->fd_out_saved, STDOUT_FILENO);
+	while (wait(0) != -1);
+	data->prompt = ft_color_prompt();
+	data->temp = readline(data->prompt);
+}
+
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
@@ -90,11 +99,7 @@ int main(int argc, char **argv, char **env)
 	ft_init_data(&data, argc, argv, env);
 	while (!data.done)
 	{
-		dup2(data.fd_in_saved, STDIN_FILENO);
-		dup2(data.fd_out_saved, STDOUT_FILENO);
-		while (wait(0) != -1);
-		data.prompt = ft_color_prompt();
-		data.temp = readline(data.prompt);
+		ft_reinit_data(&data);
 		if (!data.temp)
 		{
 			ft_free(&data);

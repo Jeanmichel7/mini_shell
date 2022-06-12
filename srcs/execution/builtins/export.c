@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:32:33 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/12 23:55:16 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/13 00:28:58 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,40 @@ int	ft_already_exist(char *name, t_data *data)
 	return (0);
 }
 
-/*export NAME="valeur"*/
+void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
+{
+	char	*name;
+	int		index_value;
+
+	name = ft_env_split_name(str_value, str);
+	str_value = str_value + 1;
+	//fprintf(stderr, "str export : %s\n", str);
+	//fprintf(stderr, "export name : %s\n", name);
+	//fprintf(stderr, "export value : %s\n", str_value);
+	if (!((name[0] > 'a' && name[0] < 'z')
+		|| (name[0] > 'A' && name[0] < 'Z')))
+		ft_export_error(data, i);
+	else
+	{
+		index_value = ft_already_exist(name, data);
+		if (index_value)
+		{
+			free(data->env[index_value]);
+			data->env[index_value] = malloc(sizeof(char) *
+				(ft_strlen(data->inputs[i].cmds[1]) + 1));
+			ft_memcpy(data->env[index_value], data->inputs[i].cmds[1], \
+			ft_strlen(data->inputs[i].cmds[1]) + 1);
+		}
+		else
+			ft_add_env(data, i);
+	}
+	free(name);
+}
+
 void	ft_export(t_data *data, int i)
 {
 	char	*str;
-	char	*name;
 	char	*str_value;
-	int		index_value;
 
 	str = data->inputs[i].cmds[1];
 	if (str == NULL)
@@ -73,24 +100,6 @@ void	ft_export(t_data *data, int i)
 		if (str_value == NULL)
 			ft_export_error(data, i);
 		else
-		{
-			name = ft_env_split_name(str_value, str);
-			str_value = str_value + 1;
-			//fprintf(stderr, "str export : %s\n", str);
-			//fprintf(stderr, "export name : %s\n", name);
-			//fprintf(stderr, "export value : %s\n", str_value);
-			if (!((name[0] > 'a' && name[0] < 'z')
-				|| (name[0] > 'A' && name[0] < 'Z')))
-				ft_export_error(data, i);
-			else
-			{
-				index_value = ft_already_exist(name, data);
-				free(name);
-				if (index_value)
-					data->env[index_value] = data->inputs[i].cmds[1];
-				else
-					ft_add_env(data, i);
-			}
-		}
+			ft_sub_export(data, i, str, str_value);
 	}
 }
