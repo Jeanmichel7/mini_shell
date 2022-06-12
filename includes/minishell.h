@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/12 23:05:55 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/12 23:58:16 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,17 @@ void	ft_close_redir(t_data *data, int i);
 
 /* BUILTINS */
 int		ft_is_builtin(t_data *data, int i);
-int		ft_is_new_local_var(t_data *data, int i);
-void	ft_add_new_local_var(t_data *data, int i);
+
+/* ENV */
+void	ft_env(t_data *data, int i);
+void	ft_export(t_data *data, int i);
+void	ft_unset(t_data *data, int i);
+char	*ft_env_split_name(char *str_value, char *str);
+void	ft_export_error(t_data *data, int i);
+
 void	ft_echo(t_data *data, int i);
 void	ft_cd(t_data *data, int i);
 void	ft_pwd(t_data *data, int i);
-void	ft_export(t_data *data, int i);
-void	ft_unset(t_data *data, int i);
-void	ft_env(t_data *data, int i);
 void	ft_exit(t_data *data, int i);
 
 /* FREE */
