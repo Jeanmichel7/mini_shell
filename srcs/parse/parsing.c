@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 16:07:35 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/13 00:55:07 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ int	ft_fulling_inputs_cmds(t_data *data)
 			return (error);
 		ptr = ft_split_and_omit(cmd[i], ' ', 0);
 		if (ptr == NULL)
-			return (ft_freetab(cmd));
+		{
+			ft_free_tab(cmd);
+			return (0);
+		}
 		data->inputs[i].cmds = ptr;
 		i++;
 	}
-	ft_freetab(cmd);
+	ft_free_tab(cmd);
 	return (0);
 }
 
@@ -93,7 +96,7 @@ int	ft_yparsing(t_data *data)
 {
 	int		error;
 
-	data->env = ft_envcpy(data->env);
+	//data->env = ft_envcpy(data->env);
 	if (data->env == NULL)
 		return (ft_yerror(ERROR_MEMORY, data));
 	data->nb_pipe = ft_ycheck_pipe(data->temp);

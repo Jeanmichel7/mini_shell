@@ -6,12 +6,16 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/09 22:58:51 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/12 23:58:16 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define ERROR_PIPE 1001
+# define ERROR_MEMORY 1002
+# define ERROR_REDIRECTION 1003
 
 # include "../libft/libft.h"
 # include <stdlib.h>
@@ -30,11 +34,6 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <errno.h>
-
-# define ERROR_PIPE 1001
-# define ERROR_MEMORY 1002
-# define ERROR_REDIRECTION 1003
-
 
 typedef enum e_type
 {
@@ -79,28 +78,6 @@ typedef struct s_data
 }	t_data;
 
 /* PARSING */
-
-
-/* EXECUTION */
-void	ft_exec_parse(t_data *data);
-void	ft_pipe(t_data *data);
-int		ft_check_cmds(char *fct, char *fct_name);
-char	*ft_check_access(t_data *data, int i);
-void	ft_close_redir(t_data *data, int i);
-
-/* BUILTINS */
-int		ft_is_builtin(t_data *data, int i);
-int		ft_is_new_local_var(t_data *data, int i);
-void	ft_add_new_local_var(t_data *data, int i);
-void	ft_echo(t_data *data, int i);
-void	ft_cd(t_data *data, int i);
-void	ft_pwd(t_data *data, int i);
-void	ft_export(t_data *data, int i);
-void	ft_unset(t_data *data, int i);
-void	ft_env(t_data *data, int i);
-void	ft_exit(t_data *data, int i);
-
-
 /* ERR */
 int		ft_check_fds(t_data *data, int i);
 void	ft_errputstr(char *str, int stop, int code, t_data *data);
@@ -136,18 +113,34 @@ char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	 **ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 
+/* EXECUTION */
+void	ft_exec_parse(t_data *data);
+void	ft_pipe(t_data *data);
+int		ft_check_cmds(char *fct, char *fct_name);
+char	*ft_check_access(t_data *data, int i);
+void	ft_close_redir(t_data *data, int i);
 
+/* BUILTINS */
+int		ft_is_builtin(t_data *data, int i);
 
+/* ENV */
+void	ft_env(t_data *data, int i);
+void	ft_export(t_data *data, int i);
+void	ft_unset(t_data *data, int i);
+char	*ft_env_split_name(char *str_value, char *str);
+void	ft_export_error(t_data *data, int i);
 
-//t_li	*ft_lsti_new_t_li(int content);
-
+void	ft_echo(t_data *data, int i);
+void	ft_cd(t_data *data, int i);
+void	ft_pwd(t_data *data, int i);
+void	ft_exit(t_data *data, int i);
 
 /* FREE */
 void	ft_free_inputs(t_data *data);
 void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
+void	ft_free_content_tab(char **tab);
 //void	*ft_freetab(char **tab);
-
 
 #endif

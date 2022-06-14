@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/09 21:53:49 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/13 01:29:23 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 		input->file[total - 1].fd = fd;
 	if (rd == 4)
 		input->file[total - 1].name = NULL;
+	fprintf(stderr, "fd : %d, data fd : %d\n", fd, input->file[total - 1].fd);
 	return (0);
 }
 
@@ -71,7 +72,7 @@ int	ft_check_cmd_redirection(int i, t_input *input)
 		if (rd < 0)
 			return (ft_print_error(rd));
 		else if (ft_fulling_redir_para(rd, input,
-				input->cmds[i + 1]) == ERROR_MEMORY)
+			input->cmds[i + 1]) == ERROR_MEMORY)
 			return (ERROR_MEMORY);
 		input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
 	}	
@@ -82,15 +83,15 @@ int	ft_parse_input_redirection(t_input *input)
 {
 	int		i;
 	char	**new_cmd;
+	char	**new_tab;
 
 	i = 0;
-	while (input->cmds[i])
-	{
-		new_cmd = ft_split_redirection(input->cmds[i]);
-		if (new_cmd == NULL)
-			return (ERROR_MEMORY);
-		input->cmds = ft_replace_elements(input->cmds, new_cmd, &i);
-	}
+	new_cmd = ft_split_redirection(input->cmds[i]);
+	if (new_cmd == NULL)
+		return (ERROR_MEMORY);
+	new_tab = ft_replace_elements(input->cmds, new_cmd, &i);
+	free(input->cmds);
+	input->cmds = new_tab;
 	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);
