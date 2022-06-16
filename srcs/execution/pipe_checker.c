@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/16 23:21:51 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 00:43:05 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	ft_is_builtin(t_data *data, int i)
 		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
 		&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
 		|| (ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& strncmp(data->inputs[i].cmds[0], "$?", 2) == 0))
+		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0))
 		return (1);
 	return (0);
 }
