@@ -35,7 +35,8 @@
 # include <termios.h>
 # include <errno.h>
 
-int	error_code;
+int error_code;
+
 
 typedef enum e_type
 {
