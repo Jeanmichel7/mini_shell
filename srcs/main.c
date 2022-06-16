@@ -75,12 +75,20 @@ void	ft_reinit_data(t_data *data)
 	data->prompt = ft_color_prompt(data);
 	data->temp = readline(data->prompt);
 }
+void	ft_handle_signal(int sig)
+{
+	if (sig == SIGINT)
+		write(1, "\n", 1);
+}
 
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
+	error_code = 0;
 	ft_init_data(&data, argc, argv, env);
+	signal(SIGINT, &ft_handle_signal);
+	signal(SIGQUIT, &ft_handle_signal);
 	while (!data.done)
 	{
 		ft_reinit_data(&data);

@@ -60,7 +60,20 @@ int	ft_checkvar(char *str, char *var, int *k)
 
 int	ft_replace_var(char **str, char **env, int *i, int *j)
 {
+	char *ptr;
 	(*i)++;
+	if ((*str)[*i] == '?')
+	{
+		ptr = ft_itoa(error_code);
+		if (ptr == NULL || ft_strcpy_var(str, ptr, *j + 2, *i - 1) == 1)
+		{
+			if (ptr != NULL)
+				free(ptr);
+			return (1);
+		}
+		free(ptr);
+		return (0);
+	}
 	while (*env != NULL)
 	{
 		if (ft_checkvar(&(*str)[*i], *env, j) == 1)
@@ -88,7 +101,8 @@ int	ft_check_and_replace_var(char **str, char **env)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
 		if ((*str)[i] == '$' && omit != 2)
-			ft_replace_var(str, env, &i, &j);
+			if (ft_replace_var(str, env, &i, &j) == 1)
+				return (ERROR_MEMORY);
 		i++;
 	}
 	return (0);
