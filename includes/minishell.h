@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/12 23:58:16 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/16 19:38:07 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	ft_pipe(t_data *data);
 int		ft_check_cmds(char *fct, char *fct_name);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
+
+char	*ft_color_prompt(t_data *data);
 
 /* BUILTINS */
 int		ft_is_builtin(t_data *data, int i);
