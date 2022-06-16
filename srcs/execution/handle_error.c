@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_error.c                                      :+:      :+:    :+:   */
+/*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/13 01:17:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 00:24:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,4 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 			exit(code);
 		}
 	}
-}
-
-int	ft_check_cmds(char *fct, char *fct_name)
-{
-	if (fct == NULL)
-	{
-		ft_errputstr("bash: command not found: ", 0, 0, NULL);
-		ft_errputstr(fct_name, 0, 0, NULL);
-		ft_errputstr("\n", 0, 0, NULL);
-		return (1);
-	}
-	return (0);
-}
-
-int	ft_check_fds(t_data *data, int i)
-{
-	int	j;
-
-	j = 0;
-	while (data->inputs[i].file[j].type != 0)
-	{
-		if (data->inputs[i].file[j].fd == -1)
-		{
-			ft_errputstr("bash: ", 0, 0, NULL);
-			ft_errputstr(data->inputs[i].file[j].name, 0, 0, NULL);
-			ft_errputstr(": ", 0, 0, NULL);
-			ft_errputstr(strerror(errno), 0, 0, NULL);
-			ft_errputstr("\n", 0, 0, NULL);
-			return (1);
-		}
-		j++;
-	}
-	return (0);
 }
