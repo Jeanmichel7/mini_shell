@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/16 19:42:55 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/16 23:57:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	fake_init_inputs(t_data *data)
 	data->inputs[1].cmds[2] = NULL;
 }
 */
+
 
 void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 {
