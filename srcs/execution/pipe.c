@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 00:27:14 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 01:05:56 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,20 @@ void ft_exec_cmd(t_data *data, int i)
 		j++;
 	}
 	if (ft_is_builtin(data, i))
+	{
 		ft_check_builtin(data, i);
+		error_code = 0;
+	}
 	else
+	{
 		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
+		{
 			if (data->inputs[i].cmd_fct != NULL)
 				ft_errputstr(strerror(errno), 0, 0, NULL);
+		}
+		else
+			error_code = 0;
+	}
 }
 
 void	ft_fork(t_data *data, int i)

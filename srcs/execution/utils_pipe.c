@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 00:24:08 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 01:06:08 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	ft_check_builtin(t_data *data, int i)
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
 		ft_exit(data, i);
-	else if (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& ft_strncmp(data->inputs[i].cmds[0], "$?", 2) == 0)
-		ft_display_error();
+	//else if (ft_strlen(data->inputs[i].cmds[0]) == 2
+	//	&& ft_strncmp(data->inputs[i].cmds[0], "$?", 2) == 0)
+	//	ft_display_error();
 }
 
 int	ft_check_fds(t_data *data, int i)
