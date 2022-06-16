@@ -6,13 +6,12 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/02 01:13:54 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/16 19:38:20 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
-			srcs/execution/pipe.c \
-			srcs/execution/pipe_checker.c\
+			\
 			srcs/parse/parsing.c  \
 			srcs/parse/ft_split_and_omit.c  \
 			srcs/parse/ft_strjoin_andadd_rt.c  \
@@ -26,12 +25,18 @@ SRCS		= srcs/main.c \
 			srcs/parse/parsing_utils.c \
 			srcs/parse/parsing_utils2.c \
 			srcs/parse/parsing_utils3.c \
+			srcs/parse/ft_delete_elements.c \
+			\
+			srcs/execution/pipe.c \
+			srcs/execution/pipe_checker.c\
 			srcs/execution/utils_pipe.c \
 			srcs/execution/check_error.c \
 			srcs/execution/free.c \
+			srcs/execution/prompt.c \
 			srcs/execution/builtins/builtins1.c \
 			srcs/execution/builtins/env.c \
-			srcs/parse/ft_delete_elements.c \
+			srcs/execution/builtins/export.c \
+			srcs/execution/builtins/unset.c \
 
 OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f

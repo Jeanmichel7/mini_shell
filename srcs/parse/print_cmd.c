@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:34:35 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 22:20:57 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/09 21:53:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int	ft_yprint_input(t_data *data)
 int	ft_print_tab(char **tab)
 {
 	int	i; 
-	int j;
 
 	i = 0;
-	j = 0;
 	if (tab != NULL)
 	{
 		while(tab[i])

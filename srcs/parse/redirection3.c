@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 16:06:20 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:20:58 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
 	return (pattern_found);
 }
 
+/*
 int	ft_update_file(char *str, t_file **files, int total, int rd)
 {
-	int		i;
 	t_file	*new_file;
 
-	i = 0;
 	new_file = ft_calloc(total + 1, sizeof(t_file));
 	if (new_file == NULL)
 		return (ERROR_MEMORY);
@@ -51,6 +50,28 @@ int	ft_update_file(char *str, t_file **files, int total, int rd)
 	if (total != 0)
 	{
 		new_file[total - 1].fd = -1;
+		new_file[total - 1].type = rd;
+		new_file[total - 1].name = str;
+	}
+	new_file[total].fd = -1;
+	*files = new_file;
+	return (0);
+}
+*/
+
+int	ft_update_file(char *str, t_file **files, int total, int rd)
+{
+	t_file	*new_file;
+
+	new_file = ft_calloc(total + 1, sizeof(t_file));
+	if (new_file == NULL)
+		return (ERROR_MEMORY);
+	if (*files != NULL)
+		ft_memcpy(new_file, *files, (sizeof(t_file) * (total)));
+	free(*files);
+	if (total != 0)
+	{
+		new_file[total - 1].fd = -1; // si heredoc c'est pas -1
 		new_file[total - 1].type = rd;
 		new_file[total - 1].name = str;
 	}
@@ -70,7 +91,7 @@ int	ft_search_pattern(char *str, char *pattern)
 		{
 			if (pattern[i] == '\0')
 				return (1);
-		i++;
+			i++;
 		}
 	}
 	return (0);

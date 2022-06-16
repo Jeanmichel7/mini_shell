@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:52:53 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 14:27:38 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:29:42 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ char	**ft_delete_files_name(char **tab, int pos, int rd)
 	if (rd == 4)
 		free(tab[pos]);
 	ptr[i] = 0;
+	free(tab);
 	return (ptr);
 }
