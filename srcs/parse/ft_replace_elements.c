@@ -38,6 +38,8 @@ char	**ft_replace_elements(char **tab, char **elements, int *pos)
 	int		length;
 	char	**new_tab;
 
+	if (tab == NULL)
+		return (NULL);
 	length = 0;
 	i = -1;
 	while (tab[++i])

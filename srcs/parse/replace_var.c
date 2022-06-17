@@ -101,7 +101,7 @@ int	ft_check_and_replace_var(char **str, char **env)
 	while ((*str)[i] != 0)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
-		if ((*str)[i] == '$' && omit != 2 && (*str)[i + 1] != ' ')
+		if ((*str)[i] == '$' && omit != 2 && (*str)[i + 1] != ' ' && (*str)[i + 1] != '\0')
 			if (ft_replace_var(str, env, &i, &j) == 1)
 				return (ERROR_MEMORY);
 		i++;
