@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/13 00:45:37 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/16 23:57:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,6 @@ void	fake_init_inputs(t_data *data)
 }
 */
 
-char	*ft_color_prompt(void)
-{
-	char	pwd[500];
-	char	*new_str;
-	char	*pwd_color;
-	char	*prompt_color;
-
-	getcwd(pwd, 500);
-	pwd_color = ft_strjoin("\033[0;34m", pwd);
-	prompt_color = ft_strjoin("\033[0;32mminishell\033[0;37m:", pwd_color);
-	free(pwd_color);
-	new_str = ft_strjoin(prompt_color, "\033[0;37m$ ");
-	free(prompt_color);
-	return (new_str);
-}
 
 void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 {
@@ -88,15 +73,23 @@ void	ft_reinit_data(t_data *data)
 	dup2(data->fd_in_saved, STDIN_FILENO);
 	dup2(data->fd_out_saved, STDOUT_FILENO);
 	while (wait(0) != -1);
-	data->prompt = ft_color_prompt();
+	data->prompt = ft_color_prompt(data);
 	data->temp = readline(data->prompt);
+}
+void	ft_handle_signal(int sig)
+{
+	if (sig == SIGINT)
+		write(1, "\n", 1);
 }
 
 int main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
+	error_code = 0;
 	ft_init_data(&data, argc, argv, env);
+	signal(SIGINT, &ft_handle_signal);
+	signal(SIGQUIT, &ft_handle_signal);
 	while (!data.done)
 	{
 		ft_reinit_data(&data);
