@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/16 19:38:07 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 00:24:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # include <termios.h>
 # include <errno.h>
 
-int error_code; 
+int error_code;
+
 
 typedef enum e_type
 {
@@ -112,7 +113,7 @@ int		ft_search_pattern(char *str, char *pattern);
 int		ft_update_file(char *str, t_file **files, int total, int rd);
 char	**ft_delete_rd(char **tab);
 char 	**ft_delete_filename_in_cmd(char **tab, int pos);
-char	 **ft_delete_files_name(char **tab, int pos, int rd);
+char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 int		ft_pre_parsing(t_data *data);
 
@@ -120,6 +121,9 @@ int		ft_pre_parsing(t_data *data);
 void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_check_cmds(char *fct, char *fct_name);
+void	ft_check_redir(t_data *data, int i);
+void	ft_check_builtin(t_data *data, int i);
+int		ft_check_fds(t_data *data, int i);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
 
