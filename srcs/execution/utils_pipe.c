@@ -29,10 +29,12 @@ void	ft_close_redir(t_data *data, int i)
 
 int	ft_check_cmds(char *fct, char *fct_name)
 {
-	if (fct == NULL)
+	//fprintf(stderr, "test : %s\n", fct);
+	if (fct == NULL && fct_name)
 	{
-		ft_errputstr("bash: command not found: ", 0, 0, NULL);
+		ft_errputstr("bash: ", 0, 0, NULL);
 		ft_errputstr(fct_name, 0, 0, NULL);
+		ft_errputstr(": command not found", 0, 0, NULL);
 		ft_errputstr("\n", 0, 0, NULL);
 		error_code = 127;
 		return (1);

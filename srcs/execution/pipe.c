@@ -12,9 +12,49 @@
 
 #include "../includes/minishell.h"
 
+void printWaitStatus(int status)
+{
+    if (WIFEXITED(status))
+	{
+        printf("child exited, status=%d\n", WEXITSTATUS(status));
+		error_code = status;
+    }
+	else if (WIFSIGNALED(status))
+	{
+        printf("child killed by signal %d (%s)",
+               WTERMSIG(status), strsignal(WTERMSIG(status)));
+#ifdef WCOREDUMP
+        if (WCOREDUMP(status))
+            printf(" (core dumped)");
+#endif
+        printf("\n");
+		error_code = status;
+    }
+	else if (WIFSTOPPED(status))
+	{
+        printf("child stopped by signal %d (%s)\n",
+               WSTOPSIG(status), strsignal(WSTOPSIG(status)));
+		error_code = status;
+#ifdef WIFCONTINUED
+    }
+	else if (WIFCONTINUED(status))
+	{
+        printf("child continued\n");
+		error_code = status;
+#endif
+    }
+	else
+	{
+        printf("status=%x\n",
+               (unsigned int) status);
+		error_code = status;
+    }
+}
+
 void ft_exec_cmd(t_data *data, int i)
 {
 	int	j;
+	int ret;
 
 	if (i != data->nb_pipe)
 	{
@@ -41,8 +81,10 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	else
 	{
-		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
+		ret = execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env);
+		if (ret == -1)
 		{
+			fprintf(stderr, "error renvoye : %d\n", errno);
 			if (data->inputs[i].cmd_fct != NULL)
 				ft_errputstr(strerror(errno), 0, 0, NULL);
 		}
@@ -61,7 +103,13 @@ void	ft_fork(t_data *data, int i)
 	if (data->inputs[i].child == 0)
 		ft_exec_cmd(data, i);
 	else
+	{
 		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		//printWaitStatus(wstatus);
+		//error_code = WEXITSTATUS(wstatus);
+		fprintf(stderr, "error wstatus : %d\n", WEXITSTATUS(wstatus));
+		fprintf(stderr, "error errno : %d\n", errno);
+	}
 		//if (i != data->nb_pipe)
 }
 
