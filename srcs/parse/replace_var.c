@@ -26,8 +26,9 @@ int	ft_strcpy_var(char **str, char *value, int length_name, int start)
 		return (1);
 	while (++i < start)
 		ptr[i] = (*str)[i];
-	while (value[++j])
-		ptr[i + j] = value[j];
+	if (value != NULL)
+		while (value[++j])
+			ptr[i + j] = value[j];
 	while ((*str)[i + length_name])
 	{
 		ptr[j + i] = (*str)[i + length_name];
@@ -58,34 +59,34 @@ int	ft_checkvar(char *str, char *var, int *k)
 	return (0);
 }
 
-int	ft_replace_var(char **str, char **env, int *i, int *j)
+int	ft_add_error_code(char **str, int *i, int *j)
 {
 	char *ptr;
+	ptr = ft_itoa(error_code);
+	if (ptr == NULL || ft_strcpy_var(str, ptr, *j + 2, *i - 1) == 1)
+	{
+		if (ptr != NULL)
+			free(ptr);
+		return (1);
+	}
+	free(ptr);
+	return (0);
+}
+
+int	ft_replace_var(char **str, char **env, int *i, int *j)
+{
 	(*i)++;
 	if ((*str)[*i] == '?')
-	{
-		ptr = ft_itoa(error_code);
-		if (ptr == NULL || ft_strcpy_var(str, ptr, *j + 2, *i - 1) == 1)
-		{
-			if (ptr != NULL)
-				free(ptr);
-			return (1);
-		}
-		free(ptr);
-		return (0);
-	}
+		return (ft_add_error_code(str, i, j));
 	while (*env != NULL)
 	{
 		if (ft_checkvar(&(*str)[*i], *env, j) == 1)
-		{
-			if (ft_strcpy_var(str, &(*env)[*j], *j, *i - 1) == 1)
-				return (1);
-			else
-				return (0);
-		}
+			return (ft_strcpy_var(str, &(*env)[*j], *j, *i - 1));
 		env = env + 1;
 	}
-	return (0);
+	while ((*str)[*i + *j] != ' ' && (*str)[*i + *j] != '\0')
+		(*j)++;
+	return (ft_strcpy_var(str, NULL, *j + 1, *i - 1));
 }
 
 int	ft_check_and_replace_var(char **str, char **env)
@@ -100,32 +101,10 @@ int	ft_check_and_replace_var(char **str, char **env)
 	while ((*str)[i] != 0)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
-		if ((*str)[i] == '$' && omit != 2)
+		if ((*str)[i] == '$' && omit != 2 && (*str)[i + 1] != ' ')
 			if (ft_replace_var(str, env, &i, &j) == 1)
 				return (ERROR_MEMORY);
 		i++;
 	}
 	return (0);
-}
-
-void	*ft_create_inputs(t_data *data)
-{
-	t_input	*ptr;
-	int		i;
-
-	i = 0;
-	ptr = ft_calloc((data->nb_pipe + 1), sizeof(t_input));
-	if (ptr == NULL)
-		return (NULL);
-	while (i < (data->nb_pipe + 1))
-	{
-		ptr[i].file = ft_calloc(1, sizeof(t_file));
-		if (ptr->file == NULL)
-			return (NULL);
-		ptr[i].file->type = 0;
-		ptr[i].child = -1;
-		i++;
-	}
-	data->inputs = ptr;
-	return (NULL);
 }

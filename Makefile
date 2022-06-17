@@ -24,8 +24,9 @@ SRCS		= srcs/main.c \
 			srcs/parse/list_utils.c \
 			srcs/parse/parsing_utils.c \
 			srcs/parse/parsing_utils2.c \
-			srcs/parse/parsing_utils3.c \
+			srcs/parse/replace_var.c \
 			srcs/parse/ft_delete_elements.c \
+			srcs/parse/pre_parsing.c \
 			\
 			srcs/execution/pipe.c \
 			srcs/execution/pipe_checker.c\

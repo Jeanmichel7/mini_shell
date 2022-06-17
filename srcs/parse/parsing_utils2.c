@@ -117,3 +117,25 @@ int	ft_yerror(int nb, t_data *data)
 		return (258);
 	return (1);
 }
+
+void	*ft_create_inputs(t_data *data)
+{
+	t_input	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = ft_calloc((data->nb_pipe + 1), sizeof(t_input));
+	if (ptr == NULL)
+		return (NULL);
+	while (i < (data->nb_pipe + 1))
+	{
+		ptr[i].file = ft_calloc(1, sizeof(t_file));
+		if (ptr->file == NULL)
+			return (NULL);
+		ptr[i].file->type = 0;
+		ptr[i].child = -1;
+		i++;
+	}
+	data->inputs = ptr;
+	return (NULL);
+}
