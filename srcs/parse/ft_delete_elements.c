@@ -21,6 +21,8 @@ char	**ft_delete_rd(char **tab)
 
 	i = -1;
 	length = 0;
+	if (tab == NULL)
+		return (NULL);
 	while (tab[++i])
 		if (tab[i][0] != '>' || tab[i][0] != '<')
 			length++;

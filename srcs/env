@@ -1,0 +1,208 @@
+execution/builtins/builtins1.c:	while (data->inputs[i].cmds[j])
+execution/builtins/builtins1.c:		if (ft_strlen(data->inputs[i].cmds[j]) != 2
+execution/builtins/builtins1.c:		|| strncmp(data->inputs[i].cmds[j], "-n", 2) != 0)
+execution/builtins/builtins1.c:			write(1, data->inputs[i].cmds[j], ft_strlen(data->inputs[i].cmds[j]));
+execution/builtins/builtins1.c:			if (data->inputs[i].cmds[j + 1])
+execution/builtins/builtins1.c:	chdir(data->inputs[i].cmds[1]);
+execution/builtins/builtins1.c:	data->done = 1;
+execution/builtins/env.c:	ft_errputstr(data->inputs[i].cmds[0], 0, 0, NULL);
+execution/builtins/env.c:	ft_errputstr(data->inputs[i].cmds[1], 0, 0, NULL);
+execution/builtins/env.c:	while (data->env[j])
+execution/builtins/env.c:		//printf("%d %s\n", j, data->env[j]);
+execution/builtins/env.c:		write(1, data->env[j], ft_strlen(data->env[j]));
+execution/builtins/export.c:	while (data->env[j])
+execution/builtins/export.c:	while (data->env[j])
+execution/builtins/export.c:		new_env[j] = malloc(sizeof(char) * (ft_strlen(data->env[j]) + 1));
+execution/builtins/export.c:		ft_memcpy(new_env[j], data->env[j], ft_strlen(data->env[j]) + 1);
+execution/builtins/export.c:	new_env[j] = data->inputs[i].cmds[1];
+execution/builtins/export.c:	ft_free_tab(data->env);
+execution/builtins/export.c:	data->env = new_env;
+execution/builtins/export.c:	while (data->env && data->env[j])
+execution/builtins/export.c:		temp = ft_split(data->env[j], '=');
+execution/builtins/export.c:			free(data->env[index_value]);
+execution/builtins/export.c:			data->env[index_value] = malloc(sizeof(char) *
+execution/builtins/export.c:				(ft_strlen(data->inputs[i].cmds[1]) + 1));
+execution/builtins/export.c:			ft_memcpy(data->env[index_value], data->inputs[i].cmds[1], \
+execution/builtins/export.c:			ft_strlen(data->inputs[i].cmds[1]) + 1);
+execution/builtins/export.c:	str = data->inputs[i].cmds[1];
+execution/builtins/unset.c:	while (data->env && data->env[i])
+execution/builtins/unset.c:	while (data->env && data->env[i])
+execution/builtins/unset.c:			new_env[j] = malloc(sizeof(char) * (ft_strlen(data->env[i]) + 1));
+execution/builtins/unset.c:			ft_memcpy(new_env[j], data->env[i], ft_strlen(data->env[i]) + 1);
+execution/builtins/unset.c:	ft_free_tab(data->env);
+execution/builtins/unset.c:	data->env = new_env;
+execution/builtins/unset.c:	str = data->inputs[i].cmds[1];
+execution/builtins/unset.c:	while (data->env && data->env[j])
+execution/builtins/unset.c:		temp = ft_split(data->env[j], '=');
+execution/check_error.c:	while (data->inputs[i].file[j].type != 0)
+execution/check_error.c:		if (data->inputs[i].file[j].fd == -1)
+execution/check_error.c:			ft_errputstr(data->inputs[i].file[j].name, 0, 0, NULL);
+execution/free.c:	ft_free_tab(data->env);
+execution/free.c:	free(data->inputs);
+execution/free.c:	free(data->temp);
+execution/free.c:	free(data->prompt);
+execution/free.c:		while (data->inputs[i].cmds && data->inputs[i].cmds[j])
+execution/free.c:			//fprintf(stderr, "%d %d %s same : %d %p %p\n", i, j, data->inputs[i].cmds[j], same_cmd, data->inputs[i].cmds[0], data->inputs[i].cmd_fct);
+execution/free.c:			if (!(ft_strlen(data->inputs[i].cmds[j]) == ft_strlen(data->inputs[i].cmd_fct)
+execution/free.c:				&& ft_strncmp(data->inputs[i].cmd_fct, data->inputs[i].cmds[j],
+execution/free.c:				ft_strlen(data->inputs[i].cmds[j])) == 0))
+execution/free.c:				free(data->inputs[i].cmds[j]);
+execution/free.c:	free(data->inputs[i].cmds);
+execution/free.c:	free(data->inputs[i].cmd_fct);
+execution/free.c:	while (data->inputs[i].file[j].type != 0)
+execution/free.c:		free(data->inputs[i].file[j++].name);
+execution/free.c:	free(data->inputs[i].file);
+execution/pipe.c:	while (data->inputs[i].file[j].type != 0)
+execution/pipe.c:		if (data->inputs[i].file[j].type == IN)
+execution/pipe.c:			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
+execution/pipe.c:		if (data->inputs[i].file[j].type == OUT)
+execution/pipe.c:			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
+execution/pipe.c:		if (data->inputs[i].file[j].type == APPEND)
+execution/pipe.c:			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
+execution/pipe.c:	if (ft_strlen(data->inputs[i].cmds[0]) == 4
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 2
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 6
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 5
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
+execution/pipe.c:	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
+execution/pipe.c:		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
+execution/pipe.c:	if (i != data->nb_pipe)
+execution/pipe.c:		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
+execution/pipe.c:		close(data->inputs[i].tube[0]);
+execution/pipe.c:	while (data->inputs[i].file[j].type != 0)
+execution/pipe.c:		//if (data->inputs[i].file[j].type == HEREDOC && data->inputs[i].file[j].fd != -1)
+execution/pipe.c:		//	dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
+execution/pipe.c:		if (data->inputs[i].file[j].type == IN && data->inputs[i].file[j].fd != -1)
+execution/pipe.c:			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
+execution/pipe.c:		if (data->inputs[i].file[j].type == OUT && data->inputs[i].file[j].fd != -1)
+execution/pipe.c:			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
+execution/pipe.c:		if (data->inputs[i].file[j].type == APPEND && data->inputs[i].file[j].fd != -1)
+execution/pipe.c:			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
+execution/pipe.c:		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
+execution/pipe.c:			if (data->inputs[i].cmd_fct != NULL)
+execution/pipe.c:	while (i <= data->nb_pipe)
+execution/pipe.c:		data->inputs[i].cmd_fct = ft_check_access(data, i);
+execution/pipe.c:		if (ft_check_fds(data, i) || ft_check_cmds(data->inputs[i].cmd_fct, data->inputs[i].cmds[0]))
+execution/pipe.c:		pipe(data->inputs[i].tube);
+execution/pipe.c:			data->inputs[i].child = fork();
+execution/pipe.c:			if (data->inputs[i].child == -1)
+execution/pipe.c:			if (data->inputs[i].child == 0)
+execution/pipe.c:				waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+execution/pipe.c:				//if (i != data->nb_pipe)
+execution/pipe.c:		dup2(data->inputs[i].tube[0], STDIN_FILENO);
+execution/pipe.c:		close(data->inputs[i].tube[1]);
+execution/pipe.c:		close(data->inputs[i].tube[0]);
+execution/pipe.c:	if (data->done == 0)
+execution/pipe.c:		free(data->inputs);
+execution/pipe_checker.c:	if ((ft_strlen(data->inputs[i].cmds[0]) == 4
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 2
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 6
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 5
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
+execution/pipe_checker.c:		|| (ft_strlen(data->inputs[i].cmds[0]) == 4
+execution/pipe_checker.c:		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0))
+execution/pipe_checker.c:	path_cmd_test = sub_check_acces(path_tab, *j, data->inputs[i].cmds[0]);
+execution/pipe_checker.c:	if (access(data->inputs[i].cmds[0], F_OK | X_OK) == 0
+execution/pipe_checker.c:		return (data->inputs[i].cmds[0]);
+execution/pipe_checker.c:	while (data->env[++j])
+execution/pipe_checker.c:		if (strncmp(data->env[j], "PATH", 4) == 0)
+execution/pipe_checker.c:			paths = data->env[j];
+execution/prompt.c:	while (data->env && data->env[i])
+execution/prompt.c:		temp = ft_split(data->env[i], '=');
+execution/utils_pipe.c:	while (data->inputs[i].file[j].type != 0)
+execution/utils_pipe.c:		//if (data->inputs[i].file[j].type == IN)
+execution/utils_pipe.c:			close(data->inputs[i].file[j].fd);
+execution/utils_pipe.c:		//if (data->inputs[i].file[j].type == OUT)
+execution/utils_pipe.c:		//	close(data->inputs[i].file[j].fd);
+main.c:	data->nb_pipe = 1;
+main.c:	data->inputs = malloc(sizeof(t_input) * (data->nb_pipe + 1));
+main.c:	data->inputs[0].child = -1;
+main.c:	data->inputs[0].file = malloc(sizeof(t_file) * 3);
+main.c:	data->inputs[0].file[0].name = "fichier_input.txt";
+main.c:	data->inputs[0].file[0].type = IN;
+main.c:	data->inputs[0].file[0].fd = -1;
+main.c:	data->inputs[0].file[1].name = "fichier_output_real.txt";
+main.c:	data->inputs[0].file[1].type = OUT;
+main.c:	data->inputs[0].file[1].fd = -1;
+main.c:	data->inputs[0].file[2].name = "fichier_output2.txt";
+main.c:	data->inputs[0].file[2].type = OUT;
+main.c:	data->inputs[0].file[2].fd = -1;
+main.c:	data->inputs[0].file[3].type = 0;
+main.c:	data->inputs[0].cmds = malloc(sizeof(char **) * 3);
+main.c:	data->inputs[0].cmds[0] = "grep";
+main.c:	data->inputs[0].cmds[1] = "a";
+main.c:	data->inputs[0].cmds[2] = NULL;
+main.c:	data->inputs[1].file = malloc(sizeof(t_file) * 2);
+main.c:	data->inputs[1].file[0].name = "autrefichier.txt";
+main.c:	data->inputs[1].file[0].type = OUT;
+main.c:	data->inputs[1].file[0].fd = -1;
+main.c:	data->inputs[1].file[1].type = 0;
+main.c:	data->inputs[1].cmds = malloc(sizeof(char **) * 3);
+main.c:	data->inputs[1].cmds[0] = "cat";
+main.c:	data->inputs[1].cmds[1] = "-e";
+main.c:	data->inputs[1].cmds[2] = NULL;
+main.c:	data->temp = NULL;
+main.c:	data->done = 0;
+main.c:	data->env = ft_envcpy(env);
+main.c:	data->fd_in_saved = dup (0);
+main.c:	data->fd_out_saved = dup (1);
+main.c:	dup2(data->fd_in_saved, STDIN_FILENO);
+main.c:	dup2(data->fd_out_saved, STDOUT_FILENO);
+main.c:	data->prompt = ft_color_prompt(data);
+main.c:	data->temp = readline(data->prompt);
+Binary file parse/.pre_parsing.c.swp matches
+parse/parsing.c:	while (i <= data->nb_pipe)
+parse/parsing.c:		while (data->inputs[i].cmds && data->inputs[i].cmds[j])
+parse/parsing.c:			while (data->inputs[i].cmds[j][u])
+parse/parsing.c:				if (data->inputs[i].cmds[j][u] == -1)
+parse/parsing.c:					data->inputs[i].cmds[j][u] = '>';
+parse/parsing.c:				if (data->inputs[i].cmds[j][u] == -2)
+parse/parsing.c:					data->inputs[i].cmds[j][u] = '<';
+parse/parsing.c:	cmd = ft_split_and_omit(data->temp, '|', 1);
+parse/parsing.c:	while (i <= data->nb_pipe)
+parse/parsing.c:		data->inputs[i].cmds = ptr;
+parse/parsing.c:	if (data->inputs->cmds != NULL && data->inputs[data->nb_pipe].cmds == NULL )
+parse/parsing.c:		data->inputs[data->nb_pipe].cmds = cmd;
+parse/parsing.c:	//data->env = ft_envcpy(data->env);
+parse/parsing.c:	if (data->env == NULL)
+parse/parsing.c:	data->nb_pipe = ft_ycheck_pipe(data->temp);
+parse/parsing.c:	if (data->nb_pipe == -1)
+parse/parsing.c:	if (ft_check_and_replace_var(&data->temp, data->env) == 1)
+parse/parsing.c:	if (data->inputs == NULL)
+parse/parsing_utils.c:	temp = data->temp;
+parse/parsing_utils.c:		data->temp = ft_strjoin_andadd_rt(data->temp, ptr);
+parse/parsing_utils.c:		data->temp = ft_strjoin(data->temp, ptr);
+parse/parsing_utils.c:	if (data->temp == NULL)
+parse/parsing_utils2.c:	while (data->temp[++i])
+parse/parsing_utils2.c:		omit = ft_omit_quote_apostrophe(data->temp[i], omit, NULL, 1);
+parse/parsing_utils2.c:		temp = data->temp;
+parse/parsing_utils2.c:		data->temp = ft_strjoin_andadd_rt(data->temp, NULL);
+parse/parsing_utils2.c:		if (data->temp == NULL)
+parse/parsing_utils2.c:	return (data->temp);
+parse/parsing_utils2.c:	while (i <= data->nb_pipe)
+parse/parsing_utils2.c:		ptr = data->inputs[i];
+parse/parsing_utils2.c:	ptr = ft_calloc((data->nb_pipe + 1), sizeof(t_input));
+parse/parsing_utils2.c:	while (i < (data->nb_pipe + 1))
+parse/parsing_utils2.c:	data->inputs = ptr;
+parse/print_cmd.c:	ptr = data->inputs;
+parse/print_cmd.c:	fprintf(stderr," data->nb_pipe : %d \n", data->nb_pipe);
+parse/print_cmd.c:	while (i <= data->nb_pipe)
+parse/print_cmd.c:		fprintf(stderr,"| redir_data->inputs : %d                 \n", ptr[i].redir_input);
+parse/print_cmd.c:		fprintf(stderr,"| redir_double_data->input : %d          \n", ptr[i].redir_double_input);
+Binary file parse/print_cmd.o matches
+parse/redirection.c:	while (i <= data->nb_pipe)
+parse/redirection.c:		error = ft_parse_input_redirection(&data->inputs[i]);

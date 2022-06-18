@@ -114,6 +114,7 @@ char	**ft_delete_rd(char **tab);
 char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
+int		ft_pre_parsing(t_data *data);
 
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
@@ -150,4 +151,4 @@ void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
 //void	*ft_freetab(char **tab);
 
-#endif
+	#endif

@@ -22,7 +22,7 @@ int	ft_convert_redi(t_data *data)
 	while (i <= data->nb_pipe)
 	{
 		j = 0;
-		while (data->inputs[i].cmds[j])
+		while (data->inputs[i].cmds && data->inputs[i].cmds[j])
 		{
 			u = 0;
 			while (data->inputs[i].cmds[j][u])
@@ -78,7 +78,7 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 	char	**cmd;
 
 	ptr = NULL;
-	if (data->inputs[data->nb_pipe].cmds == NULL)
+	if (data->inputs->cmds != NULL && data->inputs[data->nb_pipe].cmds == NULL )
 	{
 		ptr = readline(">");
 		while (*ptr == 0)
@@ -96,9 +96,9 @@ int	ft_yparsing(t_data *data)
 {
 	int		error;
 
-	//data->env = ft_envcpy(data->env);
-	if (data->env == NULL)
-		return (ft_yerror(ERROR_MEMORY, data));
+/*	if (ft_pre_parsing(data) == 1) 
+		return (0);*/
+	// ajouter ca si dans le cas ou la string est vide je ne veux rien traiter et renvoyer un pointeur NULL a JM
 	data->nb_pipe = ft_ycheck_pipe(data->temp);
 	if (data->nb_pipe == -1)
 		return (ft_yerror(ERROR_PIPE, data));
@@ -118,5 +118,7 @@ int	ft_yparsing(t_data *data)
 	if (data->inputs == NULL)
 		return (ft_yerror(5, data));
 	ft_convert_redi(data);
+	ft_yprint_input(data);
 	return (0);
+
 }
