@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/18 12:01:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 12:07:04 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	ft_check_and_replace_var(char **str, char **env)
 	return (0);
 }
 
+/*
 void	*ft_create_inputs(t_data *data)
 {
 	t_input	*ptr;
@@ -130,3 +131,4 @@ void	*ft_create_inputs(t_data *data)
 	data->inputs = ptr;
 	return (NULL);
 }
+*/
