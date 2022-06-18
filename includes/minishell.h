@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 00:24:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 01:05:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@
 # include <termios.h>
 # include <errno.h>
 
-int error_code;
-
+int	error_code;
 
 typedef enum e_type
 {
