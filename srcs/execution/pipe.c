@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:35:27 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 00:22:53 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,40 @@
 
 void printWaitStatus(int status)
 {
-    if (WIFEXITED(status))
+	if (WIFEXITED(status))
 	{
-        printf("child exited, status=%d\n", WEXITSTATUS(status));
-		error_code = status;
-    }
+		fprintf(stderr, "child exited, status=%d\n", WEXITSTATUS(status));
+		error_code = WIFEXITED(status);
+	}
 	else if (WIFSIGNALED(status))
 	{
-        printf("child killed by signal %d (%s)",
-               WTERMSIG(status), strsignal(WTERMSIG(status)));
+		fprintf(stderr, "child killed by signal %d (%s)",
+			   WTERMSIG(status), strsignal(WTERMSIG(status)));
 #ifdef WCOREDUMP
-        if (WCOREDUMP(status))
-            printf(" (core dumped)");
+		if (WCOREDUMP(status))
+			fprintf(stderr, " (core dumped)");
 #endif
-        printf("\n");
-		error_code = status;
-    }
+		fprintf(stderr, "\n");
+		error_code = WTERMSIG(status);
+	}
 	else if (WIFSTOPPED(status))
 	{
-        printf("child stopped by signal %d (%s)\n",
-               WSTOPSIG(status), strsignal(WSTOPSIG(status)));
-		error_code = status;
+		fprintf(stderr, "child stopped by signal %d (%s)\n",
+			   WSTOPSIG(status), strsignal(WSTOPSIG(status)));
+		error_code = WSTOPSIG(status);
 #ifdef WIFCONTINUED
-    }
+	}
 	else if (WIFCONTINUED(status))
 	{
-        printf("child continued\n");
-		error_code = status;
+		fprintf(stderr, "child continued\n");
+		//error_code = status;
 #endif
-    }
+	}
 	else
 	{
-        printf("status=%x\n",
-               (unsigned int) status);
-		error_code = status;
-    }
+		fprintf(stderr, "status=%d, errno : %d\n", (unsigned int) status, errno);
+		error_code = 0;
+	}
 }
 
 void ft_exec_cmd(t_data *data, int i)
@@ -104,12 +103,16 @@ void	ft_fork(t_data *data, int i)
 		ft_exec_cmd(data, i);
 	else
 	{
-		waitpid(data->inputs[i].child, &wstatus, 0);
-		error_code = WEXITSTATUS(wstatus);
+		//waitpid(data->inputs[i].child, &wstatus, 0);
+		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		//printWaitStatus(wstatus);
+		//fprintf(stderr, "errno: %d\n", errno);
+		if ((WIFEXITED(wstatus)))
+			error_code = WEXITSTATUS(wstatus);
 	}
 }
 
-void	ft_father_process(t_data *data, int *i)
+void	ft_close_and_free(t_data *data, int *i)
 {
 	dup2(data->inputs[*i].tube[0], STDIN_FILENO);
 	close(data->inputs[*i].tube[1]);
@@ -143,7 +146,7 @@ void	ft_exec_parse(t_data *data)
 			ft_exec_cmd(data, i);
 		else
 			ft_fork(data, i);
-		ft_father_process(data, &i);
+		ft_close_and_free(data, &i);
 	}
 	if (data->done == 0)
 		free(data->inputs);
