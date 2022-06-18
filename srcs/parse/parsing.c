@@ -65,7 +65,13 @@ int	ft_fulling_inputs_cmds(t_data *data)
 			ft_free_tab(cmd);
 			return (0);
 		}
-		data->inputs[i].cmds = ptr;
+		if (ptr[0] == NULL)
+		{
+			free(ptr);
+			data->inputs[i].cmds = NULL;
+		}
+		else
+			data->inputs[i].cmds = ptr;
 		i++;
 	}
 	ft_free_tab(cmd);

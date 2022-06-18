@@ -36,7 +36,7 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 		if (s[i] && omit == 0)
 			count++;
 		else
-			if (s[i - 1] != c && s[i] == 0)
+			if (s[i - 1] != c && s[i] == 0 && omit == 0)
 				count++;
 	}
 	return (count);
