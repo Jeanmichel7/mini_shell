@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/16 21:44:55 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/18 11:42:02 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ DEBEUG		= -fsanitize=address
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -g -lreadline -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L./libft -lft
 
 all :		${NAME}
 

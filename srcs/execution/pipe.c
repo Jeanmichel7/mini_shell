@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 01:05:56 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 11:29:43 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void printWaitStatus(int status)
 void ft_exec_cmd(t_data *data, int i)
 {
 	int	j;
-	int ret;
 
 	if (i != data->nb_pipe)
 	{
@@ -81,12 +80,13 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	else
 	{
-		ret = execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env);
-		if (ret == -1)
+		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
 		{
-			fprintf(stderr, "error renvoye : %d\n", errno);
 			if (data->inputs[i].cmd_fct != NULL)
+			{
 				ft_errputstr(strerror(errno), 0, 0, NULL);
+				error_code = errno;
+			}
 		}
 		else
 			error_code = 0;
@@ -96,7 +96,7 @@ void ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
-	
+
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
 		perror("Error");
@@ -104,13 +104,9 @@ void	ft_fork(t_data *data, int i)
 		ft_exec_cmd(data, i);
 	else
 	{
-		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
-		//printWaitStatus(wstatus);
-		//error_code = WEXITSTATUS(wstatus);
-		fprintf(stderr, "error wstatus : %d\n", WEXITSTATUS(wstatus));
-		fprintf(stderr, "error errno : %d\n", errno);
+		waitpid(data->inputs[i].child, &wstatus, 0);
+		error_code = WEXITSTATUS(wstatus);
 	}
-		//if (i != data->nb_pipe)
 }
 
 void	ft_father_process(t_data *data, int *i)
