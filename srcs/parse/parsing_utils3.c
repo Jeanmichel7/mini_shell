@@ -120,7 +120,7 @@ void	*ft_create_inputs(t_data *data)
 	while (i < (data->nb_pipe + 1))
 	{
 		ptr[i].file = ft_calloc(1, sizeof(t_file));
-		if (ptr->file == NULL)
+		if (ptr[i].file == NULL)
 			return (NULL);
 		ptr[i].file->type = 0;
 		ptr[i].child = -1;

@@ -20,6 +20,7 @@ int	ft_yprint_input(t_data *data)
 
 	i = 0;
 	ptr = data->inputs;
+	fprintf(stderr,"-----------------------------------\n");
 	fprintf(stderr," data->nb_pipe : %d \n", data->nb_pipe);
 	while (i <= data->nb_pipe)
 	{

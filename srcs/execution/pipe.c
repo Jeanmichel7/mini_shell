@@ -6,11 +6,50 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 00:57:30 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 11:29:43 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void printWaitStatus(int status)
+{
+    if (WIFEXITED(status))
+	{
+        printf("child exited, status=%d\n", WEXITSTATUS(status));
+		error_code = status;
+    }
+	else if (WIFSIGNALED(status))
+	{
+        printf("child killed by signal %d (%s)",
+               WTERMSIG(status), strsignal(WTERMSIG(status)));
+#ifdef WCOREDUMP
+        if (WCOREDUMP(status))
+            printf(" (core dumped)");
+#endif
+        printf("\n");
+		error_code = status;
+    }
+	else if (WIFSTOPPED(status))
+	{
+        printf("child stopped by signal %d (%s)\n",
+               WSTOPSIG(status), strsignal(WSTOPSIG(status)));
+		error_code = status;
+#ifdef WIFCONTINUED
+    }
+	else if (WIFCONTINUED(status))
+	{
+        printf("child continued\n");
+		error_code = status;
+#endif
+    }
+	else
+	{
+        printf("status=%x\n",
+               (unsigned int) status);
+		error_code = status;
+    }
+}
 
 void ft_exec_cmd(t_data *data, int i)
 {
@@ -44,7 +83,10 @@ void ft_exec_cmd(t_data *data, int i)
 		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
 		{
 			if (data->inputs[i].cmd_fct != NULL)
+			{
 				ft_errputstr(strerror(errno), 0, 0, NULL);
+				error_code = errno;
+			}
 		}
 		else
 			error_code = 0;
@@ -54,15 +96,17 @@ void ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
-	
+
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
 		perror("Error");
 	if (data->inputs[i].child == 0)
 		ft_exec_cmd(data, i);
 	else
-		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
-		//if (i != data->nb_pipe)
+	{
+		waitpid(data->inputs[i].child, &wstatus, 0);
+		error_code = WEXITSTATUS(wstatus);
+	}
 }
 
 void	ft_father_process(t_data *data, int *i)
