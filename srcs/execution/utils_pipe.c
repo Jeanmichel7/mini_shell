@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 01:27:10 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 18:16:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,21 @@ void	ft_close_redir(t_data *data, int i)
 	}
 }
 
-int	ft_check_cmds(char *fct, char *fct_name)
+int	ft_check_cmds(t_data *data, int i)
 {
-	//fprintf(stderr, "test : %s\n", fct);
-	if (fct == NULL && fct_name)
+	char	*fct;
+
+	fct = data->inputs[i].cmd_fct;
+	if (fct == NULL && data->inputs[i].cmds && data->inputs[i].cmds[0])
 	{
-		ft_errputstr("bash: ", 0, 0, NULL);
-		ft_errputstr(fct_name, 0, 0, NULL);
+		ft_errputstr(data->inputs[i].cmds[0], 0, 0, NULL);
 		ft_errputstr(": command not found", 0, 0, NULL);
 		ft_errputstr("\n", 0, 0, NULL);
 		error_code = 127;
 		return (1);
 	}
+	else if (fct == NULL)
+		return (1);
 	return (0);
 }
 
@@ -60,11 +63,6 @@ void	ft_check_redir(t_data *data, int i)
 			O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
 		j++;
 	}
-}
-
-void	ft_display_error(void)
-{
-	fprintf(stderr, "%d\n", error_code);
 }
 
 void	ft_check_builtin(t_data *data, int i)
@@ -90,9 +88,6 @@ void	ft_check_builtin(t_data *data, int i)
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
 		ft_exit(data, i);
-	//else if (ft_strlen(data->inputs[i].cmds[0]) == 2
-	//	&& ft_strncmp(data->inputs[i].cmds[0], "$?", 2) == 0)
-	//	ft_display_error();
 }
 
 int	ft_check_fds(t_data *data, int i)

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 01:05:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 18:12:12 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		ft_pre_parsing(t_data *data);
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
-int		ft_check_cmds(char *fct, char *fct_name);
+int		ft_check_cmds(t_data *data, int i);
 void	ft_check_redir(t_data *data, int i);
 void	ft_check_builtin(t_data *data, int i);
 int		ft_check_fds(t_data *data, int i);
