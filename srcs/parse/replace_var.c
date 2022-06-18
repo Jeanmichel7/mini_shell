@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils3.c                                   :+:      :+:    :+:   */
+/*   replace_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/02 22:26:13 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/18 12:01:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,26 @@ int	ft_check_and_replace_var(char **str, char **env)
 		i++;
 	}
 	return (0);
+}
+
+void	*ft_create_inputs(t_data *data)
+{
+	t_input	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = ft_calloc((data->nb_pipe + 1), sizeof(t_input));
+	if (ptr == NULL)
+		return (NULL);
+	while (i < (data->nb_pipe + 1))
+	{
+		ptr[i].file = ft_calloc(1, sizeof(t_file));
+		if (ptr[i].file == NULL)
+			return (NULL);
+		ptr[i].file->type = 0;
+		ptr[i].child = -1;
+		i++;
+	}
+	data->inputs = ptr;
+	return (NULL);
 }

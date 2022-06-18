@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/16 23:21:51 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/17 01:05:48 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*sub_check_acces(char **path_tab, int i, char *cmd)
 	free(str);
 	return (str2);
 }
-
 
 char	*ft_sub_check_access(int *j, t_data *data, char **path_tab, int i)
 {
