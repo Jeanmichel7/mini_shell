@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/17 01:05:48 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 12:16:42 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 int	ft_is_builtin(t_data *data, int i)
 {
-	if ((ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
-		&& strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 6
-		&& strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 5
-		&& strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 3
-		&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
-		|| (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& strncmp(data->inputs[i].cmds[0], "$?", 2) == 0))
-		return (1);
+	if (data->inputs[i].cmds)
+	{
+		if ((ft_strlen(data->inputs[i].cmds[0]) == 4
+			&& strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 2
+			&& strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+			&& strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 6
+			&& strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 5
+			&& strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 3
+			&& strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 4
+			&& strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
+			|| (ft_strlen(data->inputs[i].cmds[0]) == 2
+			&& strncmp(data->inputs[i].cmds[0], "$?", 2) == 0))
+			return (1);
+	}
 	return (0);
 }
 
@@ -67,7 +70,8 @@ char	*ft_check_access(t_data *data, int i)
 	char	**path_tab;
 	char	*path_cmd_test;
 
-	if (access(data->inputs[i].cmds[0], F_OK | X_OK) == 0
+	if ((data->inputs[i].cmds
+		&& access(data->inputs[i].cmds[0], F_OK | X_OK) == 0)
 		|| ft_is_builtin(data, i))
 		return (data->inputs[i].cmds[0]);
 	j = -1;
@@ -77,7 +81,7 @@ char	*ft_check_access(t_data *data, int i)
 	paths = paths + 5;
 	path_tab = ft_split(paths, ':');
 	j = 0;
-	while (path_tab[j])
+	while (data->inputs[i].cmds && path_tab && path_tab[j])
 	{
 		path_cmd_test = ft_sub_check_access(&j, data, path_tab, i);
 		if(path_cmd_test)

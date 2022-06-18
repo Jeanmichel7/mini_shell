@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 11:29:43 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 12:25:23 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,26 @@ void	ft_exec_parse(t_data *data)
 	while (i <= data->nb_pipe)
 	{
 		data->inputs[i].cmd_fct = ft_check_access(data, i);
-		ft_check_redir(data, i);
-		if (ft_check_fds(data, i) || ft_check_cmds(data->inputs[i].cmd_fct, data->inputs[i].cmds[0]))
+		if (data->inputs[i].cmd_fct)
 		{
-			i++;
-			//fprintf(stderr, "break\n");
+			ft_check_redir(data, i);
+			if (ft_check_fds(data, i) || ft_check_cmds(data->inputs[i].cmd_fct, data->inputs[i].cmds[0]))
+			{
+				i++;
+				break;
+			}
+			pipe(data->inputs[i].tube);
+			if (ft_is_builtin(data, i))
+				ft_exec_cmd(data, i);
+			else
+				ft_fork(data, i);
+			ft_father_process(data, &i);
+		}
+		else
+		{
+			ft_free_section(data, i);
 			break;
 		}
-		pipe(data->inputs[i].tube);
-		if (ft_is_builtin(data, i))
-			ft_exec_cmd(data, i);
-		else
-			ft_fork(data, i);
-		ft_father_process(data, &i);
 	}
 	if (data->done == 0)
 		free(data->inputs);

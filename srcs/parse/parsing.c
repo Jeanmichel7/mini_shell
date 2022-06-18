@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/13 00:55:07 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/18 12:22:38 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,6 @@ int	ft_yparsing(t_data *data)
 {
 	int		error;
 
-/*	if (ft_pre_parsing(data) == 1) 
-		return (0);*/
-	// ajouter ca si dans le cas ou la string est vide je ne veux rien traiter et renvoyer un pointeur NULL a JM
 	data->nb_pipe = ft_ycheck_pipe(data->temp);
 	if (data->nb_pipe == -1)
 		return (ft_yerror(ERROR_PIPE, data));
@@ -118,7 +115,5 @@ int	ft_yparsing(t_data *data)
 	if (data->inputs == NULL)
 		return (ft_yerror(5, data));
 	ft_convert_redi(data);
-	ft_yprint_input(data);
 	return (0);
-
 }
