@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 00:23:00 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 15:26:01 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	fake_init_inputs(t_data *data)
 }
 */
 
-
 void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 {
 	(void)argc;
@@ -102,7 +101,7 @@ int main(int argc, char **argv, char **env)
 			add_history(data.temp);
 		if (ft_yparsing(&data) == 0)
 		{
-			//ft_yprint_input(&data);
+			ft_yprint_input(&data);
 			ft_exec_parse(&data);
 		}
 		ft_free_inputs(&data);

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:59:18 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 18:37:20 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,32 @@ void	ft_echo(t_data *data, int i)
 
 void	ft_cd(t_data *data, int i)
 {
-	chdir(data->inputs[i].cmds[1]);
+	char	*home;
+	char	**temp;
+	int		j;
+
+	if (data->inputs[i].cmds[1] == NULL)
+	{
+		j = 0;
+		while (data->env && data->env[j])
+		{
+			temp = ft_split(data->env[j], '=');
+			if (4 == ft_strlen(temp[0])
+				&& ft_strncmp(temp[0], "HOME", 4) == 0)
+			{
+				home = malloc(sizeof(char) * (ft_strlen(temp[1]) + 1));
+				ft_memcpy(home, temp[1], ft_strlen(temp[1]) + 1);
+				ft_free_tab(temp);
+				break;
+			}
+			ft_free_tab(temp);
+			j++;
+		}
+		chdir(home);
+		free(home);
+	}
+	else
+		chdir(data->inputs[i].cmds[1]);
 }
 
 void	ft_pwd(t_data *data, int i)

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:34:35 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/09 21:53:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 15:31:20 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_yprint_input(t_data *data)
 			fprintf(stderr,"| fd: %d          \n", ptr[i].file[u].fd);
 			u++;
 		}
+		fprintf(stderr,"| tube[0]: %d          \n", ptr[i].tube[0]);
+		fprintf(stderr,"| tube[1]: %d          \n", ptr[i].tube[1]);
 		fprintf(stderr,"| child: %d          \n", ptr[i].child);
 		fprintf(stderr,"| redir_data->inputs : %d                 \n", ptr[i].redir_input);
 		fprintf(stderr,"| redit_output: %d                 \n", ptr[i].redir_output);

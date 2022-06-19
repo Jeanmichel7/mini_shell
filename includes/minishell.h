@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:12:12 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 15:30:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_input
 	int				redir_double_output;
 	char			*cmd_fct;
 	char			**cmds;
-	int				pipe;
+	//int				pipe;
 	pid_t			child;
 }	t_input;
 
@@ -121,7 +121,7 @@ void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_check_cmds(t_data *data, int i);
 void	ft_check_redir(t_data *data, int i);
-void	ft_check_builtin(t_data *data, int i);
+void	ft_exec_builtin(t_data *data, int i);
 int		ft_check_fds(t_data *data, int i);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);

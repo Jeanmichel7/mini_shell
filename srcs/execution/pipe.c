@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 00:22:53 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/19 18:28:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void printWaitStatus(int status)
 	else if (WIFSIGNALED(status))
 	{
 		fprintf(stderr, "child killed by signal %d (%s)",
-			   WTERMSIG(status), strsignal(WTERMSIG(status)));
+			WTERMSIG(status), strsignal(WTERMSIG(status)));
 #ifdef WCOREDUMP
 		if (WCOREDUMP(status))
 			fprintf(stderr, " (core dumped)");
@@ -74,7 +74,7 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	if (ft_is_builtin(data, i))
 	{
-		ft_check_builtin(data, i);
+		ft_exec_builtin(data, i);
 		error_code = 0;
 	}
 	else
@@ -95,6 +95,7 @@ void ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
+	int	ret;
 
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
@@ -104,7 +105,8 @@ void	ft_fork(t_data *data, int i)
 	else
 	{
 		//waitpid(data->inputs[i].child, &wstatus, 0);
-		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		fprintf(stderr, "retour waitpid : %d\n", ret);
 		//printWaitStatus(wstatus);
 		//fprintf(stderr, "errno: %d\n", errno);
 		if ((WIFEXITED(wstatus)))
