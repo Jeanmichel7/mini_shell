@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 15:26:01 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 01:22:10 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 	data->env = ft_envcpy(env);
 	data->fd_in_saved = dup (0);
 	data->fd_out_saved = dup (1);
+	error_code = 0;
 }
 
 void	ft_reinit_data(t_data *data)
@@ -85,11 +86,10 @@ int main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	error_code = 0;
 	ft_init_data(&data, argc, argv, env);
 	signal(SIGINT, &ft_handle_signal);
 	signal(SIGQUIT, &ft_handle_signal);
-	while (!data.done)
+	while (data.done == 0)
 	{
 		ft_reinit_data(&data);
 		if (!data.temp)
@@ -101,7 +101,7 @@ int main(int argc, char **argv, char **env)
 			add_history(data.temp);
 		if (ft_yparsing(&data) == 0)
 		{
-			ft_yprint_input(&data);
+			//ft_yprint_input(&data);
 			ft_exec_parse(&data);
 		}
 		ft_free_inputs(&data);

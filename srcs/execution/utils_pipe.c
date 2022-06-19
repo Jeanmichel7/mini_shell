@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 15:06:19 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 01:33:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_check_redir(t_data *data, int i)
 	}
 }
 
-void	ft_exec_builtin(t_data *data, int i)
+int	ft_exec_builtin(t_data *data, int i)
 {
 	if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
@@ -87,7 +87,11 @@ void	ft_exec_builtin(t_data *data, int i)
 		ft_env(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
+	{
 		ft_exit(data, i);
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_check_fds(t_data *data, int i)

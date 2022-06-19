@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 18:28:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 01:54:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void printWaitStatus(int status)
 	else
 	{
 		fprintf(stderr, "status=%d, errno : %d\n", (unsigned int) status, errno);
-		error_code = 0;
+		//error_code = 0;
 	}
 }
 
@@ -54,6 +54,7 @@ void ft_exec_cmd(t_data *data, int i)
 {
 	int	j;
 
+	//fprintf(stderr, "enfant : %d\n", getpid());
 	if (i != data->nb_pipe)
 	{
 		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
@@ -74,8 +75,11 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	if (ft_is_builtin(data, i))
 	{
-		ft_exec_builtin(data, i);
 		error_code = 0;
+		if (ft_exec_builtin(data, i))
+			kill(0, SIGKILL);
+		//ft_free_tab(data->inputs[i].cmds);
+		exit(error_code);
 	}
 	else
 	{
@@ -104,13 +108,23 @@ void	ft_fork(t_data *data, int i)
 		ft_exec_cmd(data, i);
 	else
 	{
-		//waitpid(data->inputs[i].child, &wstatus, 0);
-		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
-		fprintf(stderr, "retour waitpid : %d\n", ret);
+		//usleep(10000);
+		int j = 0;
+		while (j < 1000000)
+			j++;
 		//printWaitStatus(wstatus);
-		//fprintf(stderr, "errno: %d\n", errno);
-		if ((WIFEXITED(wstatus)))
+		/* si actif : error ls fdfsfddsf dysfonctionne */
+		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		if (WIFEXITED(wstatus))
 			error_code = WEXITSTATUS(wstatus);
+		while (ret < 0)
+			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		//fprintf(stderr, "retour waitpid : %d\n", ret);
+		//fprintf(stderr, "errno: %d\n", errno);
+		//else if (WIFSIGNALED(wstatus))
+		//	error_code = WTERMSIG(wstatus);
+		//else
+		//	error_code = 0;
 	}
 }
 
@@ -131,6 +145,7 @@ void	ft_exec_parse(t_data *data)
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
+		//fprintf(stderr, "boucle %d\n", i);
 		data->inputs[i].cmd_fct = ft_check_access(data, i);
 		ft_check_redir(data, i);
 		if (ft_check_fds(data, i)
@@ -144,10 +159,10 @@ void	ft_exec_parse(t_data *data)
 			break;
 		}
 		pipe(data->inputs[i].tube);
-		if (ft_is_builtin(data, i))
-			ft_exec_cmd(data, i);
-		else
-			ft_fork(data, i);
+		//if (ft_is_builtin(data, i))
+		//	ft_exec_cmd(data, i);
+		//else
+		ft_fork(data, i);
 		ft_close_and_free(data, &i);
 	}
 	if (data->done == 0)

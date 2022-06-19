@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/19 18:37:20 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 01:44:42 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_pwd(t_data *data, int i)
 	(void)data;
 	(void)i;
 	getcwd(str, 500);
+	//printf("%s", str);
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 }
@@ -117,5 +118,4 @@ void	ft_exit(t_data *data, int i)
 		ft_sub_exit(code, str_code);
 		free(str_code);
 	}
-	data->done = 1;
 }
