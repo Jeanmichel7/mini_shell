@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:02:14 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:56:55 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:11:01 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ void	ft_free_section(t_data *data, int i)
 	free(data->inputs[i].cmd_fct);
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
-		free(data->inputs[i].file[j++].name);
+	{
+		if (ft_strncmp(data->inputs[i].file[j].name, "herdoc.txt", 10) != 0)
+			free(data->inputs[i].file[j].name);
+		else
+			unlink("herdoc.txt");
+		j++;
+	}
 	free(data->inputs[i].file);
 }

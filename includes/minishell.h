@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:35:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 23:49:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 int		ft_pre_parsing(t_data *data);
+
+
+
+
+void	ft_print_sec(t_input input, char *msg);
+
+
+
+
+
+
 
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);

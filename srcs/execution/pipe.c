@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 03:31:52 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:11:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_dup2(t_data *data, int i)
 		{
 			//fprintf(stderr, "dans heredoc fd : %d\nname : %s\n", data->inputs[i].file[j].fd
 			//, data->inputs[i].file[j].name);
+			close(data->inputs[i].file[j].fd);
 			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
 			O_RDONLY);
 			data->inputs[i].file[j].type = IN;
@@ -79,8 +80,6 @@ void	ft_dup2(t_data *data, int i)
 
 void ft_exec_cmd(t_data *data, int i)
 {
-
-	//fprintf(stderr, "enfant : %d\n", getpid());
 	if (i != data->nb_pipe)
 	{
 		dup2(data->inputs[i].tube[1], STDOUT_FILENO);
@@ -94,7 +93,7 @@ void ft_exec_cmd(t_data *data, int i)
 		if (!ft_no_need_child(data, i))
 			exit(error_code);
 	}
-	else
+	else if (data->inputs[0].cmds[0])
 	{
 		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
 		{
@@ -110,7 +109,7 @@ void ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
-	int	ret;
+	//int	ret;
 	int j;
 
 	data->inputs[i].child = fork();
@@ -123,16 +122,15 @@ void	ft_fork(t_data *data, int i)
 		j = 0;
 		while (j < 10000000)
 			j++;
-		//printWaitStatus(wstatus);
-		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		if (WIFEXITED(wstatus))
 			error_code = WEXITSTATUS(wstatus);
 		else if (WIFSIGNALED(wstatus))
 			error_code = WTERMSIG(wstatus);
 		else
 			error_code = 0;
-		while (ret < 0)
-			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		//while (ret < 0)
+		//	ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		//fprintf(stderr, "retour waitpid : %d\n", ret);
 		//fprintf(stderr, "errno: %d\n", errno);
 	}
@@ -155,7 +153,6 @@ void	ft_exec_parse(t_data *data)
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
-		//fprintf(stderr, "boucle %d\n", i);
 		data->inputs[i].cmd_fct = ft_check_access(data, i);
 		ft_check_redir(data, i);
 		if (ft_check_fds(data, i)
