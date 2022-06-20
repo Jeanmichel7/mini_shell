@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
+#    By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/18 11:42:02 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/20 16:03:25 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra
-LDFLAGS		= -I./include/ -I./libft/
+LDFLAGS		= -I./include/ -I./libft/ -I/Users/ydumaine/.brew/opt/readline/include
 DEBEUG		= -fsanitize=address
 
 .c.o:		
@@ -52,7 +52,7 @@ DEBEUG		= -fsanitize=address
 
 ${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline  -L/Users/ydumaine/.brew/opt/readline/lib -L./libft -lft
 
 all :		${NAME}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/18 11:44:56 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 15:17:20 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 		input->file[total - 1].fd = fd;
 	if (rd == 4)
 		input->file[total - 1].name = NULL;
-	fprintf(stderr, "fd : %d, data fd : %d\n", fd, input->file[total - 1].fd);
 	return (0);
 }
 
@@ -86,6 +85,7 @@ int	ft_parse_input_redirection(t_input *input)
 	char	**new_tab;
 
 	i = 0;
+	new_cmd = NULL; 
 	if (input->cmds != NULL)
 		new_cmd = ft_split_redirection(input->cmds[i]);
 	if (new_cmd == NULL && input->cmds != NULL)

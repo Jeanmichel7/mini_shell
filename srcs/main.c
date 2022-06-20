@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:34:43 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 17:05:49 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,17 @@ void	ft_reinit_data(t_data *data)
 void	ft_handle_signal(int sig)
 {
 	if (sig == SIGINT)
+	{
 		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	/*if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}*/
 }
 
 int main(int argc, char **argv, char **env)
@@ -95,7 +105,7 @@ int main(int argc, char **argv, char **env)
 		ft_reinit_data(&data);
 		if (!data.temp)
 		{
-			ft_free(&data);
+			ft_free_tab(data.env);
 			exit(1);
 		}
 		if (*data.temp)
