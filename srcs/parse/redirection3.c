@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/11 17:20:58 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 03:03:21 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_update_file(char *str, t_file **files, int total, int rd)
 	free(*files);
 	if (total != 0)
 	{
-		new_file[total - 1].fd = -1; // si heredoc c'est pas -1
+		new_file[total - 1].fd = -1;
 		new_file[total - 1].type = rd;
 		new_file[total - 1].name = str;
 	}
