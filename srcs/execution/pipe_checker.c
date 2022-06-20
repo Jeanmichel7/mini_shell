@@ -32,6 +32,20 @@ int	ft_is_builtin(t_data *data, int i)
 	return (0);
 }
 
+int	ft_no_need_child(t_data *data, int i)
+{
+	if (ft_strlen(data->inputs[i].cmds[0]) == 2
+		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+		return (1);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 6
+		&& ft_strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
+		return (1);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 5
+		&& ft_strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+		return (1);
+	return (0);
+}
+
 char	*sub_check_acces(char **path_tab, int i, char *cmd)
 {
 	char	*str;

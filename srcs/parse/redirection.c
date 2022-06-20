@@ -86,6 +86,7 @@ int	ft_parse_input_redirection(t_input *input)
 	char	**new_tab;
 
 	i = 0;
+	new_cmd = NULL;
 	if (input->cmds != NULL)
 		new_cmd = ft_split_redirection(input->cmds[i]);
 	if (new_cmd == NULL && input->cmds != NULL)

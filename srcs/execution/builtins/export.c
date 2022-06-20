@@ -17,7 +17,6 @@ void	ft_add_env(t_data *data, int i)
 	char	**new_env;
 	int		j;
 
-	fprintf(stderr,"on ajoute\n");
 	j = 0;
 	while (data->env[j])
 		j++;
@@ -64,9 +63,6 @@ void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
 
 	name = ft_env_split_name(str_value, str);
 	str_value = str_value + 1;
-	//fprintf(stderr, "str export : %s\n", str);
-	fprintf(stderr, "export name : %s\n", name);
-	//fprintf(stderr, "export value : %s\n", str_value);
 	if (!((name[0] > 'a' && name[0] < 'z')
 		|| (name[0] > 'A' && name[0] < 'Z')))
 		ft_export_error(data, i);
@@ -91,16 +87,24 @@ void	ft_export(t_data *data, int i)
 {
 	char	*str;
 	char	*str_value;
+	int		j;
 
 	str = data->inputs[i].cmds[1];
 	if (str == NULL)
-		fprintf(stderr, "pas d'arg je fais quoi ? (declare -x NAME=fdesfsdfsdf)\n");
+	{
+		j = 0;
+		while(data->env && data->env[j])
+		{
+			write(1, "declare -x ", 12);
+			write(1, data->env[j], ft_strlen(data->env[j]));
+			write(1, "\n", 1);
+			j++;
+		}
+	}
 	else
 	{
 		str_value = ft_strchr(str, '=');
-		if (str_value == NULL)
-			ft_export_error(data, i);
-		else
+		if (str_value != NULL)
 			ft_sub_export(data, i, str, str_value);
 	}
 }

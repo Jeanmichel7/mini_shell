@@ -94,7 +94,8 @@ int main(int argc, char **argv, char **env)
 		ft_reinit_data(&data);
 		if (!data.temp)
 		{
-			ft_free(&data);
+			//ft_free(&data);
+			ft_free_tab(data.env);
 			exit(1);
 		}
 		if (*data.temp)

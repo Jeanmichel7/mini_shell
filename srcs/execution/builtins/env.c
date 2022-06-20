@@ -44,7 +44,6 @@ void	ft_env(t_data *data, int i)
 	j = 0;
 	while (data->env[j])
 	{
-		//printf("%d %s\n", j, data->env[j]);
 		write(1, data->env[j], ft_strlen(data->env[j]));
 		write(1, "\n", 1);
 		j++;

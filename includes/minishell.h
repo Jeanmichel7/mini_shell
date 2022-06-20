@@ -130,6 +130,7 @@ char	*ft_color_prompt(t_data *data);
 
 /* BUILTINS */
 int		ft_is_builtin(t_data *data, int i);
+int		ft_no_need_child(t_data *data, int i);
 
 /* ENV */
 void	ft_env(t_data *data, int i);

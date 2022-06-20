@@ -43,6 +43,7 @@ void	ft_cd(t_data *data, int i)
 	char	**temp;
 	int		j;
 
+	home = NULL;
 	if (data->inputs[i].cmds[1] == NULL)
 	{
 		j = 0;
@@ -64,7 +65,10 @@ void	ft_cd(t_data *data, int i)
 		free(home);
 	}
 	else
+	{
+		//fprintf(stderr, "test cd : %s\n", data->inputs[i].cmds[1]);
 		chdir(data->inputs[i].cmds[1]);
+	}
 }
 
 void	ft_pwd(t_data *data, int i)
@@ -74,7 +78,6 @@ void	ft_pwd(t_data *data, int i)
 	(void)data;
 	(void)i;
 	getcwd(str, 500);
-	//printf("%s", str);
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 }

@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+/*
 void printWaitStatus(int status)
 {
 	if (WIFEXITED(status))
@@ -49,6 +50,7 @@ void printWaitStatus(int status)
 		//error_code = 0;
 	}
 }
+*/
 
 void	ft_dup2(t_data *data, int i)
 {
@@ -89,7 +91,8 @@ void ft_exec_cmd(t_data *data, int i)
 	{
 		if (ft_exec_builtin(data, i))
 			kill(0, SIGKILL);
-		exit(error_code);
+		if (!ft_no_need_child(data, i))
+			exit(error_code);
 	}
 	else
 	{
@@ -166,10 +169,10 @@ void	ft_exec_parse(t_data *data)
 			break;
 		}
 		pipe(data->inputs[i].tube);
-		//if (ft_is_builtin(data, i))
-		//	ft_exec_cmd(data, i);
-		//else
-		ft_fork(data, i);
+		if (ft_no_need_child(data, i))
+			ft_exec_cmd(data, i);
+		else
+			ft_fork(data, i);
 		ft_close_and_free(data, &i);
 	}
 	if (data->done == 0)
