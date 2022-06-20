@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:32:33 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/16 19:40:57 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 03:42:47 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_add_env(t_data *data, int i)
 	char	**new_env;
 	int		j;
 
+	fprintf(stderr,"on ajoute\n");
 	j = 0;
 	while (data->env[j])
 		j++;
@@ -64,7 +65,7 @@ void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
 	name = ft_env_split_name(str_value, str);
 	str_value = str_value + 1;
 	//fprintf(stderr, "str export : %s\n", str);
-	//fprintf(stderr, "export name : %s\n", name);
+	fprintf(stderr, "export name : %s\n", name);
 	//fprintf(stderr, "export value : %s\n", str_value);
 	if (!((name[0] > 'a' && name[0] < 'z')
 		|| (name[0] > 'A' && name[0] < 'Z')))

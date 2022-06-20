@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:44:42 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 03:35:59 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_echo(t_data *data, int i)
 	}
 	if (newline)
 		write(1, "\n", 1);
+	error_code = 0;
 }
 
 void	ft_cd(t_data *data, int i)
