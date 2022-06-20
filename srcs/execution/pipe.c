@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:54:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/20 02:47:49 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	if (ft_is_builtin(data, i))
 	{
-		error_code = 0;
+		//error_code = 0;
 		if (ft_exec_builtin(data, i))
 			kill(0, SIGKILL);
 		//ft_free_tab(data->inputs[i].cmds);
@@ -91,8 +91,8 @@ void ft_exec_cmd(t_data *data, int i)
 				error_code = errno;
 			}
 		}
-		else
-			error_code = 0;
+		//else
+			//error_code = 0;
 	}
 }
 
@@ -100,6 +100,7 @@ void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
 	int	ret;
+	int j;
 
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
@@ -109,22 +110,23 @@ void	ft_fork(t_data *data, int i)
 	else
 	{
 		//usleep(10000);
-		int j = 0;
-		while (j < 1000000)
+		j = 0;
+		while (j < 10000000)
 			j++;
 		//printWaitStatus(wstatus);
 		/* si actif : error ls fdfsfddsf dysfonctionne */
 		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		if (WIFEXITED(wstatus))
 			error_code = WEXITSTATUS(wstatus);
+		else if (WIFSIGNALED(wstatus))
+			error_code = WTERMSIG(wstatus);
+		else
+			error_code = 0;
 		while (ret < 0)
 			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		//fprintf(stderr, "retour waitpid : %d\n", ret);
 		//fprintf(stderr, "errno: %d\n", errno);
-		//else if (WIFSIGNALED(wstatus))
-		//	error_code = WTERMSIG(wstatus);
-		//else
-		//	error_code = 0;
+		
 	}
 }
 
