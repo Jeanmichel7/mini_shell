@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 03:35:59 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:28:20 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	ft_echo(t_data *data, int i)
 	error_code = 0;
 }
 
+/*
+int		ft_check_cd(t_data *data, int i)
+{
+
+}
 void	ft_cd(t_data *data, int i)
 {
 	char	*home;
@@ -64,11 +69,53 @@ void	ft_cd(t_data *data, int i)
 		chdir(home);
 		free(home);
 	}
+	else if (ft_check_cd(data, i))
+		chdir(data->inputs[i].cmds[1]);
 	else
 	{
-		//fprintf(stderr, "test cd : %s\n", data->inputs[i].cmds[1]);
-		chdir(data->inputs[i].cmds[1]);
+		write(1, "bash: cd: ", 11);
+		write(1, data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]));
+		write(1, "No such file or directory", 26);
+		error_code = 1;
 	}
+}
+*/
+
+void	ft_cd(t_data *data, int i)
+{
+	char	*home;
+	char	**temp;
+	int		j;
+
+	home = NULL;
+	if (data->inputs[i].cmds[1] == NULL)
+	{
+		j = 0;
+		while (data->env && data->env[j])
+		{
+			temp = ft_split(data->env[j], '=');
+			if (4 == ft_strlen(temp[0])
+				&& ft_strncmp(temp[0], "HOME", 4) == 0)
+			{
+				home = malloc(sizeof(char) * (ft_strlen(temp[1]) + 1));
+				ft_memcpy(home, temp[1], ft_strlen(temp[1]) + 1);
+				ft_free_tab(temp);
+				break;
+			}
+			ft_free_tab(temp);
+			j++;
+		}
+		chdir(home);
+		free(home);
+	}
+	else if (chdir(data->inputs[i].cmds[1]) == -1)
+	{
+		write(1, "bash: cd: ", 11);
+		write(1, data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]));
+		write(1, ": No such file or directory\n", 29);
+		error_code = 1;
+	}
+
 }
 
 void	ft_pwd(t_data *data, int i)

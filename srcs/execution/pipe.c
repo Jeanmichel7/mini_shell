@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 00:11:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:55:39 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int wstatus;
-	//int	ret;
+	int	ret;
 	int j;
 
 	data->inputs[i].child = fork();
@@ -122,15 +122,15 @@ void	ft_fork(t_data *data, int i)
 		j = 0;
 		while (j < 10000000)
 			j++;
-		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		if (WIFEXITED(wstatus))
 			error_code = WEXITSTATUS(wstatus);
 		else if (WIFSIGNALED(wstatus))
 			error_code = WTERMSIG(wstatus);
 		else
 			error_code = 0;
-		//while (ret < 0)
-		//	ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		while (ret < 0)
+			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		//fprintf(stderr, "retour waitpid : %d\n", ret);
 		//fprintf(stderr, "errno: %d\n", errno);
 	}

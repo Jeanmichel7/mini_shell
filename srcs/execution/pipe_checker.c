@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/18 18:25:00 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 00:40:37 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	ft_no_need_child(t_data *data, int i)
 		return (1);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 5
 		&& ft_strncmp(data->inputs[i].cmds[0], "unset", 5) == 0)
+		return (1);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
+		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
 		return (1);
 	return (0);
 }

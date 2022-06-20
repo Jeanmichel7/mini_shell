@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/18 11:42:02 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/21 00:34:51 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra
+CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS		= -I./include/ -I./libft/
 DEBEUG		= -fsanitize=address
 
