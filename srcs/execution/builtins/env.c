@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:12:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 01:36:05 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_env(t_data *data, int i)
 
 	(void)i;
 	j = 0;
-	while (data->env[j])
+	while (data->env && data->env[j])
 	{
 		write(1, data->env[j], ft_strlen(data->env[j]));
 		write(1, "\n", 1);

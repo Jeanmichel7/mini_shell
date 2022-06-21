@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:02:14 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 01:26:56 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:25:00 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ void	ft_free_section(t_data *data, int i)
 	int	j;
 
 	j = 0;
-	if (!ft_no_need_child(data, i)) // besoin pour export mais crééer leaks pour cd
-		while (data->inputs[i].cmds && data->inputs[i].cmds[j])
-		{
-			//fprintf(stderr, "%d %d %s same : %d %p %p\n", i, j, data->inputs[i].cmds[j], same_cmd, data->inputs[i].cmds[0], data->inputs[i].cmd_fct);
-			if (!(ft_strlen(data->inputs[i].cmds[j]) == ft_strlen(data->inputs[i].cmd_fct)
-				&& ft_strncmp(data->inputs[i].cmd_fct, data->inputs[i].cmds[j],
-				ft_strlen(data->inputs[i].cmds[j])) == 0))
-				free(data->inputs[i].cmds[j]);
-			j++;
-		}
+	while (data->inputs[i].cmds && data->inputs[i].cmds[j])
+	{
+		if (!(ft_strlen(data->inputs[i].cmds[j]) == ft_strlen(data->inputs[i].cmd_fct)
+			&& ft_strncmp(data->inputs[i].cmd_fct, data->inputs[i].cmds[j],
+			ft_strlen(data->inputs[i].cmds[j])) == 0))
+			free(data->inputs[i].cmds[j]);
+		j++;
+	}
 	free(data->inputs[i].cmds);
 	free(data->inputs[i].cmd_fct);
 	j = 0;

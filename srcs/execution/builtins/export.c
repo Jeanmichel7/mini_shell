@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:32:33 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 00:57:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:22:57 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@ void	ft_add_env(t_data *data, int i)
 	int		j;
 
 	j = 0;
-	while (data->env[j])
+	while (data->env && data->env[j])
 		j++;
-	new_env = malloc(sizeof(char *) * (j + 2));
+	new_env = malloc(sizeof(char *) * (j + 1));
 	j = 0;
-	while (data->env[j])
+	while (data->env && data->env[j])
 	{
 		new_env[j] = malloc(sizeof(char) * (ft_strlen(data->env[j]) + 1));
 		ft_memcpy(new_env[j], data->env[j], ft_strlen(data->env[j]) + 1);
 		j++;
 	}
-	new_env[j] = data->inputs[i].cmds[1];
+	new_env[j] = malloc(sizeof(char) * (ft_strlen(data->inputs[i].cmds[1]) + 1));
+	ft_memcpy(new_env[j], data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]) + 1);
 	j++;
 	new_env[j] = NULL;
 	ft_free_tab(data->env);
