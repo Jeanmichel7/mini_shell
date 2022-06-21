@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/20 15:17:20 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:10:55 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,17 @@ int	ft_parse_input_redirection(t_input *input)
 	i = 0;
 	new_cmd = NULL; 
 	if (input->cmds != NULL)
-		new_cmd = ft_split_redirection(input->cmds[i]);
-	if (new_cmd == NULL && input->cmds != NULL)
-		return (ERROR_MEMORY);
-	new_tab = ft_replace_elements(input->cmds, new_cmd, &i);
-	free(input->cmds);
-	input->cmds = new_tab;
+	{
+		while (input->cmds[i] != NULL)
+		{
+			new_cmd = ft_split_redirection(input->cmds[i]);
+			if (new_cmd == NULL && input->cmds != NULL)
+				return (ERROR_MEMORY);
+			new_tab = ft_replace_elements(input->cmds, new_cmd, &i);
+			free(input->cmds);
+			input->cmds = new_tab;
+		}
+	}
 	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);

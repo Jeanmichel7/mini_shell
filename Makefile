@@ -6,7 +6,7 @@
 #    By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/20 16:03:25 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/21 16:17:15 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS		= srcs/main.c \
 			srcs/parse/replace_var.c \
 			srcs/parse/ft_delete_elements.c \
 			srcs/parse/pre_parsing.c \
+			srcs/parse/termcap.c \
 			\
 			srcs/execution/pipe.c \
 			srcs/execution/pipe_checker.c\

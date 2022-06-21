@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:12:12 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 16:59:10 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_data
 	t_input			*inputs;
 	int				fd_in_saved;
 	int				fd_out_saved;
+	struct termios	termios_save; 
 }	t_data;
 
 /* PARSING */
@@ -115,6 +116,7 @@ char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 int		ft_pre_parsing(t_data *data);
+int		ft_init_term(t_data *data);
 
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);

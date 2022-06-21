@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 17:05:49 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/21 17:05:19 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int main(int argc, char **argv, char **env)
 	ft_init_data(&data, argc, argv, env);
 	signal(SIGINT, &ft_handle_signal);
 	signal(SIGQUIT, &ft_handle_signal);
+	ft_init_term(&data);
 	while (!data.done)
 	{
 		ft_reinit_data(&data);
