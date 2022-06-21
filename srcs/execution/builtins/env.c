@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 01:36:05 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:43:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_env_split_name(char *str_value, char *str)
 {
 	char	*name;
 	int		j;
-	
+
 	name = malloc(sizeof(char) * (str_value - str + 1));
 	j = -1;
 	while (++j < str_value - str)

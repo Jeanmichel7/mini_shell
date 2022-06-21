@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:32:33 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:22:57 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:40:28 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	ft_add_env(t_data *data, int i)
 		ft_memcpy(new_env[j], data->env[j], ft_strlen(data->env[j]) + 1);
 		j++;
 	}
-	new_env[j] = malloc(sizeof(char) * (ft_strlen(data->inputs[i].cmds[1]) + 1));
-	ft_memcpy(new_env[j], data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]) + 1);
+	new_env[j] = malloc(sizeof(char) * \
+	(ft_strlen(data->inputs[i].cmds[1]) + 1));
+	ft_memcpy(new_env[j], data->inputs[i].cmds[1],
+		ft_strlen(data->inputs[i].cmds[1]) + 1);
 	j++;
 	new_env[j] = NULL;
 	ft_free_tab(data->env);
@@ -65,7 +67,7 @@ void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
 	name = ft_env_split_name(str_value, str);
 	str_value = str_value + 1;
 	if (!((name[0] > 'a' && name[0] < 'z')
-		|| (name[0] > 'A' && name[0] < 'Z')))
+			|| (name[0] > 'A' && name[0] < 'Z')))
 		ft_export_error(data, i);
 	else
 	{
@@ -73,7 +75,7 @@ void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
 		if (index_value)
 		{
 			free(data->env[index_value]);
-			data->env[index_value] = malloc(sizeof(char) *
+			data->env[index_value] = malloc(sizeof(char) * \
 				(ft_strlen(data->inputs[i].cmds[1]) + 1));
 			ft_memcpy(data->env[index_value], data->inputs[i].cmds[1], \
 			ft_strlen(data->inputs[i].cmds[1]) + 1);
@@ -94,7 +96,7 @@ void	ft_export(t_data *data, int i)
 	if (str == NULL)
 	{
 		j = 0;
-		while(data->env && data->env[j])
+		while (data->env && data->env[j])
 		{
 			write(1, "declare -x ", 12);
 			write(1, data->env[j], ft_strlen(data->env[j]));

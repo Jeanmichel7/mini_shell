@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/21 00:34:51 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/21 02:52:21 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		= srcs/main.c \
 			srcs/execution/free.c \
 			srcs/execution/prompt.c \
 			srcs/execution/builtins/builtins1.c \
+			srcs/execution/builtins/exit.c \
 			srcs/execution/builtins/env.c \
 			srcs/execution/builtins/export.c \
 			srcs/execution/builtins/unset.c \

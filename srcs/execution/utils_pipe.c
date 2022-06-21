@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 01:33:24 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:29:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@ void	ft_close_redir(t_data *data, int i)
 
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
-	{
-		//if (data->inputs[i].file[j].type == IN)
-			close(data->inputs[i].file[j].fd);
-		//if (data->inputs[i].file[j].type == OUT)
-		//	close(data->inputs[i].file[j].fd);
-		j++;
-	}
+		close(data->inputs[i].file[j++].fd);
 }
 
 int	ft_check_cmds(t_data *data, int i)

@@ -6,79 +6,39 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 00:55:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:36:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-void printWaitStatus(int status)
-{
-	if (WIFEXITED(status))
-	{
-		fprintf(stderr, "child exited, status=%d\n", WEXITSTATUS(status));
-		error_code = WIFEXITED(status);
-	}
-	else if (WIFSIGNALED(status))
-	{
-		fprintf(stderr, "child killed by signal %d (%s)",
-			WTERMSIG(status), strsignal(WTERMSIG(status)));
-#ifdef WCOREDUMP
-		if (WCOREDUMP(status))
-			fprintf(stderr, " (core dumped)");
-#endif
-		fprintf(stderr, "\n");
-		error_code = WTERMSIG(status);
-	}
-	else if (WIFSTOPPED(status))
-	{
-		fprintf(stderr, "child stopped by signal %d (%s)\n",
-			   WSTOPSIG(status), strsignal(WSTOPSIG(status)));
-		error_code = WSTOPSIG(status);
-#ifdef WIFCONTINUED
-	}
-	else if (WIFCONTINUED(status))
-	{
-		fprintf(stderr, "child continued\n");
-		//error_code = status;
-#endif
-	}
-	else
-	{
-		fprintf(stderr, "status=%d, errno : %d\n", (unsigned int) status, errno);
-		//error_code = 0;
-	}
-}
-*/
-
 void	ft_dup2(t_data *data, int i)
 {
 	int	j;
+	int	type;
 
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
 	{
-		if (data->inputs[i].file[j].type == HEREDOC && data->inputs[i].file[j].fd != -1)
+		type = data->inputs[i].file[j].type;
+		if (type == HEREDOC && data->inputs[i].file[j].fd != -1)
 		{
-			//fprintf(stderr, "dans heredoc fd : %d\nname : %s\n", data->inputs[i].file[j].fd
-			//, data->inputs[i].file[j].name);
 			close(data->inputs[i].file[j].fd);
 			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
 			O_RDONLY);
-			data->inputs[i].file[j].type = IN;
+			type = IN;
 		}
-		if (data->inputs[i].file[j].type == IN && data->inputs[i].file[j].fd != -1)
+		if (type == IN && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
-		if (data->inputs[i].file[j].type == OUT && data->inputs[i].file[j].fd != -1)
+		if (type == OUT && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
-		if (data->inputs[i].file[j].type == APPEND && data->inputs[i].file[j].fd != -1)
+		if (type == APPEND && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
 		j++;
 	}
 }
 
-void ft_exec_cmd(t_data *data, int i)
+void	ft_exec_cmd(t_data *data, int i)
 {
 	if (i != data->nb_pipe)
 	{
@@ -95,7 +55,8 @@ void ft_exec_cmd(t_data *data, int i)
 	}
 	else if (data->inputs[0].cmds[0])
 	{
-		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env) == -1)
+		if (execve(data->inputs[i].cmd_fct, data->inputs[i].cmds, data->env)
+			== -1)
 		{
 			if (data->inputs[i].cmd_fct != NULL)
 			{
@@ -108,9 +69,9 @@ void ft_exec_cmd(t_data *data, int i)
 
 void	ft_fork(t_data *data, int i)
 {
-	int wstatus;
+	int	wstatus;
 	int	ret;
-	int j;
+	int	j;
 
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
@@ -131,8 +92,6 @@ void	ft_fork(t_data *data, int i)
 			error_code = 0;
 		while (ret < 0)
 			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
-		//fprintf(stderr, "retour waitpid : %d\n", ret);
-		//fprintf(stderr, "errno: %d\n", errno);
 	}
 }
 
@@ -148,22 +107,21 @@ void	ft_close_and_free(t_data *data, int *i)
 
 void	ft_exec_parse(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
 		data->inputs[i].cmd_fct = ft_check_access(data, i);
 		ft_check_redir(data, i);
-		if (ft_check_fds(data, i)
-			|| ft_check_cmds(data, i))
+		if (ft_check_fds(data, i) || ft_check_cmds(data, i))
 		{
 			if (data->inputs[i].cmds)
 				ft_free_section(data, i);
 			else
 				free(data->inputs[i].file);
 			i++;
-			break;
+			break ;
 		}
 		pipe(data->inputs[i].tube);
 		if (ft_no_need_child(data, i))

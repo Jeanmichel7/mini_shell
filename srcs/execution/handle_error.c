@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/17 00:24:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:28:53 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 	{
 		write(2, str, ft_strlen(str));
 		if (stop)
-		{
-			//ft_free(var);
 			exit(code);
-		}
 	}
 }
