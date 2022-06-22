@@ -6,7 +6,7 @@
 #    By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/21 16:17:15 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/22 15:47:46 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS		= srcs/main.c \
 			srcs/parse/redirection.c \
 			srcs/parse/redirection2.c \
 			srcs/parse/redirection3.c \
+			srcs/parse/determining_type_redir.c \
 			srcs/parse/ft_split_redirection.c \
 			srcs/parse/ft_replace_elements.c \
 			srcs/parse/list_utils.c \

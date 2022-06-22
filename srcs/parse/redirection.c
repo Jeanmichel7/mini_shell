@@ -6,31 +6,11 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/21 16:10:55 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:27:24 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_fill_heredoc(char *pattern)
-{
-	char	*ptr;
-	char	*temp;
-	char	*str;
-	int		fd;
-	int		pattern_found;
-
-	fd = open("herdoc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	str = NULL;
-	ptr = NULL;
-	temp = NULL;
-	pattern_found = 0;
-	while (pattern_found == 0)
-		pattern_found = ft_extract_line(ptr, &str, temp, pattern);
-	write(fd, str, ft_strlen(str));
-	free(str);
-	return (fd);
-}
 
 int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 {
@@ -71,40 +51,53 @@ int	ft_check_cmd_redirection(int i, t_input *input)
 		if (rd < 0)
 			return (ft_print_error(rd));
 		else if (ft_fulling_redir_para(rd, input,
-			input->cmds[i + 1]) == ERROR_MEMORY)
+				input->cmds[i + 1]) == ERROR_MEMORY)
 			return (ERROR_MEMORY);
 		input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
 	}	
 	return (0);
 }
 
+int	ft_split_redir_and_update_cmds(t_input *input)
+{
+	char	**new_cmd;
+	char	**new_tab;
+	int		i;
+
+	i = 0;
+	new_cmd = NULL;
+	while (input->cmds[i] != NULL)
+	{
+		new_cmd = ft_split_redirection(input->cmds[i]);
+		if (new_cmd == NULL && input->cmds != NULL)
+			return (ERROR_MEMORY);
+		new_tab = ft_replace_elements(input->cmds, new_cmd, &i);
+		free(input->cmds);
+		input->cmds = new_tab;
+	}
+	return (0);
+}
+
 int	ft_parse_input_redirection(t_input *input)
 {
 	int		i;
-	char	**new_cmd;
-	char	**new_tab;
+	int		rc;	
 
-	i = 0;
-	new_cmd = NULL; 
+	rc = 0;
 	if (input->cmds != NULL)
 	{
-		while (input->cmds[i] != NULL)
-		{
-			new_cmd = ft_split_redirection(input->cmds[i]);
-			if (new_cmd == NULL && input->cmds != NULL)
-				return (ERROR_MEMORY);
-			new_tab = ft_replace_elements(input->cmds, new_cmd, &i);
-			free(input->cmds);
-			input->cmds = new_tab;
-		}
+		rc = ft_split_redir_and_update_cmds(input);
+		if (rc != 0)
+			return (rc);
 	}
 	i = -1;
 	if (ft_update_file(NULL, &input->file, 0, 0) != 0)
 		return (ERROR_MEMORY);
 	while (input->cmds && input->cmds[++i])
 	{
-		if (ft_check_cmd_redirection(i, input) != 0)
-			return (ERROR_MEMORY);
+		rc = ft_check_cmd_redirection(i, input);
+		if (rc != 0)
+			return (rc);
 		if (input->cmds[i] == NULL)
 			break ;
 	}

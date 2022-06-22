@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/21 18:07:49 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:31:59 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int ft_init_term()
     }
     else if (ret == 0)
     {
-        fprintf(stderr, "Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_type);
+        fprintf(stderr, "Terminal type '%s' is not defined in termcap 
+		database (or have too few informations).\n", term_type);
         return -1;
     }
 
@@ -66,14 +67,13 @@ int ft_init_term()
 }
 */
 
-int ft_init_term(t_data *data)
+int	ft_init_term(t_data *data)
 {
-	(void)data;
-	
-	int rc; 
-	struct termios termios; 
+	int				rc;
+	struct termios	termios;
+
 	rc = tcgetattr(0, &data->termios_save);
-	termios = data->termios_save; 
+	termios = data->termios_save;
 	termios.c_lflag &= ~ECHOCTL;
 	termios.c_cc[VMIN] = 100;
 	termios.c_cc[VTIME] = 100;

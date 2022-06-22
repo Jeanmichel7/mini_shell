@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/18 12:07:04 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:33:45 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	ft_checkvar(char *str, char *var, int *k)
 
 int	ft_add_error_code(char **str, int *i, int *j)
 {
-	char *ptr;
+	char	*ptr;
+
 	ptr = ft_itoa(error_code);
 	if (ptr == NULL || ft_strcpy_var(str, ptr, *j + 2, *i - 1) == 1)
 	{
@@ -101,7 +102,8 @@ int	ft_check_and_replace_var(char **str, char **env)
 	while ((*str)[i] != 0)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
-		if ((*str)[i] == '$' && omit != 2 && (*str)[i + 1] != ' ' && (*str)[i + 1] != '\0')
+		if ((*str)[i] == '$' && omit != 2 &&
+			(*str)[i + 1] != ' ' && (*str)[i + 1] != '\0')
 			if (ft_replace_var(str, env, &i, &j) == 1)
 				return (ERROR_MEMORY);
 		i++;
