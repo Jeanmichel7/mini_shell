@@ -49,9 +49,12 @@ void	ft_exec_cmd(t_data *data, int i)
 	if (ft_is_builtin(data, i))
 	{
 		if (ft_exec_builtin(data, i))
+		{
+			tcsetattr(0, 0, &data->termios_save);
 			kill(0, SIGKILL);
+		}
 		if (!ft_no_need_child(data, i))
-			exit(error_code);
+			exit(g_error_code);
 	}
 	else if (data->inputs[0].cmds[0])
 	{
@@ -61,7 +64,7 @@ void	ft_exec_cmd(t_data *data, int i)
 			if (data->inputs[i].cmd_fct != NULL)
 			{
 				ft_errputstr(strerror(errno), 0, 0, NULL);
-				error_code = errno;
+				g_error_code = errno;
 			}
 		}
 	}
@@ -85,11 +88,11 @@ void	ft_fork(t_data *data, int i)
 			j++;
 		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		if (WIFEXITED(wstatus))
-			error_code = WEXITSTATUS(wstatus);
+			g_error_code = WEXITSTATUS(wstatus);
 		else if (WIFSIGNALED(wstatus))
-			error_code = WTERMSIG(wstatus);
+			g_error_code = WTERMSIG(wstatus);
 		else
-			error_code = 0;
+			g_error_code = 0;
 		while (ret < 0)
 			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 	}

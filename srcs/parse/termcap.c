@@ -66,6 +66,8 @@ int ft_init_term()
     return 0;
 }
 */
+
+/*
 void	ft_handle_signal(int sig)
 {
 	if (sig == SIGINT)
@@ -75,11 +77,23 @@ void	ft_handle_signal(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	/*if (sig == SIGQUIT)
+	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-	}*/
+	}
+}
+*/
+
+void	ft_handle_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 int	ft_init_term(t_data *data)

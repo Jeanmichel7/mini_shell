@@ -35,7 +35,7 @@ void	ft_echo(t_data *data, int i)
 	}
 	if (newline)
 		write(1, "\n", 1);
-	error_code = 0;
+	g_error_code = 0;
 }
 
 char	*ft_sub_cd(t_data *data, int *j, char *home)
@@ -79,7 +79,7 @@ void	ft_cd(t_data *data, int i)
 		write(1, "bash: cd: ", 11);
 		write(1, data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]));
 		write(1, ": No such file or directory\n", 29);
-		error_code = 1;
+		g_error_code = 1;
 	}
 }
 

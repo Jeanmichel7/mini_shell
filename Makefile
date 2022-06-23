@@ -15,7 +15,6 @@ SRCS		= srcs/main.c \
 			srcs/parse/parsing.c  \
 			srcs/parse/ft_split_and_omit.c  \
 			srcs/parse/ft_strjoin_andadd_rt.c  \
-			srcs/parse/print_cmd.c \
 			srcs/parse/redirection.c \
 			srcs/parse/redirection2.c \
 			srcs/parse/redirection3.c \
@@ -27,7 +26,6 @@ SRCS		= srcs/main.c \
 			srcs/parse/parsing_utils2.c \
 			srcs/parse/replace_var.c \
 			srcs/parse/ft_delete_elements.c \
-			srcs/parse/pre_parsing.c \
 			srcs/parse/termcap.c \
 			\
 			srcs/execution/pipe.c \
@@ -47,15 +45,15 @@ RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-LDFLAGS		= -I./include/ -I./libft/
+LDFLAGS		= -I./include/ -I./libft/ -I/goinfre/jrasser/homebrew/opt/readline/include
 DEBEUG		= -fsanitize=address
 
 .c.o:		
 			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
-${NAME}	:	${OBJS}
+${NAME}	:	${OBJS} 
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline  -L/Users/ydumaine/.brew/opt/readline/lib -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L/goinfre/jrasser/homebrew/opt/readline/lib -L./libft -lft
 
 all :		${NAME}
 

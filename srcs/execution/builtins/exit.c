@@ -29,7 +29,7 @@ void	ft_sub_exit(int code, char *str_code)
 	}
 	write(1, code_ptr, ft_strlen(code_ptr));
 	write(1, ")]\n", 4);
-	error_code = code;
+	g_error_code = code;
 	free(code_ptr);
 }
 

@@ -31,7 +31,7 @@ int	ft_check_cmds(t_data *data, int i)
 		ft_errputstr(data->inputs[i].cmds[0], 0, 0, NULL);
 		ft_errputstr(": command not found", 0, 0, NULL);
 		ft_errputstr("\n", 0, 0, NULL);
-		error_code = 127;
+		g_error_code = 127;
 		return (1);
 	}
 	else if (fct == NULL)
@@ -102,7 +102,7 @@ int	ft_check_fds(t_data *data, int i)
 			ft_errputstr(": ", 0, 0, NULL);
 			ft_errputstr(strerror(errno), 0, 0, NULL);
 			ft_errputstr("\n", 0, 0, NULL);
-			error_code = 2;
+			g_error_code = 2;
 			return (1);
 		}
 		j++;

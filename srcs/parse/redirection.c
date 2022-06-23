@@ -38,7 +38,6 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 		input->file[total - 1].fd = fd;
 	if (rd == 4)
 		input->file[total - 1].name = "herdoc.txt";
-	//fprintf(stderr, "fd : %d, data fd : %d\n", fd, input->file[total - 1].fd);
 	return (0);
 }
 

@@ -20,7 +20,7 @@ void	ft_export_error(t_data *data, int i)
 	ft_errputstr(data->inputs[i].cmds[1], 0, 0, NULL);
 	ft_errputstr("': not a valid identifier", 0, 0, NULL);
 	ft_errputstr("\n", 0, 0, NULL);
-	error_code = 1;
+	g_error_code = 1;
 }
 
 char	*ft_env_split_name(char *str_value, char *str)

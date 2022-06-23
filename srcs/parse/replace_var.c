@@ -59,11 +59,11 @@ int	ft_checkvar(char *str, char *var, int *k)
 	return (0);
 }
 
-int	ft_add_error_code(char **str, int *i, int *j)
+int	ft_add_g_error_code(char **str, int *i, int *j)
 {
 	char	*ptr;
 
-	ptr = ft_itoa(error_code);
+	ptr = ft_itoa(g_error_code);
 	if (ptr == NULL || ft_strcpy_var(str, ptr, *j + 2, *i - 1) == 1)
 	{
 		if (ptr != NULL)
@@ -78,7 +78,7 @@ int	ft_replace_var(char **str, char **env, int *i, int *j)
 {
 	(*i)++;
 	if ((*str)[*i] == '?')
-		return (ft_add_error_code(str, i, j));
+		return (ft_add_g_error_code(str, i, j));
 	while (*env != NULL)
 	{
 		if (ft_checkvar(&(*str)[*i], *env, j) == 1)
