@@ -1,4 +1,3 @@
-# mini_shell
-chang branch            => git checkout name
+# minishell
 
-update branch from main => git merge main
+fini ma gueule
