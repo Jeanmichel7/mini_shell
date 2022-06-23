@@ -52,22 +52,13 @@ int	ft_no_need_child(t_data *data, int i)
 	return (0);
 }
 
-char	*sub_check_acces(char **path_tab, int i, char *cmd)
-{
-	char	*str;
-	char	*str2;
-
-	str = ft_strjoin(path_tab[i], "/");
-	str2 = ft_strjoin(str, cmd);
-	free(str);
-	return (str2);
-}
-
 char	*ft_sub_check_access(int *j, t_data *data, char **path_tab, int i)
 {
 	char	*path_cmd_test;
+	char	*str;
 
-	path_cmd_test = sub_check_acces(path_tab, *j, data->inputs[i].cmds[0]);
+	str = ft_strjoin(path_tab[*j], "/");
+	path_cmd_test = ft_strjoin(str, data->inputs[i].cmds[0]);
 	if (access(path_cmd_test, F_OK | X_OK) == 0)
 	{
 		ft_free_tab(path_tab);
@@ -78,6 +69,23 @@ char	*ft_sub_check_access(int *j, t_data *data, char **path_tab, int i)
 	return (NULL);
 }
 
+char	*ft_sub_check_access2(t_data *data)
+{
+	char	*paths;
+	int		j;
+
+	j = -1;
+	while (data->env[++j])
+	{	
+		if (strncmp(data->env[j], "PATH", 4) == 0)
+		{
+			paths = data->env[j];
+			return (paths);
+		}
+	}
+	return (NULL);
+}
+
 char	*ft_check_access(t_data *data, int i)
 {
 	int		j;
@@ -85,15 +93,15 @@ char	*ft_check_access(t_data *data, int i)
 	char	**path_tab;
 	char	*path_cmd_test;
 
+	paths = NULL;
 	if (data->inputs[i].cmds == NULL)
 		return (NULL);
 	if (access(data->inputs[i].cmds[0], F_OK | X_OK) == 0
 		|| ft_is_builtin(data, i))
 		return (data->inputs[i].cmds[0]);
-	j = -1;
-	while (data->env[++j])
-		if (strncmp(data->env[j], "PATH", 4) == 0)
-			paths = data->env[j];
+	paths = ft_sub_check_access2(data);
+	if (paths == NULL)
+		return (NULL);
 	paths = paths + 5;
 	path_tab = ft_split(paths, ':');
 	j = 0;
