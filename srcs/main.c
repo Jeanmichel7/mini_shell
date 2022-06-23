@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:53:33 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/23 11:41:16 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+	error_code = 0;
 	data->temp = NULL;
 	data->done = 0;
 	data->env = ft_envcpy(env);
@@ -34,20 +35,15 @@ void	ft_reinit_data(t_data *data)
 	data->temp = readline(data->prompt);
 }
 
-void	ft_handle_signal(int sig)
-{
-	if (sig == SIGINT)
-		write(1, "\n", 1);
-}
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int 	new_code; 
 
 	ft_init_data(&data, argc, argv, env);
-	signal(SIGINT, &ft_handle_signal);
-	signal(SIGQUIT, &ft_handle_signal);
-	while (data.done == 0)
+	ft_init_term(&data);
+	while (!data.done)
 	{
 		ft_reinit_data(&data);
 		if (!data.temp)
@@ -57,17 +53,18 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (*data.temp)
 			add_history(data.temp);
-		if (ft_yparsing(&data) == 0)
-		{
-			//ft_yprint_input(&data);
+		new_code = ft_yparsing(&data); 
+		if (new_code == 0)
 			ft_exec_parse(&data);
-		}
+		else 
+			error_code = new_code;
 		ft_free_inputs(&data);
 	}
 	ft_free(&data);
 	return (0);
 }
 
+//ft_yprint_input(&data);
 /*
 lsof -p 88103
 */

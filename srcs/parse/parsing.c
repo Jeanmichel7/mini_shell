@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
 /*   Updated: 2022/06/20 01:55:41 by jrasser          ###   ########.fr       */
@@ -40,6 +40,31 @@ int	ft_convert_redi(t_data *data)
 	return (0);
 }
 
+int	ft_fulling_input_cmds(char **cmd, char **ptr, int i, t_data *data)
+{
+	int	error;
+
+	error = 0;
+	if (cmd[i] != NULL)
+		error = ft_which_redirection_take_on_board(cmd[i]);
+	if (error != 0)
+		return (error);
+	ptr = ft_split_and_omit(cmd[i], ' ', 0);
+	if (ptr == NULL)
+	{
+		ft_free_tab(cmd);
+		return (0);
+	}
+	if (ptr[0] == NULL)
+	{
+		free(ptr);
+		data->inputs[i].cmds = NULL;
+	}
+	else
+		data->inputs[i].cmds = ptr;
+	return (0);
+}
+
 int	ft_fulling_inputs_cmds(t_data *data)
 {
 	int		i;
@@ -49,29 +74,16 @@ int	ft_fulling_inputs_cmds(t_data *data)
 
 	error = 0;
 	i = 0;
+	ptr = NULL;
 	cmd = ft_split_and_omit(data->temp, '|', 1);
 	if (cmd == NULL)
 		return (ERROR_MEMORY);
 	i = 0;
 	while (i <= data->nb_pipe)
 	{
-		if (cmd[i] != NULL)
-			error = ft_which_redirection_take_on_board(cmd[i]);
+		error = ft_fulling_input_cmds(cmd, ptr, i, data);
 		if (error != 0)
 			return (error);
-		ptr = ft_split_and_omit(cmd[i], ' ', 0);
-		if (ptr == NULL)
-		{
-			ft_free_tab(cmd);
-			return (0);
-		}
-		if (ptr[0] == NULL)
-		{
-			free(ptr);
-			data->inputs[i].cmds = NULL;
-		}
-		else
-			data->inputs[i].cmds = ptr;
 		i++;
 	}
 	ft_free_tab(cmd);
@@ -82,13 +94,19 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 {
 	char	*ptr;
 	char	**cmd;
+	int		rc;
 
+	rc = 0;
 	ptr = NULL;
 	if (data->inputs->cmds != NULL && data->inputs[data->nb_pipe].cmds == NULL )
 	{
 		ptr = readline(">");
 		while (*ptr == 0)
 			ptr = readline(">");
+		if (ptr != NULL)
+			rc = ft_which_redirection_take_on_board(ptr);
+		if (rc != 0)
+			return (rc);
 		cmd = ft_split_and_omit(ptr, ' ', 0);
 		free(ptr);
 		if (cmd == NULL)
@@ -113,11 +131,11 @@ int	ft_yparsing(t_data *data)
 	error = ft_fulling_inputs_cmds(data);
 	if (error != 0)
 		return (ft_yerror(error, data));
+	if (ft_if_not_cmd_after_last_pipe(data) == 1)
+		return (ft_yerror(ERROR_MEMORY, data));
 	error = ft_parse_redirection(data);
 	if (error != 0)
 		return (ft_yerror(error, data));
-	if (ft_if_not_cmd_after_last_pipe(data) == 1)
-		return (ft_yerror(ERROR_MEMORY, data));
 	if (data->inputs == NULL)
 		return (ft_yerror(5, data));
 	ft_convert_redi(data);

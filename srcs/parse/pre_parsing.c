@@ -1,3 +1,4 @@
+/*
 #include "../includes/minishell.h"
 
 int	ft_pre_parsing(t_data *data)
@@ -13,3 +14,4 @@ int	ft_pre_parsing(t_data *data)
 	}
 	return (1);
 }
+*/

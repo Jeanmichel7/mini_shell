@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:52:53 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/16 20:05:31 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:56:01 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 char	**ft_delete_rd(char **tab)
 {
 	int		i;
-	int		length;
 	int		j;
 	char	**ptr;
 
 	i = -1;
-	length = 0;
+	j = 0;
 	if (tab == NULL)
 		return (NULL);
 	while (tab[++i])
 		if (tab[i][0] != '>' || tab[i][0] != '<')
-			length++;
-	ptr = ft_calloc(length + 1, sizeof(char *));
+			j++;
+	ptr = ft_calloc(j + 1, sizeof(char *));
 	if (ptr == NULL)
 		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (tab[i])
+	while (tab[++i])
 	{	
 		if (tab[i][0] == '>' || tab[i][0] == '<')
 			free(tab[i]);
 		else
 			ptr[j++] = tab[i];
-		i++;
 	}
 	free(tab);
 	return (ptr);

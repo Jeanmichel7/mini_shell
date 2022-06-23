@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
 /*   Updated: 2022/06/20 23:49:22 by jrasser          ###   ########.fr       */
@@ -77,6 +77,7 @@ typedef struct s_data
 	t_input			*inputs;
 	int				fd_in_saved;
 	int				fd_out_saved;
+	struct termios	termios_save; 
 }	t_data;
 
 /* PARSING */
@@ -115,6 +116,9 @@ char 	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 int		ft_pre_parsing(t_data *data);
+int		ft_init_term(t_data *data);
+int		ft_fill_heredoc(char *pattern);
+int		ft_convert_redi(t_data *data);
 
 
 
@@ -163,4 +167,4 @@ void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
 //void	*ft_freetab(char **tab);
 
-	#endif
+#endif
