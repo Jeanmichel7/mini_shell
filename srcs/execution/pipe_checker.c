@@ -83,6 +83,7 @@ char	*ft_sub_check_access2(t_data *data)
 			return (paths);
 		}
 	}
+	return (NULL);
 }
 
 char	*ft_check_access(t_data *data, int i)
