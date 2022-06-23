@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/22 15:31:59 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/23 11:29:20 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,29 @@ int ft_init_term()
     return 0;
 }
 */
+void	ft_handle_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	/*if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}*/
+}
 
 int	ft_init_term(t_data *data)
 {
 	int				rc;
 	struct termios	termios;
 
+	signal(SIGINT, &ft_handle_signal);
+	signal(SIGQUIT, &ft_handle_signal);
 	rc = tcgetattr(0, &data->termios_save);
 	termios = data->termios_save;
 	termios.c_lflag &= ~ECHOCTL;

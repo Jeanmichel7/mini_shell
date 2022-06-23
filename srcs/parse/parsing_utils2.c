@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:51 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/03 15:16:38 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/23 11:39:42 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,17 @@ int	ft_yerror(int nb, t_data *data)
 	data = (t_data *)data;
 	if (nb == ERROR_PIPE)
 	{
-		fprintf(stderr, "bash: syntax error near unexpected token `|'\n");
+		fprintf(stderr, "minishell: syntax error near unexpected token `|'\n");
 		return (258);
 	}
 	if (nb == ERROR_MEMORY)
 	{
-		fprintf(stderr, "Error! memory not allocated");
+		fprintf(stderr, "minishell: Error! memory not allocated");
 		return (5);
 	}
 	if (nb == ERROR_REDIRECTION)
 		return (258);
-	return (1);
+	return (nb);
 }
 
 void	*ft_create_inputs(t_data *data)
