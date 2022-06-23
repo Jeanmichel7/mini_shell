@@ -51,10 +51,7 @@ int	ft_fulling_input_cmds(char **cmd, char **ptr, int i, t_data *data)
 		return (error);
 	ptr = ft_split_and_omit(cmd[i], ' ', 0);
 	if (ptr == NULL)
-	{
-		ft_free_tab(cmd);
 		return (0);
-	}
 	if (ptr[0] == NULL)
 	{
 		free(ptr);
@@ -86,7 +83,7 @@ int	ft_fulling_inputs_cmds(t_data *data)
 			return (error);
 		i++;
 	}
-	ft_free_tab(cmd);
+	//ft_free_tab(cmd);
 	return (0);
 }
 
