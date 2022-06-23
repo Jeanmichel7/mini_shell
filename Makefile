@@ -6,7 +6,7 @@
 #    By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/22 15:47:46 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/21 02:52:21 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS		= srcs/main.c \
 			srcs/execution/free.c \
 			srcs/execution/prompt.c \
 			srcs/execution/builtins/builtins1.c \
+			srcs/execution/builtins/exit.c \
 			srcs/execution/builtins/env.c \
 			srcs/execution/builtins/export.c \
 			srcs/execution/builtins/unset.c \
@@ -45,8 +46,8 @@ OBJS 		= ${SRCS:.c=.o}
 RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
-CFLAGS		= -Wall -Wextra
-LDFLAGS		= -I./include/ -I./libft/ -I/Users/ydumaine/.brew/opt/readline/include
+CFLAGS		= -Wall -Wextra -Werror
+LDFLAGS		= -I./include/ -I./libft/
 DEBEUG		= -fsanitize=address
 
 .c.o:		

@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/22 15:48:15 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/20 23:49:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_input
 	int				redir_double_output;
 	char			*cmd_fct;
 	char			**cmds;
-	int				pipe;
+	//int				pipe;
 	pid_t			child;
 }	t_input;
 
@@ -120,12 +120,23 @@ int		ft_init_term(t_data *data);
 int		ft_fill_heredoc(char *pattern);
 int		ft_convert_redi(t_data *data);
 
+
+
+
+void	ft_print_sec(t_input input, char *msg);
+
+
+
+
+
+
+
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_check_cmds(t_data *data, int i);
 void	ft_check_redir(t_data *data, int i);
-void	ft_check_builtin(t_data *data, int i);
+int		ft_exec_builtin(t_data *data, int i);
 int		ft_check_fds(t_data *data, int i);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
@@ -134,6 +145,7 @@ char	*ft_color_prompt(t_data *data);
 
 /* BUILTINS */
 int		ft_is_builtin(t_data *data, int i);
+int		ft_no_need_child(t_data *data, int i);
 
 /* ENV */
 void	ft_env(t_data *data, int i);
@@ -155,4 +167,4 @@ void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
 //void	*ft_freetab(char **tab);
 
-	#endif
+#endif

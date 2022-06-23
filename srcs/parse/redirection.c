@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/22 15:27:24 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/20 23:05:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file)
 	if (rd == 4)
 		input->file[total - 1].fd = fd;
 	if (rd == 4)
-		input->file[total - 1].name = NULL;
+		input->file[total - 1].name = "herdoc.txt";
+	//fprintf(stderr, "fd : %d, data fd : %d\n", fd, input->file[total - 1].fd);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/18 18:16:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:29:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@ void	ft_close_redir(t_data *data, int i)
 
 	j = 0;
 	while (data->inputs[i].file[j].type != 0)
-	{
-		//if (data->inputs[i].file[j].type == IN)
-			close(data->inputs[i].file[j].fd);
-		//if (data->inputs[i].file[j].type == OUT)
-		//	close(data->inputs[i].file[j].fd);
-		j++;
-	}
+		close(data->inputs[i].file[j++].fd);
 }
 
 int	ft_check_cmds(t_data *data, int i)
@@ -65,7 +59,7 @@ void	ft_check_redir(t_data *data, int i)
 	}
 }
 
-void	ft_check_builtin(t_data *data, int i)
+int	ft_exec_builtin(t_data *data, int i)
 {
 	if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
@@ -87,7 +81,11 @@ void	ft_check_builtin(t_data *data, int i)
 		ft_env(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
+	{
 		ft_exit(data, i);
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_check_fds(t_data *data, int i)

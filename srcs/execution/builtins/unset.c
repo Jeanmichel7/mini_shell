@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:57:22 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/13 00:06:24 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/21 02:38:58 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_unset(t_data *data, int i)
 		{
 			ft_free_tab(temp);
 			ft_remove_line(data, j);
-			break;
+			break ;
 		}
 		ft_free_tab(temp);
 		j++;
