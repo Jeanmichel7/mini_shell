@@ -86,6 +86,14 @@ void	ft_sub_export(t_data *data, int i, char *str, char *str_value)
 	free(name);
 }
 
+int	ft_check_error(char *str)
+{
+	if (!((str[0] > 'a' && str[0] < 'z')
+			|| (str[0] > 'A' && str[0] < 'Z')))
+		return (1);
+	return (0);
+}
+
 void	ft_export(t_data *data, int i)
 {
 	char	*str;
@@ -106,8 +114,13 @@ void	ft_export(t_data *data, int i)
 	}
 	else
 	{
-		str_value = ft_strchr(str, '=');
-		if (str_value != NULL)
-			ft_sub_export(data, i, str, str_value);
+		if (ft_check_error(str))
+			ft_export_error(data, i);
+		else
+		{
+			str_value = ft_strchr(str, '=');
+			if (str_value != NULL)
+				ft_sub_export(data, i, str, str_value);
+		}
 	}
 }
