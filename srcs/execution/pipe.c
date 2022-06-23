@@ -48,13 +48,9 @@ void	ft_exec_cmd(t_data *data, int i)
 	ft_dup2(data, i);
 	if (ft_is_builtin(data, i))
 	{
-		if (ft_exec_builtin(data, i))
-		{
-			tcsetattr(0, 0, &data->termios_save);
-			kill(0, SIGKILL);
-		}
+		ft_exec_builtin(data, i);
 		if (!ft_no_need_child(data, i))
-			exit(g_error_code);
+			exit(0);
 	}
 	else if (data->inputs[0].cmds[0])
 	{
@@ -73,28 +69,23 @@ void	ft_exec_cmd(t_data *data, int i)
 void	ft_fork(t_data *data, int i)
 {
 	int	wstatus;
-	int	ret;
 	int	j;
 
 	data->inputs[i].child = fork();
 	if (data->inputs[i].child == -1)
-		perror("Error");
+		perror("Error Creat Child");
 	if (data->inputs[i].child == 0)
 		ft_exec_cmd(data, i);
 	else
 	{
 		j = 0;
-		while (j < 10000000)
+		while (j < 20000000)
 			j++;
-		ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 		if (WIFEXITED(wstatus))
 			g_error_code = WEXITSTATUS(wstatus);
-		else if (WIFSIGNALED(wstatus))
-			g_error_code = WTERMSIG(wstatus);
 		else
 			g_error_code = 0;
-		while (ret < 0)
-			ret = waitpid(data->inputs[i].child, &wstatus, WNOHANG);
 	}
 }
 

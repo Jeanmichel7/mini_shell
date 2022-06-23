@@ -83,7 +83,6 @@ int	ft_fulling_inputs_cmds(t_data *data)
 			return (error);
 		i++;
 	}
-	//ft_free_tab(cmd);
 	return (0);
 }
 

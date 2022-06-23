@@ -52,4 +52,5 @@ void	ft_exit(t_data *data, int i)
 		ft_sub_exit(code, str_code);
 		free(str_code);
 	}
+	data->done = 1;
 }
