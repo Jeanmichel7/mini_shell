@@ -6,20 +6,11 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:29:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:59:12 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_close_redir(t_data *data, int i)
-{
-	int	j;
-
-	j = 0;
-	while (data->inputs[i].file[j].type != 0)
-		close(data->inputs[i].file[j++].fd);
-}
 
 int	ft_check_cmds(t_data *data, int i)
 {
@@ -59,18 +50,9 @@ void	ft_check_redir(t_data *data, int i)
 	}
 }
 
-int	ft_exec_builtin(t_data *data, int i)
+void	ft_sub_exec_builtin(t_data *data, int i)
 {
-	if (ft_strlen(data->inputs[i].cmds[0]) == 4
-		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
-		ft_echo(data, i);
-	else if (ft_strlen(data->inputs[i].cmds[0]) == 2
-		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
-		ft_cd(data, i);
-	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
-		&& ft_strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
-		ft_pwd(data, i);
-	else if (ft_strlen(data->inputs[i].cmds[0]) == 6
+	if (ft_strlen(data->inputs[i].cmds[0]) == 6
 		&& ft_strncmp(data->inputs[i].cmds[0], "export", 6) == 0)
 		ft_export(data, i);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 5
@@ -79,6 +61,29 @@ int	ft_exec_builtin(t_data *data, int i)
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
 		&& ft_strncmp(data->inputs[i].cmds[0], "env", 3) == 0)
 		ft_env(data, i);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
+		&& ft_strncmp(data->inputs[i].cmds[0], "echo", 4) == 0)
+		ft_echo(data, i);
+}
+
+int	ft_exec_builtin(t_data *data, int i)
+{
+	ft_sub_exec_builtin(data, i);
+	if (ft_strlen(data->inputs[i].cmds[0]) == 2
+		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
+		ft_cd(data, i);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 3
+		&& ft_strncmp(data->inputs[i].cmds[0], "pwd", 3) == 0)
+		ft_pwd(data, i);
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 11
+		&& ft_strncmp(data->inputs[i].cmds[0], "whiteprompt", 11) == 0)
+		data->color_prompt = 0;
+	else if (ft_strlen(data->inputs[i].cmds[0]) == 11
+		&& ft_strncmp(data->inputs[i].cmds[0], "colorprompt", 11) == 0)
+	{
+		data->color_prompt = 1;
+		data->chang_color_prompt = 1;
+	}
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 4
 		&& ft_strncmp(data->inputs[i].cmds[0], "exit", 4) == 0)
 	{

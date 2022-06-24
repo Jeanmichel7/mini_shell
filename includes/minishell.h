@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:09:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:55:13 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_data
 	int				nb_pipe;
 	char			*temp;
 	char			*prompt;
+	int				color_prompt;
+	int				chang_color_prompt;
 	int				done;
 	HIST_ENTRY		**list;
 	t_input			*inputs;

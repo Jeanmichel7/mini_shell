@@ -6,84 +6,20 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/24 20:10:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:36:34 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-char	*ft_getenv(char *name, t_data *data)
+void	ft_close_redir(t_data *data, int i)
 {
-	int		j;
-	char	**temp;
-    char    *ptr;
+	int	j;
 
 	j = 0;
-	while (data->env && data->env[j])
-	{
-		temp = ft_split(data->env[j], '=');
-		if (ft_strlen(name) == ft_strlen(temp[0])
-			&& ft_strncmp(name, temp[0], ft_strlen(name)) == 0)
-		{
-            ptr = malloc(sizeof(char) * (ft_strlen(temp[1]) + 1));
-            ft_memcpy(ptr, temp[1], ft_strlen(temp[1]) + 1);
-			ft_free_tab(temp);
-			return (ptr);
-		}
-		ft_free_tab(temp);
-		j++;
-	}
-	return (0);
+	while (data->inputs[i].file[j].type != 0)
+		close(data->inputs[i].file[j++].fd);
 }
-
-int ft_init_term()
-{
-    int ret;
-    char *term_type;
-    term_type = ft_getenv("TERM", data);
-
-    if (term_type == NULL)
-    {
-        fprintf(stderr, "TERM must be set (see 'env').\n");
-        return -1;
-    }
-
-    ret = tgetent(NULL, term_type);
-
-    if (ret == -1)
-    {
-        fprintf(stderr, "Could not access to the termcap database..\n");
-        return -1;
-    }
-    else if (ret == 0)
-    {
-        fprintf(stderr, "Terminal type '%s' is not defined in termcap 
-		database (or have too few informations).\n", term_type);
-        return -1;
-    }
-
-    return 0;
-}
-*/
-
-/*
-void	ft_handle_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
-*/
 
 void	ft_handle_signal(int sig)
 {

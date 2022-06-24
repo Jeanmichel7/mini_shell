@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:02:14 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:02:08 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:57:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	ft_free(t_data *data)
 void	ft_free_inputs(t_data *data)
 {
 	free(data->temp);
-	free(data->prompt);
+	if (data->color_prompt && !data->chang_color_prompt)
+	{
+		data->chang_color_prompt = 0;
+		free(data->prompt);
+	}
 }
 
 void	ft_free_section(t_data *data, int i)

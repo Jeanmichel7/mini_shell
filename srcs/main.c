@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:03:55 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 21:00:20 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 	data->env = ft_envcpy(env);
 	data->fd_in_saved = dup (0);
 	data->fd_out_saved = dup (1);
+	data->color_prompt = 1;
+	data->chang_color_prompt = 0;
 	g_error_code = 0;
 }
 
@@ -31,7 +33,10 @@ void	ft_reinit_data(t_data *data)
 	dup2(data->fd_out_saved, STDOUT_FILENO);
 	while (wait(0) != -1)
 		;
-	data->prompt = ft_color_prompt(data);
+	if (data->color_prompt)
+		data->prompt = ft_color_prompt(data);
+	else
+		data->prompt = "minishell$ ";
 	data->temp = readline(data->prompt);
 }
 
@@ -62,8 +67,3 @@ int	main(int argc, char **argv, char **env)
 	ft_free(&data);
 	return (0);
 }
-
-//ft_yprint_input(&data);
-/*
-lsof -p 88103
-*/
