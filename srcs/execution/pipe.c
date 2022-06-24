@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:36:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:04:54 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,16 @@ void	ft_fork(t_data *data, int i)
 		j = 0;
 		while (j < 20000000)
 			j++;
-		waitpid(data->inputs[i].child, &wstatus, WNOHANG);
-		if (WIFEXITED(wstatus))
-			g_error_code = WEXITSTATUS(wstatus);
+		if (ft_check_cmd_waiting(data, i))
+			waitpid(data->inputs[i].child, &wstatus, 0);
 		else
-			g_error_code = 0;
+		{
+			waitpid(data->inputs[i].child, &wstatus, WNOHANG);
+			if (WIFEXITED(wstatus))
+				g_error_code = WEXITSTATUS(wstatus);
+			else
+				g_error_code = 0;
+		}
 	}
 }
 

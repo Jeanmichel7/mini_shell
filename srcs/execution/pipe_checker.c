@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/21 02:38:40 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:04:53 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_is_builtin(t_data *data, int i)
 
 int	ft_no_need_child(t_data *data, int i)
 {
+	ft_check_cmd_waiting(data, i);
 	if (ft_strlen(data->inputs[i].cmds[0]) == 2
 		&& ft_strncmp(data->inputs[i].cmds[0], "cd", 2) == 0)
 		return (1);

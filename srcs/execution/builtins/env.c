@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 20:19:31 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:43:28 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:10:13 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,12 @@ void	ft_env(t_data *data, int i)
 		write(1, "\n", 1);
 		j++;
 	}
+}
+
+void	ft_display_export(t_data *data, int *j)
+{
+	write(1, "declare -x ", 12);
+	write(1, data->env[*j], ft_strlen(data->env[*j]));
+	write(1, "\n", 1);
+	*j += 1;
 }

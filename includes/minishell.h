@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/20 23:49:22 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/24 20:09:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		ft_pre_parsing(t_data *data);
 int		ft_init_term(t_data *data);
 int		ft_fill_heredoc(char *pattern);
 int		ft_convert_redi(t_data *data);
+int		ft_check_cmd_waiting(t_data *data, int i);
 
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
@@ -139,6 +140,7 @@ int		ft_no_need_child(t_data *data, int i);
 /* ENV */
 void	ft_env(t_data *data, int i);
 void	ft_export(t_data *data, int i);
+void	ft_display_export(t_data *data, int *j);
 void	ft_unset(t_data *data, int i);
 char	*ft_env_split_name(char *str_value, char *str);
 void	ft_export_error(t_data *data, int i);
@@ -154,6 +156,5 @@ void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
-//void	*ft_freetab(char **tab);
 
 #endif
