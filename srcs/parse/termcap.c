@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/24 15:48:08 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:55:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,30 @@ void	ft_handle_signal(int sig)
 
 void	ft_handle_signal(int sig)
 {
+	HIST_ENTRY	**list;
+	int 		i; 
+	int			j;
+
+	j = 0;
+	list = history_list();
 	if (sig == SIGINT)
 	{
+		if (list)
+		{
+			i = 0;
+			while (list[i])
+				i++;
+			i--;
+			while (list[i]->line[j] && (list[i]->line[j] == ' ' || list[i]->line[j] == 34 || list[i]->line[j] == 39))
+				j++;
+			if (list && ft_strncmp(&(list[i]->line[j]),"cat", 3) == 0) 
+				return ; 
+		}
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_error_code = 1; 
 	}
 	if (sig == SIGQUIT)
 	{

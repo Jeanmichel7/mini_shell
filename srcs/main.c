@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/23 11:41:16 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:43:54 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 
 void	ft_reinit_data(t_data *data)
 {
+	int i; 
+	i= 0;
 	dup2(data->fd_in_saved, STDIN_FILENO);
 	dup2(data->fd_out_saved, STDOUT_FILENO);
 	while (wait(0) != -1)
