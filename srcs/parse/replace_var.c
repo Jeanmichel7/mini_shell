@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/22 15:33:45 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:50:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	ft_checkvar(char *str, char *var, int *k)
 	j = 0;
 	while (var[j])
 	{
-		if (var[j] == '=')
+		if (var[j] == '=' && (str[j] == ' ' || str[j] == '\0'
+				|| str[j] == 34 || str[j] == 39))
 		{
 			*k = j + 1;
 			return (1);
@@ -103,7 +104,8 @@ int	ft_check_and_replace_var(char **str, char **env)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
 		if ((*str)[i] == '$' && omit != 2 &&
-			(*str)[i + 1] != ' ' && (*str)[i + 1] != '\0')
+			(*str)[i + 1] != ' ' && (*str)[i + 1] != '\0' &&
+				(*str)[i + 1] != 34)
 			if (ft_replace_var(str, env, &i, &j) == 1)
 				return (ERROR_MEMORY);
 		i++;
