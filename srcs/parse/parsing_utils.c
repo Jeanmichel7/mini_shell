@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:58:50 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/01 17:29:08 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:23:44 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,14 @@ int	ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr)
 
 	i = -1;
 	ptr = readline(">");
+	if (ptr == NULL && omit == 1)
+		write(2,
+			"minishell: unexpected EOF while looking for matching `\"'\n", 58);
+	if (ptr == NULL && omit == 2)
+		write(2,
+			"minishell: unexpected EOF while looking for matching `''\n", 57);
+	if (ptr == NULL)
+		return (-501);
 	while (ptr[++i])
 		omit = ft_omit_quote_apostrophe(ptr[i], omit, NULL, 1);
 	temp = data->temp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:01:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 20:22:52 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 
 int	ft_check_cmd_waiting(t_data *data, int i)
 {
-	if (i == data->nb_pipe)
+	if (i == data->nb_pipe && data->inputs[i].cmds)
 	{
 		if (ft_strncmp(data->inputs[i].cmds[0], "cat", 3) == 0
 			&& data->inputs[i].cmds[1] == NULL)

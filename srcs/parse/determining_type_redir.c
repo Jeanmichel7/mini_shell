@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:34:04 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/23 14:47:06 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:18:25 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int	ft_check_redirection_out(char *str)
 					return (-3);
 				return (-2);
 			}
-			else if (*(str + 2) == '<')
+			else if (*(str + 2) == '<' && *(str + 3) != '<')
 				return (-1);
+			else if (*(str + 2) == '<' && *(str + 3) == '<')
+				return (-4);
 			return (4);
 		}
 		else if (*(str + 1) == '>')
