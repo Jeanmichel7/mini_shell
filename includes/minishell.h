@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:55:13 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 22:51:02 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int		ft_exec_builtin(t_data *data, int i);
 int		ft_check_fds(t_data *data, int i);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
+void	ft_dup_heredoc(t_data *data, int i, int j, int fd_heredoc);
+int		ft_heredoc(t_data *data, int i, int j, int *type);
 
 char	*ft_color_prompt(t_data *data);
 

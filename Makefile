@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/24 19:22:31 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/26 22:30:05 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS		= srcs/main.c \
 			srcs/execution/handle_error.c \
 			srcs/execution/free.c \
 			srcs/execution/prompt.c \
+			srcs/execution/heredoc.c \
 			srcs/execution/builtins/builtins1.c \
 			srcs/execution/builtins/exit.c \
 			srcs/execution/builtins/env.c \

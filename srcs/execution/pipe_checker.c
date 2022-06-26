@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:56:23 by jeulliot          #+#    #+#             */
-/*   Updated: 2022/06/24 20:28:03 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 22:52:50 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_no_need_child(t_data *data, int i)
 		return (1);
 	else if (ft_strlen(data->inputs[i].cmds[0]) == 11
 		&& strncmp(data->inputs[i].cmds[0], "colorprompt", 11) == 0)
+		return (1);
+	else if (data->inputs[i].cmds[0] == NULL)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:26:05 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:04:54 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 22:51:16 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@ void	ft_dup2(t_data *data, int i)
 {
 	int	j;
 	int	type;
+	int	fd_heredoc;
 
 	j = 0;
+	fd_heredoc = -1;
 	while (data->inputs[i].file[j].type != 0)
 	{
 		type = data->inputs[i].file[j].type;
 		if (type == HEREDOC && data->inputs[i].file[j].fd != -1)
-		{
-			close(data->inputs[i].file[j].fd);
-			data->inputs[i].file[j].fd = open(data->inputs[i].file[j].name, \
-			O_RDONLY);
-			type = IN;
-		}
+			fd_heredoc = ft_heredoc(data, i, j, &type);
 		if (type == IN && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDIN_FILENO);
 		if (type == OUT && data->inputs[i].file[j].fd != -1)
+		{
+			if (fd_heredoc != -1 && data->nb_pipe == 0)
+				ft_dup_heredoc(data, i, j, fd_heredoc);
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
+		}
 		if (type == APPEND && data->inputs[i].file[j].fd != -1)
 			dup2(data->inputs[i].file[j].fd, STDOUT_FILENO);
 		j++;
