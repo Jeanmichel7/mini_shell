@@ -6,7 +6,7 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/26 23:00:24 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/26 23:25:03 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,17 +46,20 @@ RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-LDFLAGS		= -I./include/ -I./libft/ -I/Users/ydumaine/.brew/opt/readline/include
+LDFLAGS		= -I./include/ -I./libft/ -I/goinfre/jrasser/homebrew/opt/readline/include
 DEBEUG		= -fsanitize=address
+script		= ./script_makefile.sh
 
 .c.o:		
 			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
-${NAME}	:	${OBJS} 
+${NAME}	:	${OBJS}
+			${script}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L/Users/ydumaine/.brew/opt/readline/lib -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L/goinfre/jrasser/homebrew/opt/readline/lib -L./libft -lft
 
 all :		${NAME}
+
 
 clean :
 			${RM} ${OBJS}
