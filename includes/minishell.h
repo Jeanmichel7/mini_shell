@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/26 22:51:02 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 23:00:09 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		ft_which_redirection_take_on_board(char *s);
 int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, \
 int keep_quotes);
 int		ft_ycheck_pipe(char *temp);
-char	*ft_if_quotes_not_closes(t_data *data);
+int		ft_if_quotes_not_closes(t_data *data);
 char	**ft_envcpy(char **env);
 void	*ft_create_inputs(t_data *data);
 int		ft_yerror(int nb, t_data *data);

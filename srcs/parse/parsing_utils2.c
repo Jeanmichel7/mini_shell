@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:51 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/23 11:39:42 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:04:42 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**ft_envcpy(char **env)
 	return (ptr);
 }
 
-char	*ft_if_quotes_not_closes(t_data *data)
+int	ft_if_quotes_not_closes(t_data *data)
 {
 	char	*ptr;
 	char	*temp;
@@ -59,8 +59,8 @@ char	*ft_if_quotes_not_closes(t_data *data)
 	int		omit;
 
 	i = -1;
-	omit = 0;
 	ptr = NULL;
+	omit = 0;
 	while (data->temp[++i])
 		omit = ft_omit_quote_apostrophe(data->temp[i], omit, NULL, 1);
 	if (omit != 0)
@@ -69,15 +69,15 @@ char	*ft_if_quotes_not_closes(t_data *data)
 		data->temp = ft_strjoin_andadd_rt(data->temp, NULL);
 		free(temp);
 		if (data->temp == NULL)
-			return (NULL);
+			return (ERROR_MEMORY);
 		while (omit != 0)
 		{
 			omit = ft_retrieve_string(omit, data, temp, ptr);
-			if (omit == ERROR_MEMORY)
-				return (NULL);
+			if (omit < -500)
+				return (258);
 		}
 	}
-	return (data->temp);
+	return (0);
 }
 /*
 int	ft_free(t_data data)
@@ -105,12 +105,12 @@ int	ft_yerror(int nb, t_data *data)
 	data = (t_data *)data;
 	if (nb == ERROR_PIPE)
 	{
-		fprintf(stderr, "minishell: syntax error near unexpected token `|'\n");
+		write(2, "minishell: syntax error near unexpected token `|'\n", 51);
 		return (258);
 	}
 	if (nb == ERROR_MEMORY)
 	{
-		fprintf(stderr, "minishell: Error! memory not allocated");
+		write(2, "minishell: Error! memory not allocated", 38);
 		return (5);
 	}
 	if (nb == ERROR_REDIRECTION)

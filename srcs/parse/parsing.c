@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/20 01:55:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 21:24:09 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,9 @@ int	ft_yparsing(t_data *data)
 	data->nb_pipe = ft_ycheck_pipe(data->temp);
 	if (data->nb_pipe == -1)
 		return (ft_yerror(ERROR_PIPE, data));
-	if (ft_if_quotes_not_closes(data) == NULL)
-		return (ft_yerror(ERROR_MEMORY, data));
+	error = ft_if_quotes_not_closes(data);
+	if (error != 0)
+		return (ft_yerror(error, data));
 	if (ft_check_and_replace_var(&data->temp, data->env) == 1)
 		return (ft_yerror(ERROR_MEMORY, data));
 	ft_create_inputs(data);

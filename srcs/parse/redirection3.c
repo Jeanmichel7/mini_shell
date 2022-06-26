@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/20 03:03:21 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/26 21:14:52 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ int	ft_search_pattern(char *str, char *pattern)
 
 int	print_and_rv(char *str)
 {
-	fprintf(stderr, "minishell: syntax error near unexpected token `%s'\n", str);
+	write (2, "minishell: syntax error near unexpected token `", 47);
+	write (2, str, ft_strlen(str));
+	write (2, "'\n", 2);
 	return (258);
 }
 
