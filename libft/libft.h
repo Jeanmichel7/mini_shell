@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:22:00 by jrasser           #+#    #+#             */
-/*   Updated: 2022/05/29 21:12:57 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 15:58:06 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # define PTR "0123456789abcdef"
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 100000
 
 typedef struct s_list
 {

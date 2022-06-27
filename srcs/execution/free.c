@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:02:14 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:57:24 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 16:04:00 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,27 @@ void	ft_free_section(t_data *data, int i)
 {
 	int	j;
 
-	j = 0;
-	while (data->inputs[i].cmds && data->inputs[i].cmds[j])
+	j = -1;
+	while (data->inputs[i].cmds && data->inputs[i].cmds[++j])
 	{
 		if (!(ft_strlen(data->inputs[i].cmds[j]) == \
 			ft_strlen(data->inputs[i].cmd_fct)
 				&& ft_strncmp(data->inputs[i].cmd_fct, data->inputs[i].cmds[j],
 					ft_strlen(data->inputs[i].cmds[j])) == 0))
 			free(data->inputs[i].cmds[j]);
-		j++;
 	}
 	free(data->inputs[i].cmds);
 	free(data->inputs[i].cmd_fct);
-	j = 0;
-	while (data->inputs[i].file[j].type != 0)
+	j = -1;
+	while (data->inputs[i].file[++j].type != 0)
 	{
 		if (ft_strncmp(data->inputs[i].file[j].name, "herdoc.txt", 10) != 0)
 			free(data->inputs[i].file[j].name);
 		else
+		{
+			close (data->inputs[i].file[j].fd);
 			unlink("herdoc.txt");
-		j++;
+		}
 	}
 	free(data->inputs[i].file);
 }
