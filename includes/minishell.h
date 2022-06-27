@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/26 23:00:09 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 21:07:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
+void	ft_free_error(t_data *data, int i);
 
 #endif

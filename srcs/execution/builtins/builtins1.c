@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:52:01 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 22:07:31 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	ft_cd(t_data *data, int i)
 			if (home)
 				break ;
 		}
-		chdir(home);
+		if (data->nb_pipe == 0)
+			chdir(home);
 		free(home);
 	}
 	else if (chdir(data->inputs[i].cmds[1]) == -1)

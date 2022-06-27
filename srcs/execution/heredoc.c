@@ -6,11 +6,15 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 22:30:10 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/27 16:17:49 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 21:52:18 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+ZSH Version
+*/
 
 void	ft_dup_heredoc(t_data *data, int i, int j, int fd_heredoc)
 {
@@ -28,9 +32,7 @@ void	ft_dup_heredoc(t_data *data, int i, int j, int fd_heredoc)
 		write(data->inputs[i].file[j].fd, "", 1);
 	}
 	else
-	{
 		write(data->inputs[i].file[j].fd, str, ft_strlen(str));
-	}
 	free(str);
 }
 

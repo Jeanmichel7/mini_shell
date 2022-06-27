@@ -6,11 +6,12 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/27 15:30:00 by jrasser          ###   ########.fr        #
+#    Updated: 2022/06/27 21:02:39 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
+			srcs/print_cmd.c \
 			\
 			srcs/parse/parsing.c  \
 			srcs/parse/ft_split_and_omit.c  \
@@ -30,6 +31,7 @@ SRCS		= srcs/main.c \
 			\
 			srcs/execution/pipe.c \
 			srcs/execution/pipe_checker.c\
+			srcs/execution/checker_access.c\
 			srcs/execution/utils_pipe.c \
 			srcs/execution/handle_error.c \
 			srcs/execution/free.c \

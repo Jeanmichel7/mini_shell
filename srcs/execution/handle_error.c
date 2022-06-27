@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/26 23:00:20 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 21:14:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ int	ft_check_cmd_waiting(t_data *data, int i)
 		}
 	}
 	return (0);
+}
+
+void	ft_free_error(t_data *data, int i)
+{
+	if (data->inputs[i].cmds)
+		ft_free_section(data, i);
+	else
+		free(data->inputs[i].file);
 }
