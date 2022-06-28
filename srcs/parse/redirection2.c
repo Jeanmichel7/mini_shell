@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:22:40 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/28 15:49:02 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:00:23 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	ft_fill_heredoc(char *pattern, t_data *data)
 	while (pattern_found == 0)
 		pattern_found = ft_extract_line(ptr, &str, temp, pattern);
 	if (pattern_found == 2)
-		return (-1);
+	{
+		free(str);
+		str = NULL;
+	}
 	if (ft_check_and_replace_var(&str, data->env) == 1)
 		return (0);
 	write(fd, str, ft_strlen(str));

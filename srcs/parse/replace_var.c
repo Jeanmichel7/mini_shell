@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/28 15:43:13 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:58:52 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	ft_check_and_replace_var(char **str, char **env)
 	i = 0;
 	j = 0;
 	omit = 0;
+	if ((*str) == NULL)
+		return (0);
 	while ((*str)[i] != 0)
 	{
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);

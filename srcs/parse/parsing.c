@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/26 21:24:09 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:44:56 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 	if (data->inputs->cmds != NULL && data->inputs[data->nb_pipe].cmds == NULL )
 	{
 		ptr = readline(">");
-		while (*ptr == 0)
-			ptr = readline(">");
+		if (ptr == NULL)
+		{
+			write(2, "minishell: syntax error: unexpected end of file\n", 48);
+			return (258);
+		}
 		if (ptr != NULL)
 			rc = ft_which_redirection_take_on_board(ptr);
 		if (rc != 0)
@@ -128,8 +131,9 @@ int	ft_yparsing(t_data *data)
 	error = ft_fulling_inputs_cmds(data);
 	if (error != 0)
 		return (ft_yerror(error, data));
-	if (ft_if_not_cmd_after_last_pipe(data) == 1)
-		return (ft_yerror(ERROR_MEMORY, data));
+	error = ft_if_not_cmd_after_last_pipe(data);
+	if (error != 0)
+		return (ft_yerror(error, data));
 	error = ft_parse_redirection(data);
 	if (error != 0)
 		return (ft_yerror(error, data));
