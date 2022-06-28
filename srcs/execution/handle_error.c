@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/26 20:22:52 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:14:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,36 @@ void	ft_errputstr(char *str, int stop, int code, t_data *data)
 
 int	ft_check_cmd_waiting(t_data *data, int i)
 {
-	if (i == data->nb_pipe && data->inputs[i].cmds)
+	int	j;
+
+	if (i == data->nb_pipe)
 	{
-		if (ft_strncmp(data->inputs[i].cmds[0], "cat", 3) == 0
-			&& data->inputs[i].cmds[1] == NULL)
+		j = 0;
+		while (data->inputs[i].cmds && data->inputs[i].cmds[j])
+			j++;
+		if (j > 0)
 		{
-			g_error_code = -1;
-			return (1);
-		}
-		if (ft_strncmp(data->inputs[i].cmds[0], "grep", 4) == 0
-			&& data->inputs[i].cmds[2] == NULL)
-		{
-			g_error_code = -1;
-			return (1);
+			if (ft_strncmp(data->inputs[i].cmds[0], "cat", 3) == 0
+				&& data->inputs[i].cmds[1] == NULL)
+			{
+				g_error_code = -1;
+				return (1);
+			}
+			if (ft_strncmp(data->inputs[i].cmds[0], "grep", 4) == 0
+				&& data->inputs[i].cmds[2] == NULL)
+			{
+				g_error_code = -1;
+				return (1);
+			}
 		}
 	}
 	return (0);
+}
+
+void	ft_free_error(t_data *data, int i)
+{
+	if (data->inputs[i].cmds)
+		ft_free_section(data, i);
+	else
+		free(data->inputs[i].file);
 }

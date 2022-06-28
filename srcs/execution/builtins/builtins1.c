@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:24:18 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:52:01 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/27 22:28:39 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_echo(t_data *data, int i)
 	g_error_code = 0;
 }
 
-char	*ft_sub_cd(t_data *data, int *j, char *home)
+char	*ft_cd_home(t_data *data, int *j, char *home)
 {
 	char	**temp;
 
@@ -56,10 +56,22 @@ char	*ft_sub_cd(t_data *data, int *j, char *home)
 	return (NULL);
 }
 
+void	ft_sub_cd(t_data *data, int i)
+{
+	write(1, "bash: cd: ", 11);
+	write(1, data->inputs[i].cmds[1], \
+	ft_strlen(data->inputs[i].cmds[1]));
+	write(1, ": ", 2);
+	ft_errputstr(strerror(errno), 0, g_error_code, NULL);
+	write(2, "\n", 1);
+	g_error_code = errno;
+}
+
 void	ft_cd(t_data *data, int i)
 {
 	char	*home;
 	int		j;
+	int		ret;
 
 	home = NULL;
 	if (data->inputs[i].cmds[1] == NULL)
@@ -67,19 +79,19 @@ void	ft_cd(t_data *data, int i)
 		j = 0;
 		while (data->env && data->env[j])
 		{
-			home = ft_sub_cd(data, &j, home);
+			home = ft_cd_home(data, &j, home);
 			if (home)
 				break ;
 		}
-		chdir(home);
+		if (data->nb_pipe == 0)
+			chdir(home);
 		free(home);
 	}
-	else if (chdir(data->inputs[i].cmds[1]) == -1)
+	else if (data->nb_pipe == 0)
 	{
-		write(1, "bash: cd: ", 11);
-		write(1, data->inputs[i].cmds[1], ft_strlen(data->inputs[i].cmds[1]));
-		write(1, ": No such file or directory\n", 29);
-		g_error_code = 1;
+		ret = chdir(data->inputs[i].cmds[1]);
+		if (ret == -1)
+			ft_sub_cd(data, i);
 	}
 }
 

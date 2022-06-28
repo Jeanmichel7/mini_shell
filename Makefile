@@ -6,11 +6,12 @@
 #    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/26 20:18:53 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/27 21:02:39 by jrasser          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= srcs/main.c \
+			srcs/print_cmd.c \
 			\
 			srcs/parse/parsing.c  \
 			srcs/parse/ft_split_and_omit.c  \
@@ -30,10 +31,12 @@ SRCS		= srcs/main.c \
 			\
 			srcs/execution/pipe.c \
 			srcs/execution/pipe_checker.c\
+			srcs/execution/checker_access.c\
 			srcs/execution/utils_pipe.c \
 			srcs/execution/handle_error.c \
 			srcs/execution/free.c \
 			srcs/execution/prompt.c \
+			srcs/execution/heredoc.c \
 			srcs/execution/builtins/builtins1.c \
 			srcs/execution/builtins/exit.c \
 			srcs/execution/builtins/env.c \
@@ -45,17 +48,18 @@ RM			= @rm -f
 NAME 		= minishell
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-LDFLAGS		= -I./include/ -I./libft/ -I/Users/ydumaine/.brew/opt/readline/include
+LDFLAGS		= -I./include/ -I./libft/ -I/goinfre/jrasser/homebrew/opt/readline/include
 DEBEUG		= -fsanitize=address
 
 .c.o:		
 			@${CC} -g ${CFLAGS} -c ${LDFLAGS} $< -o ${<:.c=.o}
 
-${NAME}	:	${OBJS} 
+${NAME}	:	${OBJS}
 			@$(MAKE) --no-print-directory -C ./libft
-			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L/Users/ydumaine/.brew/opt/readline/lib -L./libft -lft
+			@gcc -o ${NAME} ${OBJS} -g ${DEBEUG} -lreadline -L/goinfre/jrasser/homebrew/opt/readline/lib -L./libft -lft
 
 all :		${NAME}
+
 
 clean :
 			${RM} ${OBJS}

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/28 15:31:00 by ydumaine         ###   ########.fr       */
+=======
+/*   Updated: 2022/06/27 21:07:22 by jrasser          ###   ########.fr       */
+>>>>>>> d1f830b3592ea67b794abcc56c39d0f519fcb277
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +136,8 @@ int		ft_exec_builtin(t_data *data, int i);
 int		ft_check_fds(t_data *data, int i);
 char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
+void	ft_dup_heredoc(t_data *data, int i, int j, int fd_heredoc);
+int		ft_heredoc(t_data *data, int i, int j, int *type);
 
 char	*ft_color_prompt(t_data *data);
 
@@ -158,5 +164,6 @@ void	ft_free_section(t_data *data, int i);
 void	ft_free(t_data *data);
 void	ft_free_tab(char **tab);
 void	ft_free_content_tab(char **tab);
+void	ft_free_error(t_data *data, int i);
 
 #endif
