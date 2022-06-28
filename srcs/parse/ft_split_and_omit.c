@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/28 16:41:19 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:06:47 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 	{
 		while (s[r_data.i] == c && s[r_data.i])
 			r_data.i++;
-		r_data.omit = ft_omit_quote_apostrophe(s[r_data.i], r_data.omit,
-				&(r_data.i), keep_quotes);
 		r_data.new_part = 0;
 		ft_check_part(&r_data, keep_quotes, c, s);
 		if (s[r_data.i] && r_data.omit == 0)

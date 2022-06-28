@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/27 22:11:46 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/28 20:43:21 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.temp);
 		new_code = ft_yparsing(&data);
 		if (new_code == 0)
-		{
-			//ft_yprint_input(&data);
 			ft_exec_parse(&data);
-		}
 		else
 			g_error_code = new_code;
 		ft_free_inputs(&data);

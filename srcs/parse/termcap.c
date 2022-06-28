@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/24 20:36:34 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/28 20:28:12 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ void	ft_handle_signal(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-		if (g_error_code != -1)
+		if (g_error_code == -2)
+		{
+			rl_replace_line("", 0);
+			rl_redisplay();
+			close(0);
+		}
+		else if (g_error_code != -1)
 		{
 			rl_on_new_line();
 			rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 15:12:09 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/28 15:53:50 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 20:42:53 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,20 @@ int	ft_fulling_redir_para(int rd, t_input *input, char *file, t_data *data)
 int	ft_check_cmd_redirection(int i, t_input *input, t_data *data)
 {
 	int	rd;
+	int	rc;
 
+	rc = 0;
 	if (input->cmds[i][0] == '<' || input->cmds[i][0] == '>')
 	{			
 		rd = ft_type_redirection(&input->cmds[i]);
 		if (rd < 0)
 			return (ft_print_error(rd));
-		else if (ft_fulling_redir_para(rd, input,
-				input->cmds[i + 1], data) == ERROR_MEMORY)
-			return (ERROR_MEMORY);
+		else
+		{
+			rc = ft_fulling_redir_para(rd, input, input->cmds[i + 1], data);
+			if (rc == ERROR_MEMORY)
+				return (ERROR_MEMORY);
+		}
 		input->cmds = ft_delete_files_name(input->cmds, i + 1, rd);
 	}	
 	return (0);
