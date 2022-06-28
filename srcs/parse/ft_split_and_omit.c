@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_and_omit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/11 13:48:45 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/28 15:27:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 	unsigned int	count;
 	unsigned int	i;
 	unsigned int	omit;
+	int 			new_part; 
 
+	new_part = 0; 
 	i = 0;
 	count = 0;
 	omit = 0;
@@ -28,15 +30,23 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 		while (s[i] == c && s[i])
 			i++;
 		omit = ft_omit_quote_apostrophe(s[i], omit, &i, keep_quotes);
+		new_part = 0; 
 		while (s[i] != c && s[i])
 		{
+			if (keep_quotes == 0 && ((s[i] == 34 && omit == 1) || (s[i] == 39 && omit == 2) || (s[i] == 34 && omit == 0) || (s[i] == 39 && omit == 0)))
+			{
+				omit = ft_omit_quote_apostrophe(s[i], omit, &i, keep_quotes);
+				continue;
+			}
+			else if (keep_quotes == 1) 
+				omit = ft_omit_quote_apostrophe(s[i], omit, &i, keep_quotes);
 			i++;
-			omit = ft_omit_quote_apostrophe(s[i], omit, &i, keep_quotes);
+			new_part = 1;
 		}	
 		if (s[i] && omit == 0)
 			count++;
 		else
-			if (s[i - 1] != c && s[i] == 0 && omit == 0)
+			if (s[i - 1] != c && s[i] == 0 && omit == 0 && new_part == 1)
 				count++;
 	}
 	return (count);
@@ -59,8 +69,12 @@ unsigned int *j, int keep_quotes)
 	omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	while ((s[*j] != c || omit != 0) && s[*j])
 	{
+		if (keep_quotes == 0 && ((s[*j] == 34 && omit == 1) || (s[*j] == 39 && omit == 2) || (s[*j] == 34 && omit == 0) || (s[*j] == 39 && omit == 0)))
+		{
+			omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
+			continue;
+		}
 		str[k++] = s[(*j)++];
-		omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	}
 	str[k] = '\0';
 	return (str);

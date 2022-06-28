@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/26 20:53:29 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:31:00 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	**ft_delete_files_name(char **tab, int pos, int rd);
 int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
 int		ft_pre_parsing(t_data *data);
 int		ft_init_term(t_data *data);
-int		ft_fill_heredoc(char *pattern);
+int		ft_fill_heredoc(char *pattern, t_data *data);
 int		ft_convert_redi(t_data *data);
 int		ft_check_cmd_waiting(t_data *data, int i);
 

@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/24 15:50:58 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:43:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_checkvar(char *str, char *var, int *k)
 	while (var[j])
 	{
 		if (var[j] == '=' && (str[j] == ' ' || str[j] == '\0'
-				|| str[j] == 34 || str[j] == 39))
+				|| str[j] == 34 || str[j] == 39 || str[j] == '\n'))
 		{
 			*k = j + 1;
 			return (1);
