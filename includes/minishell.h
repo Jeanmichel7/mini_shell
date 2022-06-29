@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/28 16:48:49 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:26:28 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_yparsing(t_data *data);
 char	**ft_split_and_omit(char const *s, char c, int keep_quotes);
 int		ft_omit_quote_apostrophe(char c, unsigned int omit, unsigned int *i, \
 int keep_quotes);
-char	*ft_strjoin_andadd_rt(char const *s1, char const *s2);
+char	*ft_strjoin_andadd_rt(char *s1, char const *s2);
 int		ft_parse_redirection(t_data *data);
 char	**ft_split_redirection(char const *s);
 char	**ft_replace_elements(char **tab, char **elements, int *pos);
@@ -122,7 +122,7 @@ int		ft_init_term(t_data *data);
 int		ft_fill_heredoc(char *pattern, t_data *data);
 int		ft_convert_redi(t_data *data);
 int		ft_check_cmd_waiting(t_data *data, int i);
-
+int		ft_sub_retrieve_string(int omit, char *ptr);
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
@@ -134,6 +134,8 @@ char	*ft_check_access(t_data *data, int i);
 void	ft_close_redir(t_data *data, int i);
 void	ft_dup_heredoc(t_data *data, int i, int j, int fd_heredoc);
 int		ft_heredoc(t_data *data, int i, int j, int *type);
+int		ft_sub_if_quotes_not_closes(int old_error, int omit);
+int		ft_sub_if_not_cmd_after_last_pipe(char *ptr, int old_error);
 
 char	*ft_color_prompt(t_data *data);
 

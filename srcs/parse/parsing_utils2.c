@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:51 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/26 21:04:42 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:18:54 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int	ft_if_quotes_not_closes(t_data *data)
 	char	*temp;
 	int		i;
 	int		omit;
+	int		old_error;
 
+	old_error = g_error_code;
+	g_error_code = -2;
 	i = -1;
 	ptr = NULL;
 	omit = 0;
@@ -67,17 +70,12 @@ int	ft_if_quotes_not_closes(t_data *data)
 	{
 		temp = data->temp;
 		data->temp = ft_strjoin_andadd_rt(data->temp, NULL);
-		free(temp);
 		if (data->temp == NULL)
 			return (ERROR_MEMORY);
 		while (omit != 0)
-		{
 			omit = ft_retrieve_string(omit, data, temp, ptr);
-			if (omit < -500)
-				return (258);
-		}
 	}
-	return (0);
+	return (ft_sub_if_quotes_not_closes(old_error, omit));
 }
 /*
 int	ft_free(t_data data)

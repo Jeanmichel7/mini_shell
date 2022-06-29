@@ -6,13 +6,13 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:13 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/03 16:17:40 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:12:58 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_andadd_rt(char const *s1, char const *s2)
+char	*ft_strjoin_andadd_rt(char *s1, char const *s2)
 {
 	char			*str;
 	unsigned int	i;
@@ -20,6 +20,8 @@ char	*ft_strjoin_andadd_rt(char const *s1, char const *s2)
 
 	s1_len = ft_strlen(s1);
 	str = malloc(sizeof(char) * (s1_len + ft_strlen(s2) + 2));
+	if (str == NULL)
+		free (s1);
 	if (str == NULL)
 		return (NULL);
 	i = 0;
@@ -35,5 +37,6 @@ char	*ft_strjoin_andadd_rt(char const *s1, char const *s2)
 	}
 	str[i] = '\n';
 	str[i + 1] = '\0';
+	free(s1);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/28 20:28:12 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 13:28:18 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_handle_signal(int sig)
 		{
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_error_code = 130;
 			close(0);
 		}
 		else if (g_error_code != -1)

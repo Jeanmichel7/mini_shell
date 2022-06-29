@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+         #
+#    By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 05:26:46 by jrasser           #+#    #+#              #
-#    Updated: 2022/06/28 20:44:25 by ydumaine         ###   ########.fr        #
+#    Updated: 2022/06/29 14:08:38 by ydumaine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS		= srcs/main.c \
 			srcs/parse/list_utils.c \
 			srcs/parse/parsing_utils.c \
 			srcs/parse/parsing_utils2.c \
+			srcs/parse/parsing_utils3.c \
 			srcs/parse/replace_var.c \
 			srcs/parse/ft_delete_elements.c \
 			srcs/parse/termcap.c \
