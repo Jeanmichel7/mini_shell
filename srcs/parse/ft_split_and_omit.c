@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/28 18:06:47 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:23:11 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct relative_data
 
 int	ft_check_part(t_r_data *r_data, int keep_quotes, char c, const char *s)
 {
-	while (s[r_data->i] != c && s[r_data->i])
+	while ((s[r_data->i] != c || r_data->omit != 0) && s[r_data->i])
 	{
 		if (keep_quotes == 0 && ((s[r_data->i] == 34 && r_data->omit == 1)
 				|| (s[r_data->i] == 39 && r_data->omit == 2)
@@ -66,6 +66,12 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 	return (r_data.count);
 }
 
+char	*ft_add_zero(int k, char *str)
+{
+	str[k] = '\0';
+	return (str);
+}
+
 char	*ft_sub_split_v2(char const *s, char c,
 unsigned int *j, int keep_quotes)
 {
@@ -80,7 +86,6 @@ unsigned int *j, int keep_quotes)
 	k = 0;
 	while (s[*j] == c && s[*j])
 		(*j)++;
-	omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 	while ((s[*j] != c || omit != 0) && s[*j])
 	{
 		if (keep_quotes == 0 && ((s[*j] == 34 && omit == 1)
@@ -90,10 +95,11 @@ unsigned int *j, int keep_quotes)
 			omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 			continue ;
 		}
+		else if (keep_quotes == 1)
+			omit = ft_omit_quote_apostrophe(s[*j], omit, j, keep_quotes);
 		str[k++] = s[(*j)++];
 	}
-	str[k] = '\0';
-	return (str);
+	return (ft_add_zero(k, str));
 }
 
 char	**ft_split_and_omit(char const *s, char c, int keep_quotes)
