@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:58:50 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/29 14:25:47 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:55:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr)
 		data->temp = ft_strjoin_andadd_rt(data->temp, ptr);
 	else
 		data->temp = ft_strjoin(data->temp, ptr);
-	free(temp);
 	free(ptr);
 	if (data->temp == NULL)
 		return (ERROR_MEMORY);
