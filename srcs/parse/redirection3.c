@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/28 15:55:09 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/30 15:46:23 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
 		*str = ft_strjoin_andadd_rt(*str, ptr);
 	else
 		*str = ft_strjoin(*str, ptr);
-	if (temp != 0)
-		free(temp);
 	free(ptr);
 	if (*str == 0)
 		return (0);
