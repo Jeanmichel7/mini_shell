@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:58:11 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:59:12 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 16:35:38 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_check_fds(t_data *data, int i)
 	{
 		if (data->inputs[i].file[j].fd == -1)
 		{
-			ft_errputstr("bash: ", 0, 0, NULL);
+			ft_errputstr("minishell: ", 0, 0, NULL);
 			ft_errputstr(data->inputs[i].file[j].name, 0, 0, NULL);
 			ft_errputstr(": ", 0, 0, NULL);
 			ft_errputstr(strerror(errno), 0, 0, NULL);

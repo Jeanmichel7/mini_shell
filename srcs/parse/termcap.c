@@ -6,11 +6,16 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/30 15:35:14 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 16:28:56 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_sig_quit(void)
+{
+	write(1, "Quit: 3\n", 8);
+}
 
 void	ft_close_redir(t_data *data, int i)
 {
@@ -46,6 +51,8 @@ void	ft_handle_signal(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	else if (sig == SIGQUIT)
+		ft_sig_quit();
 }
 
 int	ft_init_term(t_data *data)
