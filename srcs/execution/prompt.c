@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 19:37:47 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:21:13 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:24:01 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_sub_color_prompt(char *home, char *pwd)
 	char	*pwd_color;
 
 	pwd_home = ft_replace_pwd(pwd, home);
-	pwd_color = ft_strjoin("\033[1;34m", pwd_home);
+	pwd_color = ft_strjoin("\001\e[01;34m\002", pwd_home);
 	free(home);
 	free(pwd_home);
 	return (pwd_color);
@@ -81,10 +81,11 @@ char	*ft_color_prompt(t_data *data)
 	if (ft_strncmp(pwd, home, ft_strlen(home)) == 0)
 		pwd_color = ft_sub_color_prompt(home, pwd);
 	else
-		pwd_color = ft_strjoin("\033[1;34m", pwd);
-	prompt_color = ft_strjoin("\033[1;32mminishell\033[0;37m:", pwd_color);
+		pwd_color = ft_strjoin("\001\e[01;32m\002", pwd);
+	prompt_color = ft_strjoin("\001\e[01;32m\002minishell\001\e[01;32m\002",
+			pwd_color);
 	free(pwd_color);
-	new_str = ft_strjoin(prompt_color, "\033[0;37m$ ");
+	new_str = ft_strjoin(prompt_color, "\001\e[00;37m\002");
 	free(prompt_color);
 	return (new_str);
 }
