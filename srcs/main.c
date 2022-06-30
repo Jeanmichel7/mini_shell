@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 16:38:39 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:23:16 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **env)
 		if (!data.temp)
 		{
 			ft_free_tab(data.env);
+			tcsetattr(0, 0, &(data.termios_save));
 			exit(1);
 		}
 		if (*data.temp)
