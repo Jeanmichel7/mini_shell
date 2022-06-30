@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 19:37:47 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 19:24:01 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:31:32 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ char	*ft_color_prompt(t_data *data)
 		pwd_color = ft_sub_color_prompt(home, pwd);
 	else
 		pwd_color = ft_strjoin("\001\e[01;32m\002", pwd);
-	prompt_color = ft_strjoin("\001\e[01;32m\002minishell\001\e[01;32m\002",
+	prompt_color = ft_strjoin("\001\e[01;32m\002minishell\001\e[01;37m\002:",
 			pwd_color);
 	free(pwd_color);
-	new_str = ft_strjoin(prompt_color, "\001\e[00;37m\002");
+	new_str = ft_strjoin(prompt_color, "\001\e[00;37m\002$ ");
 	free(prompt_color);
 	return (new_str);
 }
