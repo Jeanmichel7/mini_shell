@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 02:51:43 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 18:39:32 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:41:22 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	ft_exit(t_data *data, int i)
 			str_code = data->inputs[i].cmds[1];
 			if (ft_check_num(str_code))
 				g_error_code = ft_sub_exit(str_code);
-			//else
-			//	ft_sub_exit2(data, i);
 		}
 		if (data->nb_pipe == 0)
 		{
