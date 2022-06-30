@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 18:06:34 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/29 13:28:18 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/06/30 15:35:14 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_handle_signal(int sig)
 		}
 		g_error_code = 130;
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && g_error_code != -1)
 	{
 		rl_on_new_line();
 		rl_redisplay();

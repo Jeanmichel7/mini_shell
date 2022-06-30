@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 02:51:43 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/27 22:11:08 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 15:33:47 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ void	ft_exit(t_data *data, int i)
 		ft_sub_exit(code, str_code);
 	}
 	if (data->nb_pipe == 0)
+	{
+		write(1, "exit\n", 5);
 		data->done = 1;
+	}
 }
