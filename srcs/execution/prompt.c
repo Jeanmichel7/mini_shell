@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 19:37:47 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 19:31:32 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:56:41 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,18 @@ char	*ft_color_prompt(t_data *data)
 	new_str = ft_strjoin(prompt_color, "\001\e[00;37m\002$ ");
 	free(prompt_color);
 	return (new_str);
+}
+
+int	ft_check_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
