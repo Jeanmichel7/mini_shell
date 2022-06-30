@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 02:51:43 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 18:03:41 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:18:39 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ int	ft_sub_exit(char *str_code)
 	return (code);
 }
 
+void	ft_sub_exit2(t_data *data, int i)
+{
+	ft_errputstr("minishell: exit: ", 0, 0, NULL);
+	ft_errputstr(data->inputs[i].cmds[1], 0, 0, NULL);
+	ft_errputstr(": numeric argument required\n", 0, 0, NULL);
+	g_error_code = 255;
+}
+
 void	ft_exit(t_data *data, int i)
 {
 	char	*str_code;
@@ -77,10 +85,7 @@ void	ft_exit(t_data *data, int i)
 			if (ft_check_num(str_code))
 				ft_sub_exit(str_code);
 			else
-			{
-				str_code[0] = '2';
-				str_code[1] = '\0';
-			}
+				ft_sub_exit2(data, i);
 		}
 		if (data->nb_pipe == 0)
 		{
