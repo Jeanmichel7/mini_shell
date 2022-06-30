@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 22:01:24 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 18:13:23 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/06/30 18:45:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int	ft_check_cmd_waiting(t_data *data, int i)
 		{
 			if (((ft_strncmp(data->inputs[i].cmds[0], "cat", 3) == 0 \
 				|| ft_strncmp(data->inputs[i].cmds[0], "/bin/cat", 8) == 0) \
-				&& data->inputs[i].cmds[1] == NULL) \
-				|| \
+				&& data->inputs[i].cmds[1] == NULL) || \
 				((ft_strncmp(data->inputs[i].cmds[0], "grep", 4) == 0 \
 				|| ft_strncmp(data->inputs[i].cmds[0], "/bin/grep", 9) == 0) \
-				&& data->inputs[i].cmds[2] == NULL))
+				&& data->inputs[i].cmds[2] == NULL) || \
+				((ft_strncmp(data->inputs[i].cmds[0], "as", 2) == 0 \
+				|| ft_strncmp(data->inputs[i].cmds[0], "/usr/bin/as", 11) == 0) \
+				&& data->inputs[i].cmds[1] == NULL))
 			{
 				g_error_code = -1;
 				return (1);
