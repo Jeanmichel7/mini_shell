@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 14:11:49 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/30 15:28:29 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:55:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,14 @@ int	ft_sub_if_not_cmd_after_last_pipe(char *ptr, int old_error)
 		g_error_code = 1;
 		return (1);
 	}
+	return (0);
+}
+
+int	ft_checkchar(int keep_quotes, char a, char b)
+{
+	if (a == b)
+		return (1);
+	else if (keep_quotes == 0 && (a >= 9 && a <= 13))
+		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 19:56:56 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/07/01 16:39:13 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int		ft_heredoc(t_data *data, int i, int j, int *type);
 int		ft_sub_if_quotes_not_closes(int old_error, int omit);
 int		ft_sub_if_not_cmd_after_last_pipe(char *ptr, int old_error);
 int		ft_check_num(char *str);
+int		ft_checkchar(int keep_quotes, char a, char b);
 
 char	*ft_color_prompt(t_data *data);
 

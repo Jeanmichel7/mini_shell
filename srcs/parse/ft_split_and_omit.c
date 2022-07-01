@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 21:00:34 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/29 16:23:11 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:54:47 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef struct relative_data
 
 int	ft_check_part(t_r_data *r_data, int keep_quotes, char c, const char *s)
 {
-	while ((s[r_data->i] != c || r_data->omit != 0) && s[r_data->i])
+	while ((!ft_checkchar(keep_quotes, s[r_data->i], c)
+			|| r_data->omit != 0) && s[r_data->i])
 	{
 		if (keep_quotes == 0 && ((s[r_data->i] == 34 && r_data->omit == 1)
 				|| (s[r_data->i] == 39 && r_data->omit == 2)
@@ -52,14 +53,15 @@ static unsigned int	ft_count_v2(const char *s, char c, int keep_quotes)
 	r_data.omit = 0;
 	while (s[r_data.i])
 	{
-		while (s[r_data.i] == c && s[r_data.i])
+		while (ft_checkchar(keep_quotes, s[r_data.i], c) && s[r_data.i])
 			r_data.i++;
 		r_data.new_part = 0;
 		ft_check_part(&r_data, keep_quotes, c, s);
 		if (s[r_data.i] && r_data.omit == 0)
 			r_data.count++;
 		else
-			if (s[r_data.i - 1] != c && s[r_data.i] == 0 && r_data.omit == 0
+			if (!ft_checkchar(keep_quotes, s[r_data.i - 1], c)
+				&& s[r_data.i] == 0 && r_data.omit == 0
 				&& r_data.new_part == 1)
 				r_data.count++;
 	}
@@ -84,9 +86,9 @@ unsigned int *j, int keep_quotes)
 	if (str == NULL)
 		return (NULL);
 	k = 0;
-	while (s[*j] == c && s[*j])
+	while (ft_checkchar(keep_quotes, s[*j], c) && s[*j])
 		(*j)++;
-	while ((s[*j] != c || omit != 0) && s[*j])
+	while ((!ft_checkchar(keep_quotes, s[*j], c) || omit != 0) && s[*j])
 	{
 		if (keep_quotes == 0 && ((s[*j] == 34 && omit == 1)
 				|| (s[*j] == 39 && omit == 2) || (s[*j] == 34 && omit == 0)
