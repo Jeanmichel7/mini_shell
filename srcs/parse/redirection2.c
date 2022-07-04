@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:22:40 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/04 20:10:05 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:42:18 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ typedef struct ptr
 	char	*str;
 }		t_ptr;
 
-int		ft_sub_fill_heredoc(t_ptr my_ptr)
+int	ft_sub_fill_heredoc(t_ptr my_ptr)
 {
 	g_error_code = 1;
 	free(my_ptr.str);
 	my_ptr.str = NULL;
-	return (-2); 
+	return (-2);
 }
 
 void	ft_check_rd(int rd, t_input *input)
@@ -36,6 +36,7 @@ void	ft_check_rd(int rd, t_input *input)
 	if (rd == 1)
 		input->redir_input++;
 }
+
 int	ft_fill_heredoc(char *pattern, t_data *data)
 {
 	t_ptr	my_ptr;
