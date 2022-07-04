@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/07/01 16:39:13 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:02:51 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int		ft_fill_heredoc(char *pattern, t_data *data);
 int		ft_convert_redi(t_data *data);
 int		ft_check_cmd_waiting(t_data *data, int i);
 int		ft_sub_retrieve_string(int omit, char *ptr);
+void	ft_check_rd(int rd, t_input *input);
 /* EXECUTION */
 void	ft_exec_parse(t_data *data);
 void	ft_pipe(t_data *data);
