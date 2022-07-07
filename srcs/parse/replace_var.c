@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/04 23:43:31 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:08:45 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_strcpy_var(char **str, char *value, int length_name, int start)
 	if (value != NULL)
 		while (value[++j])
 			ptr[i + j] = value[j];
-	while ((*str)[i + length_name])
-	{
+	else
+		j++;
+	i--;
+	while ((*str)[i++ + length_name])
 		ptr[j + i] = (*str)[i + length_name];
-		i++;
-	}
 	ptr[j + i] = 0;
 	free(*str);
 	*str = ptr;
@@ -93,7 +93,7 @@ int	ft_replace_var(char **str, char **env, int *a, int *j)
 		((*str)[i + *j] < 9 || (*str)[i + *j] > 13)
 		&& (*str)[i + *j] != '$')
 		(*j)++;
-	if (ft_strcpy_var(str, NULL, *j, i) == ERROR_MEMORY)
+	if (ft_strcpy_var(str, NULL, *j + 1, *a) == ERROR_MEMORY)
 		return (1);
 	return (0);
 }
@@ -111,10 +111,11 @@ int	ft_check_and_replace_var(char **str, char **env)
 		return (0);
 	while ((*str)[i] != 0)
 	{
+		j = 0;
 		omit = ft_omit_quote_apostrophe((*str)[i], omit, NULL, 0);
 		if ((*str)[i] == '$' && omit != 2 &&
 			(*str)[i + 1] != ' ' && (*str)[i + 1] != '\0' &&
-			(*str)[i + 1] != 34 && (*str)[i + 1] != 39)
+			(*str)[i + 1] != 34 && (*str)[i + 1] != 39 && (*str)[i + 1] != '$')
 		{
 			if (ft_replace_var(str, env, &i, &j) == 1)
 				return (ERROR_MEMORY);

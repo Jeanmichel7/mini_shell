@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:57:22 by jrasser           #+#    #+#             */
-/*   Updated: 2022/07/07 15:11:15 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/07/07 15:51:50 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_remove_line(t_data *data, int index_target)
 		i++;
 	}
 	new_env[j] = NULL;
-    ft_free_tab(data->env);
+	ft_free_tab(data->env);
 	data->env = new_env;
 }
 
