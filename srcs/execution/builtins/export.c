@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:32:33 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/24 20:09:21 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/07/07 15:07:51 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_add_env(t_data *data, int i)
 	j = 0;
 	while (data->env && data->env[j])
 		j++;
-	new_env = malloc(sizeof(char *) * (j + 1));
+	new_env = malloc(sizeof(char *) * (j + 2));
 	j = 0;
 	while (data->env && data->env[j])
 	{

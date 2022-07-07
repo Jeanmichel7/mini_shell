@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:57:22 by jrasser           #+#    #+#             */
-/*   Updated: 2022/07/07 14:21:29 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/07/07 15:09:39 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_remove_line(t_data *data, int index_target)
 	i = 0;
 	while (data->env && data->env[i])
 		i++;
-	new_env = malloc(sizeof(char *) * (i - 1));
+	new_env = malloc(sizeof(char *) * i);
 	i = 0;
 	j = 0;
 	while (data->env && data->env[i])
@@ -35,6 +35,7 @@ void	ft_remove_line(t_data *data, int index_target)
 		i++;
 	}
 	new_env[j] = NULL;
+    ft_free_tab(data->env);
 	data->env = new_env;
 }
 
