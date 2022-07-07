@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/07 17:08:45 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:24:06 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int	ft_replace_var(char **str, char **env, int *a, int *j)
 	}
 	while ((*str)[i + *j] != ' ' && (*str)[i + *j] != '\0' &&
 		((*str)[i + *j] < 9 || (*str)[i + *j] > 13)
-		&& (*str)[i + *j] != '$')
+		&& (*str)[i + *j] != '$' && (*str)[i + *j] != 34
+		&& (*str)[i + *j] != 39)
 		(*j)++;
 	if (ft_strcpy_var(str, NULL, *j + 1, *a) == ERROR_MEMORY)
 		return (1);
