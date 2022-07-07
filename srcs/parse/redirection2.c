@@ -6,7 +6,7 @@
 /*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 15:22:40 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/04 23:42:18 by ydumaine         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:45:32 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct ptr
 
 int	ft_sub_fill_heredoc(t_ptr my_ptr)
 {
+	unlink("herdoc.txt");
 	g_error_code = 1;
 	free(my_ptr.str);
 	my_ptr.str = NULL;
