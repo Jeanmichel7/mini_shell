@@ -6,7 +6,7 @@
 /*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 23:57:22 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/21 02:38:58 by jrasser          ###   ########.fr       */
+/*   Updated: 2022/07/07 14:21:29 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_remove_line(t_data *data, int index_target)
 		i++;
 	}
 	new_env[j] = NULL;
-	ft_free_tab(data->env);
 	data->env = new_env;
 }
 
