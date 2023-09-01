@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:13:01 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/29 14:24:24 by ydumaine         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:19:51 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,8 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 {
 	char	*ptr;
 	char	**cmd;
-	int		rc;
 	int		old_error;
 
-	rc = 0;
 	ptr = NULL;
 	old_error = g_error_code;
 	g_error_code = -2;
@@ -104,7 +102,7 @@ int	ft_if_not_cmd_after_last_pipe(t_data *data)
 			return (ft_sub_if_not_cmd_after_last_pipe(ptr, old_error));
 		g_error_code = old_error;
 		if (ptr != NULL)
-			rc = ft_which_redirection_take_on_board(ptr);
+			ft_which_redirection_take_on_board(ptr);
 		cmd = ft_split_and_omit(ptr, ' ', 0);
 		free(ptr);
 		if (cmd == NULL)

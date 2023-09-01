@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 02:51:43 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 19:59:31 by jrasser          ###   ########.fr       */
+/*   Updated: 2023/09/01 23:27:03 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,9 @@ void	ft_sub_exit2(t_data *data, int i)
 void	ft_exit(t_data *data, int i)
 {
 	char	*str_code;
-	int		code;
 
 	if (ft_check_exit_error(data, i))
 	{
-		code = 2;
 		if (data->inputs[i].cmds && data->inputs[i].cmds[1])
 		{
 			str_code = data->inputs[i].cmds[1];

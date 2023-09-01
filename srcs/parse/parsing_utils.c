@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:58:50 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/29 14:55:13 by ydumaine         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:27:35 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_ycheck_pipe(char *temp)
 	return (u);
 }
 
-int	ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr)
+int	ft_retrieve_string(int omit, t_data *data, char *ptr)
 {
 	int	i;
 
@@ -98,7 +98,6 @@ int	ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr)
 		return (ft_sub_retrieve_string(omit, ptr));
 	while (ptr[++i])
 		omit = ft_omit_quote_apostrophe(ptr[i], omit, NULL, 1);
-	temp = data->temp;
 	if (omit != 0)
 		data->temp = ft_strjoin_andadd_rt(data->temp, ptr);
 	else

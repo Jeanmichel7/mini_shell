@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:50:22 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/07 17:24:06 by ydumaine         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:26:24 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_checkvar(char *str, char *var, int *k)
 	while (var[j])
 	{
 		if (var[j] == '=' && (str[j] == ' ' || str[j] == '\0'
-				|| str[j] == 34 | str[j] == 39 || str[j] == '\n'
+				|| str[j] == 34 || str[j] == 39 || str[j] == '\n'
 				|| str[j] == '$' || (str[j] >= 9 && str[j] <= 13)))
 		{
 			*k = j + 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2022/07/04 20:02:51 by ydumaine         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:27:58 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		ft_check_and_replace_var(char **str, char **env);
 int		ft_replace_var(char **str, char **env, int *i, int *j);
 int		ft_checkvar(char *str, char *var, int *k);
 int		ft_strcpy_var(char **str, char *value, int length_name, int start);
-int		ft_retrieve_string(int omit, t_data *data, char *temp, char *ptr);
+int		ft_retrieve_string(int omit, t_data *data, char *ptr);
 int		ft_print_error(int rd);
 int		ft_type_redirection(char **str);
 int		ft_search_pattern(char *str, char *pattern);
@@ -116,7 +116,7 @@ int		ft_update_file(char *str, t_file **files, int total, int rd);
 char	**ft_delete_rd(char **tab);
 char	**ft_delete_filename_in_cmd(char **tab, int pos);
 char	**ft_delete_files_name(char **tab, int pos, int rd);
-int		ft_extract_line(char *ptr, char **str, char *temp, char *pattern);
+int		ft_extract_line(char *ptr, char **str, char *pattern);
 int		ft_pre_parsing(t_data *data);
 int		ft_init_term(t_data *data);
 int		ft_fill_heredoc(char *pattern, t_data *data);

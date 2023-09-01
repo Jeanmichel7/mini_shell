@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:50:06 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/06/30 15:46:23 by ydumaine         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:24:49 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
+int	ft_extract_line(char *ptr, char **str, char *pattern)
 {
 	int	pattern_found;
 
@@ -26,7 +26,6 @@ int	ft_extract_line(char *ptr, char **str, char *temp, char *pattern)
 		free (ptr);
 		return (pattern_found);
 	}
-	temp = *str;
 	if (pattern_found == 0)
 		*str = ft_strjoin_andadd_rt(*str, ptr);
 	else

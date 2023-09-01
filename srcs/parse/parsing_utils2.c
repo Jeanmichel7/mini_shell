@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:51 by ydumaine          #+#    #+#             */
-/*   Updated: 2022/07/07 15:03:57 by jrasser          ###   ########.fr       */
+/*   Updated: 2023/09/01 23:28:34 by jrasser          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**ft_envcpy(char **env)
 int	ft_if_quotes_not_closes(t_data *data)
 {
 	char	*ptr;
-	char	*temp;
 	int		i;
 	int		omit;
 	int		old_error;
@@ -68,12 +67,11 @@ int	ft_if_quotes_not_closes(t_data *data)
 		omit = ft_omit_quote_apostrophe(data->temp[i], omit, NULL, 1);
 	if (omit != 0)
 	{
-		temp = data->temp;
 		data->temp = ft_strjoin_andadd_rt(data->temp, NULL);
 		if (data->temp == NULL)
 			return (ERROR_MEMORY);
 		while (omit > 0)
-			omit = ft_retrieve_string(omit, data, temp, ptr);
+			omit = ft_retrieve_string(omit, data, ptr);
 	}
 	return (ft_sub_if_quotes_not_closes(old_error, omit));
 }
