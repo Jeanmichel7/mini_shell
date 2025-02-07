@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@42.fr>                    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:38:25 by jrasser           #+#    #+#             */
-/*   Updated: 2022/06/30 18:23:16 by jrasser          ###   ########.fr       */
+/*   Updated: 2024/10/18 19:47:36 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int g_error_code;
 
 void	ft_init_data(t_data *data, int argc, char **argv, char **env)
 {

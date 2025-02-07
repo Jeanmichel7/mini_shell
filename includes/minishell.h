@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrasser <jrasser@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: ydumaine <ydumaine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 05:27:48 by jrasser           #+#    #+#             */
-/*   Updated: 2023/09/01 23:27:58 by jrasser          ###   ########.fr       */
+/*   Updated: 2024/10/18 19:47:02 by ydumaine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include <termios.h>
 # include <errno.h>
 
-int	g_error_code;
+extern int g_error_code;
 
 typedef enum e_type
 {
